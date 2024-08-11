@@ -7,6 +7,17 @@
 
 :root {
   --primary-color-1: #deded6;
+  --primary-color-2: #202127;
+  --primary-color-3: #26282f;
+}
+
+@layer utilities {
+  .bg-prim-2 {
+    background-color: var(--primary-color-2);
+  }
+  .bg-prim-3 {
+    background-color: var(--primary-color-3);
+  }
 }
 
 @layer utilities {
@@ -16,6 +27,14 @@
 }
 
 @layer utilities {
+  .text-2xxl {
+    font-size: 1.6rem;
+    line-height: 1;
+  }
+  .text-3xxl {
+    font-size: 1.77rem;
+    line-height: 1;
+  }
   .text-4xxl {
     font-size: 2.45rem;
     line-height: 1;
@@ -29,5 +48,8 @@
 @layer utilities {
   .w-144 {
     width: 30rem;
+  }
+  .w-192 {
+    width: 36rem;
   }
 }

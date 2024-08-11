@@ -26,7 +26,7 @@ export default function Demo() {
       <a-scene embedded class="w-full h-full">
         <a-torus position="-1 2 -3" rotation="0 45 0" color="#4CC3D9" />
 
-        <a-sky color="#0000FF" />
+        <a-sky color="#290292" />
       </a-scene>
 
       {toolTip && (
