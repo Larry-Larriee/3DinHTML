@@ -53,3 +53,9 @@
     width: 36rem;
   }
 }
+
+@layer utilities {
+  .leading-sm {
+    line-height: 1.25 !important;
+  }
+}
