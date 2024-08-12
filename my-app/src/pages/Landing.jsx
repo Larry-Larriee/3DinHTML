@@ -1,4 +1,6 @@
-import Demo from "../components/Demo";
+import Demo1 from "../components/aframe/Demo1";
+import Demo2 from "../components/aframe/Demo2";
+
 import Navigation from "../components/Navigation";
 
 import aFrameLogo from "../assets/aframe-logo.png";
@@ -46,7 +48,7 @@ function App() {
           </article>
         </div>
 
-        <Demo />
+        <Demo1 />
       </section>
 
       <section className="flex w-full justify-center mb-12 flex-col gap-28 items-center py-16 bg-prim-2">
@@ -60,10 +62,10 @@ function App() {
         </article>
 
         <article className="flex justify-between w-10/12">
-          <div className="rounded-xl w-72 h-64 bg-white" />
-          <div className="rounded-xl w-72 h-64 bg-white" />
-          <div className="rounded-xl w-72 h-64 bg-white" />
-          <div className="rounded-xl w-72 h-64 bg-white" />
+          <Demo2 />
+          <Demo2 />
+          <Demo2 />
+          <Demo2 />
         </article>
       </section>
 

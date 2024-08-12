@@ -59,3 +59,7 @@
     line-height: 1.25 !important;
   }
 }
+
+.a-enter-vr-button {
+  display: none;
+}
