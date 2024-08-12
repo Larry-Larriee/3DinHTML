@@ -1,3 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Lemon&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&family=Lemon&display=swap");
+
 :root {
   --primary-background-color: #1b1b1f;
 }
@@ -8,6 +11,12 @@ body {
   place-items: center;
 
   background-color: var(--primary-background-color);
+}
+
+pre {
+  white-space: pre-wrap;
+  word-wrap: break-word; /* For very long words */
+  font-family: "League Spartan", sans-serif;
 }
 
 #root {

@@ -3,6 +3,7 @@ import Demo from "./components/Demo";
 import Navigation from "./components/Navigation";
 
 import aFrameLogo from "./assets/aframe-logo.png";
+import EditorUI from "./components/helper/EditorUI";
 
 function App() {
   function openAFrame() {
@@ -55,25 +56,13 @@ function App() {
 
       <section className="flex flex-col w-full items-center gap-36 mb-16">
         <div className="flex justify-between w-10/12 items-center">
-          <article className="w-192 bg-prim-2 rounded-xl flex flex-col gap-10 min-h-72">
-            <section className=" flex gap-3 bg-prim-3 min-h-9 items-center rounded-tr-xl rounded-tl-xl">
-              <p className="pl-5 text-lg text-prim-1 font-semibold">
-                index.html
-              </p>
-              <p className="text-lg font-semibold text-orange-600">&lt;/&gt;</p>
-            </section>
-
-            <p className="text-prim-1 text-xl font-semibold pl-5">
-              &lt;a-scene embedded class=&quot;w-full h-full&quot;&gt;
-              <br />
-              &lt;a-torus color=&quot;#4CC3D9&quot; /&gt;
-              <br />
-              <br />
-              &lt;a-sky color=&quot;#0000FF&quot; /&gt;
-              <br />
-              &lt;/a-scene&gt;
-            </p>
-          </article>
+          <EditorUI
+            title={"index.html"}
+            descriptionSize={"text-xl"}
+            description={
+              "<a-scene embedded class='w-full h-full'>\n\t<a-torus color='#4CC3D9' />\n\n\t<a-sky color='#0000FF' />\n</a-scene>"
+            }
+          />
 
           <article className="flex flex-col gap-5 w-144">
             <h1 className="font-semibold text-prim-1 text-5xxl">
@@ -94,7 +83,7 @@ function App() {
               Our projects are mostly made with A-Frame. Learn more{" "}
               <span
                 onClick={() => openAFrame()}
-                className="text-sky-500 hover:cursor-pointer"
+                className="text-sky-500 hover:cursor-pointer "
               >
                 here.
               </span>{" "}
@@ -106,27 +95,20 @@ function App() {
         </div>
 
         <div className="flex justify-between w-10/12 items-center">
-          <article className="w-192 bg-prim-2 rounded-xl flex flex-col gap-10 min-h-72">
-            <section className=" flex gap-3 bg-prim-3 min-h-9 items-center rounded-tr-xl rounded-tl-xl">
-              <p className="pl-5 text-lg text-prim-1 font-semibold">
-                Sharing Project
-              </p>
-              <p className="text-lg font-semibold text-orange-600">&lt;/&gt;</p>
-            </section>
-
-            <p className="text-prim-1 text-2xl font-semibold pl-5 w-10/12">
-              You&apos;d paste here. Your work will be given credit as well! No
-              strings attached. Ever.
-            </p>
-          </article>
+          <EditorUI
+            title={"Sharing Project"}
+            description={
+              "You'd paste here. Your work will be given credit as well! No strings attached. Ever."
+            }
+          />
 
           <article className="flex flex-col gap-5 w-144">
             <h1 className="font-semibold text-prim-1 text-5xxl">
               I want to share my work!
             </h1>
             <p className="font-semibold text-prim-1 text-3xxl leading-sm w-11/12">
-              It&apos;s nothing more than pasting your code, starting at
-              &lt;a-scene&gt;
+              It&apos;s nothing more than pasting your code, starting at{" "}
+              <span className="text-green-500">&lt;a-scene&gt;</span>
             </p>
           </article>
         </div>
