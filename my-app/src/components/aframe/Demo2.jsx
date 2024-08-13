@@ -21,7 +21,7 @@ export default function Demo2() {
 
   return (
     <div
-      className=" w-72 h-64 bg-white rounded-xl"
+      className="w-32 h-24 lg:w-64 lg:h-48 xl:w-72 xl:h-64 bg-white rounded-xl"
       onMouseOver={userIsInteracting}
       onMouseOut={userIsNotInteracting}
     >

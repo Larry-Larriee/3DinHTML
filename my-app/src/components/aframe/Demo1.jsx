@@ -13,7 +13,7 @@ export default function Demo() {
   return (
     // we need both onMouseOver and onMouseOut to change the state as necessary
     <div
-      className="w-1/2 h-96 relative"
+      className="hidden xl:block w-1/2 h-96 relative"
       onMouseOver={() => changeToolTip()}
       onMouseOut={() => changeToolTip()}
     >
