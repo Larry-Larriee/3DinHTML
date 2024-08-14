@@ -9,14 +9,21 @@
   --primary-color-1: #deded6;
   --primary-color-2: #202127;
   --primary-color-3: #26282f;
+  --primary-color-4: #2b2f36;
 }
 
 @layer utilities {
+  .bg-prim-1 {
+    background-color: var(--primary-color-1);
+  }
   .bg-prim-2 {
     background-color: var(--primary-color-2);
   }
   .bg-prim-3 {
     background-color: var(--primary-color-3);
+  }
+  .bg-prim-4 {
+    background-color: var(--primary-color-4);
   }
 }
 
