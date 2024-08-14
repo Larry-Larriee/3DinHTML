@@ -12,12 +12,19 @@
   --primary-color-4: #2b2f36;
 }
 
+.a-enter-vr-button {
+  display: none;
+}
+
 @layer utilities {
   .bg-prim-1 {
     background-color: var(--primary-color-1);
   }
   .bg-prim-2 {
     background-color: var(--primary-color-2);
+  }
+  .bg-prim-half-2 {
+    background-color: rgba(32, 33, 39, 0.5);
   }
   .bg-prim-3 {
     background-color: var(--primary-color-3);
@@ -67,6 +74,29 @@
   }
 }
 
-.a-enter-vr-button {
-  display: none;
+@layer utilities {
+  @keyframes slideInFromLeft {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideOutFromRight {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(100%);
+    }
+  }
+
+  .slide-in-from-left {
+    animation: slideInFromLeft 0.5s ease-out forwards;
+  }
+  .slide-out-from-right {
+    animation: slideOutFromRight 0.5s ease-out;
+  }
 }
