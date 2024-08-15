@@ -1,5 +1,5 @@
 import Demo1 from "../components/aframe/Demo1";
-import Demo2 from "../components/aframe/Demo2";
+import Project from "../components/Project";
 
 import Navigation from "../components/Navigation";
 
@@ -64,11 +64,23 @@ function App() {
           </p>
         </article>
 
-        <article className="grid grid-cols-2 xl:flex place-items-center gap-5 lg:gap-10 w-10/12">
-          <Demo2 />
-          <Demo2 />
-          <Demo2 />
-          <Demo2 />
+        <article className="grid grid-cols-2 xl:flex place-items-center gap-5 xl:justify-center lg:gap-10 w-10/12">
+          <Project aframe={"<a-scene><a-box color='#4CC3D9' /></a-scene>"} />
+          <Project
+            aframe={
+              "<a-scene><a-assets><img id='skyTexture' src='https://cdn.aframe.io/a-painter/images/sky.jpg' crossOrigin='anonymous'></a-assets><a-entity geometry='primitive: box' material='color: red' position='-2, 0, -4'></a-entity><a-entity geometry='primitive: box' material='color: green' position='0, 0, -4'></a-entity><a-entity geometry='primitive: box' material='color: blue' position='2, 0, -4'></a-entity> <a-sky src='#skyTexture'></a-sky> <a-camera></a-camera></a-scene>"
+            }
+          />
+          <Project
+            aframe={
+              "<a-scene><a-assets><img id='city' crossorigin='anonymous' src='https://cdn.aframe.io/360-image-gallery-boilerplate/img/city.jpg'><img id='city-thumb' crossorigin='anonymous' src='https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-city.jpg'><img id='cubes-thumb' crossorigin='anonymous' src='https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg'><img id='sechelt-thumb' crossorigin='anonymous' src='https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-sechelt.jpg'><audio id='click-sound' crossorigin='anonymous' src='https://cdn.aframe.io/360-image-gallery-boilerplate/audio/click.ogg'></audio><img id='cubes' crossorigin='anonymous' src='https://cdn.aframe.io/360-image-gallery-boilerplate/img/cubes.jpg'><img id='sechelt' crossorigin='anonymous' src='https://cdn.aframe.io/360-image-gallery-boilerplate/img/sechelt.jpg'<!-- Image link template to be reused. --><script id='link' type='text/html'><a-entity class='link'geometry='primitive: plane; height: 1; width: 1'material='shader: flat; src: ${thumb}'event-set__1='_event: mousedown; scale: 1 1 1'event-set__2='_event: mouseup; scale: 1.2 1.2 1'event-set__3='_event: mouseenter; scale: 1.2 1.2 1'event-set__4='_event: mouseleave; scale: 1 1 1'set-image='on: click; target: #image-360; src: ${src}'sound='on: click; src: #click-sound'></a-entity></script></a-assets><a-sky id='image-360' radius='10' src='#city'></a-sky<!-- Image links. --><a-entity id='links' layout='type: line; margin: 1.5' position='0 -1 -4'><a-entity template='src: #link' data-src='#cubes' data-thumb='#cubes-thumb'></a-entity><a-entity template='src: #link' data-src='#city' data-thumb='#city-thumb'></a-entity>  <a-entity template='src: #link' data-src='#sechelt' data-thumb='#sechelt-thumb'></a-entity></a-entity><a-camera><a-cursor id='cursor'></a-cursor></a-camera></a-scene>"
+            }
+          />
+          <Project
+            aframe={
+              "<a-scene><a-assets><img id='skyTexture' src='https://cdn.aframe.io/a-painter/images/sky.jpg' crossOrigin='anonymous'></a-assets><a-entity geometry='primitive: box' material='color: red' position='-2, 0, -4'></a-entity><a-entity geometry='primitive: box' material='color: green' position='0, 0, -4'></a-entity><a-entity geometry='primitive: box' material='color: blue' position='2, 0, -4'></a-entity> <a-sky src='#skyTexture'></a-sky> <a-camera></a-camera></a-scene>"
+            }
+          />
         </article>
       </section>
 

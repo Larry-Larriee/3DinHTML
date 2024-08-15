@@ -20,7 +20,7 @@ export default function Explore() {
                 viewBox="0 0 24 24"
                 strokeWidth="2"
                 stroke="#deded6"
-                className="w-8 h-8"
+                className="w-8 h-8 flex-none"
               >
                 <path
                   strokeLinecap="round"
@@ -29,7 +29,11 @@ export default function Explore() {
                 />
               </svg>
 
-              <p className="text-prim-1 font-medium text-lg">Search</p>
+              <input
+                type="text"
+                placeholder="Search"
+                className="text-prim-1 w-full bg-prim-4 font-medium text-lg focus:outline-none"
+              />
             </section>
 
             <section className="flex flex-col gap-6">

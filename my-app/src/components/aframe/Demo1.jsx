@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "../../App.css";
 
 // aframe does not need to be installed because it is imported in index.html
@@ -10,16 +10,40 @@ export default function Demo() {
     setToolTip(!toolTip);
   };
 
+  const [isInteracting, setIsInteracting] = useState(false);
+  const aCamera = useRef();
+
+  let userIsInteracting = () => {
+    setIsInteracting(true);
+  };
+  let userIsNotInteracting = () => {
+    setIsInteracting(false);
+  };
+
+  useEffect(() => {
+    isInteracting
+      ? aCamera.current.setAttribute("wasd-controls", "enabled: true")
+      : aCamera.current.setAttribute("wasd-controls", "enabled: false");
+
+    isInteracting ? aCamera.current.play() : aCamera.current.pause();
+  }, [isInteracting]);
+
   return (
     // we need both onMouseOver and onMouseOut to change the state as necessary
     <div
       className="hidden xl:block w-1/2 h-96 relative"
-      onMouseOver={() => changeToolTip()}
-      onMouseOut={() => changeToolTip()}
+      onMouseOver={() => {
+        userIsInteracting();
+        changeToolTip();
+      }}
+      onMouseOut={() => {
+        userIsNotInteracting();
+        changeToolTip();
+      }}
     >
       {/* the embedded property of a-scene removes the default full-screen canvas render */}
       {/* because a-frame is a web framework and not a react framework, we use class instead of className */}
-      <a-scene embedded>
+      <a-scene embedded ref={aCamera}>
         <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
         <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
         <a-cylinder
