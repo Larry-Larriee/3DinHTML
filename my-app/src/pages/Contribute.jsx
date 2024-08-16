@@ -1,9 +1,25 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Navigation from "../components/Navigation";
 
 import Step from "../components/helper/Step";
+import UploadCode from "../components/helper/UploadCode";
+import UploadImage from "../components/helper/UploadImages";
 
 export default function Contribute() {
+  // let [userAframe, setUserAframe] = useState("");
+  // const textAreaAframeRef = useRef();
+
+  // const changeUserAframe = () => {
+  //   setUserAframe(textAreaAframeRef.current.value);
+  // };
+
+  let [imageUploadName, setImageUploadName] = useState(" ");
+  const imageUploadNameRef = useRef();
+
+  const changeImageUploadName = () => {
+    setImageUploadName(imageUploadNameRef.current.files[0]["name"]);
+  };
+
   return (
     <>
       <div className="flex w-full flex-col gap-12">
@@ -17,13 +33,13 @@ export default function Contribute() {
             <Step number={4} title={"Project Description"} />
             <Step number={5} title={"Credits"} />
 
-            {/* <svg
+            <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
-              viewBox="0 0 35 35"
-              strokeWidth={1.5}
+              viewBox="0 0 24 24"
+              strokeWidth={1.25}
               stroke="#deded6"
-              className="absolute -top-5 -right-20"
+              className="absolute w-40 -z-10 h-40 -top-12 -right-12"
             >
               <path
                 strokeLinecap="round"
@@ -35,31 +51,19 @@ export default function Contribute() {
                 strokeLinejoin="round"
                 d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
               />
-            </svg> */}
+            </svg>
           </article>
 
-          <section className="bg-prim-2 flex w-full min-h-96 px-16 py-10 flex-col gap-8 rounded-xl">
-            <h1 className="font-bold text-4xxl text-prim-1 font-league">
-              Uploading Code
-            </h1>
-            <p className="font-league text-prim-1 text-2xl">
-              We&apos;re so excited to have you here. Please paste your code
-              below:
-            </p>
-            <p className="font-league text-prim-1 text-xl">
-              If you&apos;re pasting assets which go into your folder (i.e.
-              images/background.png), your a-frame environment will not work
-              right away. Don&apos;t worry, this is where step 2 comes in.
-            </p>
+          {/* <UploadCode
+            changeUserAframe={changeUserAframe}
+            textAreaAframeRef={textAreaAframeRef}
+          /> */}
 
-            <textarea className="overflow-y-auto w-11/12 h-64 resize-none bg-prim-4 rounded-xl" />
-
-            <div className="flex justify-end w-11/12">
-              <p className="text-2xl text-white bg-prim-5 font-league hover:cursor-pointer py-2 w-36 rounded-xl text-center">
-                Continue
-              </p>
-            </div>
-          </section>
+          <UploadImage
+            changeImageUploadName={changeImageUploadName}
+            imageUploadNameRef={imageUploadNameRef}
+            imageUploadName={imageUploadName}
+          />
         </div>
       </div>
     </>
