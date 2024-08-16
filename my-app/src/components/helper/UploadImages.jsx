@@ -1,22 +1,20 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
+import Dropzone from "react-dropzone";
 
 UploadImage.propTypes = {
   imageUpload: PropTypes.string,
   changeImageUpload: PropTypes.func.isRequired,
-  clickImageUpload: PropTypes.func.isRequired,
-  imageUploadLabelRef: PropTypes.object.isRequired,
-  imageUploadRef: PropTypes.object.isRequired,
 };
 
 // UploadCode component is used specifically for the contribute page
-export default function UploadImage({
-  imageUpload,
-  changeImageUpload,
-  clickImageUpload,
-  imageUploadLabelRef,
-  imageUploadRef,
-}) {
+export default function UploadImage({ imageUpload, changeImageUpload }) {
+  useEffect(() => {
+    if (imageUpload) {
+      console.log(imageUpload);
+    }
+  }, [imageUpload]);
+
   return (
     <>
       <section className="bg-prim-2 flex w-full min-h-96 px-16 py-10 flex-col gap-8 rounded-xl">
@@ -34,28 +32,28 @@ export default function UploadImage({
         {/* flex items by default have both a flex-grow and flex-shrink of 1 */}
         {/* this means it will take up all available space if possible or shrink if required */}
         <div className="flex flex-grow-0 gap-5 items-center">
-          <input
-            type="file"
-            id="imageUpload"
-            className="hidden"
-            ref={imageUploadRef}
-            onChange={() => changeImageUpload()}
-          />
-          <label
-            htmlFor="imageUpload"
-            className="text-prim-1 text-xl font-league bg-prim-4 rounded-xl py-2 px-10 hover:scale-105 duration-200 ease-in-out transition hover:cursor-pointer"
-            onClick={() => clickImageUpload()}
-            ref={imageUploadLabelRef}
+          <Dropzone
+            onDrop={(acceptedFiles) => changeImageUpload(acceptedFiles)}
           >
-            Upload
-          </label>
-
-          {imageUpload && (
-            <p className="text-prim-1 font-league text-xl">{imageUpload}</p>
-          )}
+            {/* getRootProps provides the nessessary props to the div like onDragOver */}
+            {/* getInputProps provides the nessessary props to the input like onChange */}
+            {({ getRootProps, getInputProps }) => (
+              <section className="w-full">
+                <div
+                  className="flex justify-center items-center w-full h-56 border-4 border-dashed border-white bg-prim-3 hover:cursor-pointer"
+                  {...getRootProps()}
+                >
+                  <input {...getInputProps()} />
+                  <p className="text-prim-1 text-xl">
+                    Drag and drop your assets here, or click to select files
+                  </p>
+                </div>
+              </section>
+            )}
+          </Dropzone>
         </div>
 
-        <div className="flex justify-end w-11/12">
+        <div className="flex justify-end">
           <p className="text-2xl text-white bg-prim-5 font-league hover:cursor-pointer py-2 w-36 rounded-xl text-center">
             Continue
           </p>

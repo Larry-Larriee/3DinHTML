@@ -14,15 +14,9 @@ export default function Contribute() {
   // };
 
   let [imageUpload, setImageUpload] = useState("");
-  const imageUploadRef = useRef();
-  const imageUploadLabelRef = useRef();
 
-  const changeImageUpload = () => {
-    setImageUpload(imageUploadRef.current.files[0]["name"]);
-  };
-
-  const clickImageUpload = () => {
-    imageUploadRef.current.click();
+  const changeImageUpload = (acceptedFile) => {
+    setImageUpload(acceptedFile[0]["name"]);
   };
 
   return (
@@ -67,9 +61,6 @@ export default function Contribute() {
           <UploadImage
             imageUpload={imageUpload}
             changeImageUpload={changeImageUpload}
-            clickImageUpload={clickImageUpload}
-            imageUploadLabelRef={imageUploadLabelRef}
-            imageUploadRef={imageUploadRef}
           />
         </div>
       </div>
