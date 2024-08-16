@@ -13,11 +13,16 @@ export default function Contribute() {
   //   setUserAframe(textAreaAframeRef.current.value);
   // };
 
-  let [imageUploadName, setImageUploadName] = useState(" ");
-  const imageUploadNameRef = useRef();
+  let [imageUpload, setImageUpload] = useState("");
+  const imageUploadRef = useRef();
+  const imageUploadLabelRef = useRef();
 
-  const changeImageUploadName = () => {
-    setImageUploadName(imageUploadNameRef.current.files[0]["name"]);
+  const changeImageUpload = () => {
+    setImageUpload(imageUploadRef.current.files[0]["name"]);
+  };
+
+  const clickImageUpload = () => {
+    imageUploadRef.current.click();
   };
 
   return (
@@ -60,9 +65,11 @@ export default function Contribute() {
           /> */}
 
           <UploadImage
-            changeImageUploadName={changeImageUploadName}
-            imageUploadNameRef={imageUploadNameRef}
-            imageUploadName={imageUploadName}
+            imageUpload={imageUpload}
+            changeImageUpload={changeImageUpload}
+            clickImageUpload={clickImageUpload}
+            imageUploadLabelRef={imageUploadLabelRef}
+            imageUploadRef={imageUploadRef}
           />
         </div>
       </div>
