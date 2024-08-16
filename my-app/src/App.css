@@ -10,6 +10,7 @@
   --primary-color-2: #202127;
   --primary-color-3: #26282f;
   --primary-color-4: #2b2f36;
+  --primary-color-5: #ce4a00;
 }
 
 .a-enter-vr-button {
@@ -31,6 +32,9 @@
   }
   .bg-prim-4 {
     background-color: var(--primary-color-4);
+  }
+  .bg-prim-5 {
+    background-color: var(--primary-color-5);
   }
 }
 
