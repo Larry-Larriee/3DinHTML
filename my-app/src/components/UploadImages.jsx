@@ -1,14 +1,22 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import Dropzone from "react-dropzone";
+import Cycle from "./helper/Cycle";
 
 UploadImage.propTypes = {
   imageUpload: PropTypes.string,
   changeImageUpload: PropTypes.func.isRequired,
+  changeCycleAdd: PropTypes.func.isRequired,
+  changeCycleRemove: PropTypes.func.isRequired,
 };
 
-// UploadCode component is used specifically for the contribute page
-export default function UploadImage({ imageUpload, changeImageUpload }) {
+// UploadImage component is used specifically for the contribute page
+export default function UploadImage({
+  imageUpload,
+  changeImageUpload,
+  changeCycleAdd,
+  changeCycleRemove,
+}) {
   useEffect(() => {
     if (imageUpload) {
       console.log(imageUpload);
@@ -17,7 +25,7 @@ export default function UploadImage({ imageUpload, changeImageUpload }) {
 
   return (
     <>
-      <section className="bg-prim-2 flex w-full min-h-96 px-16 py-10 flex-col gap-8 rounded-xl">
+      <section className="bg-prim-2 flex w-full min-h-250 px-16 py-10 flex-col gap-8 rounded-xl relative">
         <h1 className="font-bold text-4xxl text-prim-1 font-league">
           Uploading Images
         </h1>
@@ -38,23 +46,30 @@ export default function UploadImage({ imageUpload, changeImageUpload }) {
             {/* getRootProps provides the nessessary props to the div like onDragOver */}
             {/* getInputProps provides the nessessary props to the input like onChange */}
             {({ getRootProps, getInputProps }) => (
-              <section className="w-full">
-                <div
-                  className="flex justify-center items-center w-full h-56 border-4 border-dashed border-white bg-prim-3 hover:cursor-pointer"
-                  {...getRootProps()}
-                >
-                  <input {...getInputProps()} />
-                  <p className="text-prim-1 text-xl">
-                    Drag and drop your assets here, or click to select files
-                  </p>
-                </div>
-              </section>
+              <div
+                className="flex justify-center items-center w-full h-56 border-4 border-dashed border-white bg-prim-3 hover:cursor-pointer"
+                {...getRootProps()}
+              >
+                <input {...getInputProps()} />
+                <p className="text-prim-1 text-xl">
+                  Drag and drop your assets here, or click to select files
+                </p>
+              </div>
             )}
           </Dropzone>
         </div>
 
-        <div className="flex justify-end">
-          <p className="text-2xl text-white bg-prim-5 font-league hover:cursor-pointer py-2 w-36 rounded-xl text-center">
+        <div className="flex justify-end gap-5 absolute bottom-10 right-16">
+          <p
+            className="text-2xl text-white bg-prim-5 font-league hover:cursor-pointer py-2 w-36 rounded-xl text-center"
+            onClick={() => changeCycleRemove()}
+          >
+            Back
+          </p>
+          <p
+            className="text-2xl text-white bg-prim-5 font-league hover:cursor-pointer py-2 w-36 rounded-xl text-center"
+            onClick={() => changeCycleAdd()}
+          >
             Continue
           </p>
         </div>

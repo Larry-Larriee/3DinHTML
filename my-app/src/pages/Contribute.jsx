@@ -2,21 +2,55 @@ import React, { useState, useEffect, useRef } from "react";
 import Navigation from "../components/Navigation";
 
 import Step from "../components/helper/Step";
-import UploadCode from "../components/helper/UploadCode";
-import UploadImage from "../components/helper/UploadImages";
+
+import UploadCode from "../components/UploadCode";
+import UploadImage from "../components/UploadImages";
+import ProjectTitle from "../components/ProjectTitle";
+import ProjectDescription from "../components/ProjectDescription";
+import Credits from "../components/Credits";
 
 export default function Contribute() {
-  // let [userAframe, setUserAframe] = useState("");
-  // const textAreaAframeRef = useRef();
+  let [userAframe, setUserAframe] = useState("");
+  const textAreaAframeRef = useRef();
 
-  // const changeUserAframe = () => {
-  //   setUserAframe(textAreaAframeRef.current.value);
-  // };
+  const changeUserAframe = () => {
+    setUserAframe(textAreaAframeRef.current.value);
+  };
 
   let [imageUpload, setImageUpload] = useState("");
 
   const changeImageUpload = (acceptedFile) => {
     setImageUpload(acceptedFile[0]["name"]);
+  };
+
+  let [title, setTitle] = useState("");
+  const changeTitle = () => {
+    setTitle(changeTitleInputRef.current.value);
+  };
+  const changeTitleInputRef = useRef();
+
+  let [description, setDescription] = useState("");
+  const changeDescription = () => {
+    setDescription(changeDescriptionInputRef.current.value);
+  };
+  const changeDescriptionInputRef = useRef();
+
+  let [name, setName] = useState("");
+  const changeName = () => {
+    setName(changeNameInputRef.current.value);
+  };
+  const changeNameInputRef = useRef();
+
+  let [cycle, setCycle] = useState(0);
+  const changeCycleAdd = () => {
+    setCycle((prev) => prev + 1);
+  };
+  const changeCycleRemove = () => {
+    setCycle((prev) => prev - 1);
+  };
+  const changeCycleSubmit = () => {
+    // submit the form with a fetch
+    console.log("submitted");
   };
 
   return (
@@ -53,15 +87,49 @@ export default function Contribute() {
             </svg>
           </article>
 
-          {/* <UploadCode
-            changeUserAframe={changeUserAframe}
-            textAreaAframeRef={textAreaAframeRef}
-          /> */}
+          {cycle === 0 && (
+            <UploadCode
+              changeUserAframe={changeUserAframe}
+              textAreaAframeRef={textAreaAframeRef}
+              changeCycleAdd={changeCycleAdd}
+            />
+          )}
 
-          <UploadImage
-            imageUpload={imageUpload}
-            changeImageUpload={changeImageUpload}
-          />
+          {cycle === 1 && (
+            <UploadImage
+              imageUpload={imageUpload}
+              changeImageUpload={changeImageUpload}
+              changeCycleAdd={changeCycleAdd}
+              changeCycleRemove={changeCycleRemove}
+            />
+          )}
+
+          {cycle === 2 && (
+            <ProjectTitle
+              changeTitle={changeTitle}
+              changeTitleInputRef={changeTitleInputRef}
+              changeCycleAdd={changeCycleAdd}
+              changeCycleRemove={changeCycleRemove}
+            />
+          )}
+
+          {cycle === 3 && (
+            <ProjectDescription
+              changeDescription={changeDescription}
+              changeDescriptionInputRef={changeDescriptionInputRef}
+              changeCycleAdd={changeCycleAdd}
+              changeCycleRemove={changeCycleRemove}
+            />
+          )}
+
+          {cycle === 4 && (
+            <Credits
+              changeName={changeName}
+              changeNameInputRef={changeNameInputRef}
+              changeCycleRemove={changeCycleRemove}
+              changeCycleSubmit={changeCycleSubmit}
+            />
+          )}
         </div>
       </div>
     </>

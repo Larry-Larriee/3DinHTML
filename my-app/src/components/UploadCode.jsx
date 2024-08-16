@@ -1,16 +1,22 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Cycle from "./helper/Cycle";
 
 UploadCode.propTypes = {
   changeUserAframe: PropTypes.func.isRequired,
   textAreaAframeRef: PropTypes.object.isRequired,
+  changeCycleAdd: PropTypes.func.isRequired,
 };
 
 // UploadCode component is used specifically for the contribute page
-export default function UploadCode({ changeUserAframe, textAreaAframeRef }) {
+export default function UploadCode({
+  changeUserAframe,
+  textAreaAframeRef,
+  changeCycleAdd,
+}) {
   return (
     <>
-      <section className="bg-prim-2 flex w-full min-h-96 px-16 py-10 flex-col gap-8 rounded-xl">
+      <section className="bg-prim-2 flex w-full px-16 py-10 flex-col gap-8 rounded-xl min-h-250 relative">
         <h1 className="font-bold text-4xxl text-prim-1 font-league">
           Uploading Code
         </h1>
@@ -26,14 +32,10 @@ export default function UploadCode({ changeUserAframe, textAreaAframeRef }) {
         <textarea
           ref={textAreaAframeRef}
           onChange={() => changeUserAframe()}
-          className="overflow-y-auto w-11/12 h-64 resize-none bg-prim-4 rounded-xl p-5 text-prim-1"
+          className="overflow-y-auto h-64 resize-none bg-prim-4 rounded-xl p-5 text-prim-1 focus:outline-none"
         />
 
-        <div className="flex justify-end w-11/12">
-          <p className="text-2xl text-white bg-prim-5 font-league hover:cursor-pointer py-2 w-36 rounded-xl text-center">
-            Continue
-          </p>
-        </div>
+        <Cycle changeCycleAdd={changeCycleAdd} />
       </section>
     </>
   );
