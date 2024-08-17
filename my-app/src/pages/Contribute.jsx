@@ -41,7 +41,7 @@ export default function Contribute() {
   };
   const changeNameInputRef = useRef();
 
-  let [cycle, setCycle] = useState(0);
+  let [cycle, setCycle] = useState(1);
   const changeCycleAdd = () => {
     setCycle((prev) => prev + 1);
   };
@@ -50,8 +50,40 @@ export default function Contribute() {
   };
   const changeCycleSubmit = () => {
     // submit the form with a fetch
-    console.log("submitted");
+    changeSubmitted(true);
   };
+
+  let [submitted, setSubmitted] = useState(false);
+
+  const changeSubmitted = () => {
+    setSubmitted(true);
+  };
+
+  useEffect(() => {
+    if (submitted) {
+      fetch("http://localhost:5000/api/contribute", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          aframe: userAframe,
+          image: imageUpload,
+          title: title,
+          description: description,
+          name: name,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [submitted, userAframe, imageUpload, title, description, name]);
 
   return (
     <>
@@ -60,11 +92,11 @@ export default function Contribute() {
 
         <div className="w-full flex items-center justify-center gap-16 px-12">
           <article className="w-96 h-full flex-none flex flex-col gap-12 bg-prim-2 rounded-xl pt-10 pl-8 relative">
-            <Step number={1} title={"Uploading Code"} />
-            <Step number={2} title={"Uploading Images"} />
-            <Step number={3} title={"Project Title"} />
-            <Step number={4} title={"Project Description"} />
-            <Step number={5} title={"Credits"} />
+            <Step number={1} title={"Uploading Code"} cycle={cycle} />
+            <Step number={2} title={"Uploading Images"} cycle={cycle} />
+            <Step number={3} title={"Project Title"} cycle={cycle} />
+            <Step number={4} title={"Project Description"} cycle={cycle} />
+            <Step number={5} title={"Credits"} cycle={cycle} />
 
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -87,7 +119,7 @@ export default function Contribute() {
             </svg>
           </article>
 
-          {cycle === 0 && (
+          {cycle === 1 && (
             <UploadCode
               changeUserAframe={changeUserAframe}
               textAreaAframeRef={textAreaAframeRef}
@@ -95,7 +127,7 @@ export default function Contribute() {
             />
           )}
 
-          {cycle === 1 && (
+          {cycle === 2 && (
             <UploadImage
               imageUpload={imageUpload}
               changeImageUpload={changeImageUpload}
@@ -104,7 +136,7 @@ export default function Contribute() {
             />
           )}
 
-          {cycle === 2 && (
+          {cycle === 3 && (
             <ProjectTitle
               changeTitle={changeTitle}
               changeTitleInputRef={changeTitleInputRef}
@@ -113,7 +145,7 @@ export default function Contribute() {
             />
           )}
 
-          {cycle === 3 && (
+          {cycle === 4 && (
             <ProjectDescription
               changeDescription={changeDescription}
               changeDescriptionInputRef={changeDescriptionInputRef}
@@ -122,7 +154,7 @@ export default function Contribute() {
             />
           )}
 
-          {cycle === 4 && (
+          {cycle === 5 && (
             <Credits
               changeName={changeName}
               changeNameInputRef={changeNameInputRef}

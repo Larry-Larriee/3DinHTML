@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Cycle from "./helper/Cycle";
 
 ProjectTitle.propTypes = {
-  changeTitle: PropTypes.string.isRequired,
+  changeTitle: PropTypes.func.isRequired,
   changeTitleInputRef: PropTypes.object.isRequired,
   changeCycleAdd: PropTypes.func.isRequired,
   changeCycleRemove: PropTypes.func.isRequired,
@@ -32,7 +32,7 @@ export default function ProjectTitle({
 
         <input
           type="text"
-          className="h-12 bg-prim-4 rounded-xl p-5 text-prim-1"
+          className="h-12 bg-prim-4 rounded-xl p-5 text-prim-1 focus:outline-none"
           onChange={() => changeTitle()}
           ref={changeTitleInputRef}
         />

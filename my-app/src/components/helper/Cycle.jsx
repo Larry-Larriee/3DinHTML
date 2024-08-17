@@ -17,7 +17,7 @@ export default function Cycle({
       <div className="flex justify-end gap-5 absolute bottom-10 right-16">
         {changeCycleRemove && (
           <p
-            className="text-2xl text-white bg-prim-5 font-league hover:cursor-pointer py-2 w-36 rounded-xl text-center"
+            className="select-none hover:scale-105 duration-200 transition ease-in-out text-2xl text-white bg-prim-5 font-league hover:cursor-pointer py-2 w-36 rounded-xl text-center"
             onClick={() => changeCycleRemove()}
           >
             Back
@@ -26,7 +26,7 @@ export default function Cycle({
 
         {changeCycleAdd && (
           <p
-            className="text-2xl text-white bg-prim-5 font-league hover:cursor-pointer py-2 w-36 rounded-xl text-center"
+            className="select-none hover:scale-105 duration-200 transition ease-in-out text-2xl text-white bg-prim-5 font-league hover:cursor-pointer py-2 w-36 rounded-xl text-center"
             onClick={() => changeCycleAdd()}
           >
             Continue
@@ -35,10 +35,10 @@ export default function Cycle({
 
         {changeCycleSubmit && (
           <p
-            className="text-2xl text-white bg-green-700 font-league hover:cursor-pointer py-2 w-36 rounded-xl text-center"
+            className="select-none hover:scale-105 duration-200 transition ease-in-out text-2xl text-white bg-green-700 font-league hover:cursor-pointer py-2 w-36 rounded-xl text-center"
             onClick={() => changeCycleSubmit()}
           >
-            Continue
+            Submit
           </p>
         )}
       </div>

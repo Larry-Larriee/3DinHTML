@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import Dropzone from "react-dropzone";
 import Cycle from "./helper/Cycle";
@@ -59,20 +59,10 @@ export default function UploadImage({
           </Dropzone>
         </div>
 
-        <div className="flex justify-end gap-5 absolute bottom-10 right-16">
-          <p
-            className="text-2xl text-white bg-prim-5 font-league hover:cursor-pointer py-2 w-36 rounded-xl text-center"
-            onClick={() => changeCycleRemove()}
-          >
-            Back
-          </p>
-          <p
-            className="text-2xl text-white bg-prim-5 font-league hover:cursor-pointer py-2 w-36 rounded-xl text-center"
-            onClick={() => changeCycleAdd()}
-          >
-            Continue
-          </p>
-        </div>
+        <Cycle
+          changeCycleRemove={changeCycleRemove}
+          changeCycleAdd={changeCycleAdd}
+        />
       </section>
     </>
   );

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Cycle from "./helper/Cycle";
 
 ProjectDescription.propTypes = {
-  changeDescription: PropTypes.string.isRequired,
+  changeDescription: PropTypes.func.isRequired,
   changeDescriptionInputRef: PropTypes.object.isRequired,
   changeCycleAdd: PropTypes.func.isRequired,
   changeCycleRemove: PropTypes.func.isRequired,
@@ -30,7 +30,7 @@ export default function ProjectDescription({
 
         <input
           type="text"
-          className="h-12 bg-prim-4 rounded-xl p-5 text-prim-1"
+          className="h-12 bg-prim-4 rounded-xl p-5 text-prim-1 focus:outline-none"
           onChange={() => changeDescription()}
           ref={changeDescriptionInputRef}
         />

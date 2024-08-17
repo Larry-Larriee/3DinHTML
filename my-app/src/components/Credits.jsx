@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Cycle from "./helper/Cycle";
 
 Credits.propTypes = {
-  changeName: PropTypes.string.isRequired,
+  changeName: PropTypes.func.isRequired,
   changeNameInputRef: PropTypes.object.isRequired,
   changeCycleRemove: PropTypes.func.isRequired,
   changeCycleSubmit: PropTypes.func.isRequired,
@@ -31,7 +31,7 @@ export default function Credits({
 
         <input
           type="text"
-          className="h-12 bg-prim-4 rounded-xl p-5 text-prim-1"
+          className="h-12 bg-prim-4 rounded-xl p-5 text-prim-1 focus:outline-none"
           onChange={() => changeName()}
           ref={changeNameInputRef}
         />
