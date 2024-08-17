@@ -70,6 +70,9 @@
   .w-192 {
     width: 36rem;
   }
+  .max-h-144 {
+    max-height: 30rem;
+  }
   .min-h-250 {
     min-height: 40rem;
   }

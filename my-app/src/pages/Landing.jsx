@@ -1,5 +1,5 @@
 import Demo1 from "../components/aframe/Demo1";
-import Project from "../components/Project";
+import Project from "../components/aframe/Project";
 
 import Navigation from "../components/Navigation";
 

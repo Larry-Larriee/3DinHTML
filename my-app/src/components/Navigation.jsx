@@ -21,9 +21,16 @@ export default function Navigation() {
     if (menuOpen) animateOpen();
   }, [menuOpen]);
 
+  const openLanding = () => {
+    window.location.href = "/";
+  };
+
   return (
     <nav className="w-full border-b-2 flex gap-3 py-3 justify-between px-12 items-center bg-prim-2">
-      <div className="flex gap-3 items-center">
+      <div
+        className="flex gap-3 items-center hover:cursor-pointer"
+        onClick={() => openLanding()}
+      >
         <h1 className="text-prim-1 text-4xl font-lemon">3D</h1>
         <p className="text-prim-1 text-2xl font-league">in HTML</p>
       </div>

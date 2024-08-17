@@ -38,6 +38,7 @@ app.use(
 );
 app.use(bodyParser.json());
 
+// the contribute route inserts user project data into the database
 app.post("/api/contribute", async (req, res) => {
   const { aframe, image, title, description, name } = req.body;
   const projects = client
@@ -57,4 +58,16 @@ app.post("/api/contribute", async (req, res) => {
 
 app.listen(5000, () => {
   console.log("Server is running on port 5000");
+});
+
+// the explore route retrieves all projects from the database and sends it back to the client
+// ideally, the client will not render all the projects at once, but use lazy loading to slowly display all projects
+app.get("/api/explore", async (req, res) => {
+  const projects = client
+    .db(process.env.DATABASE)
+    .collection(process.env.COLLECTION);
+
+  const allProjects = await projects.find({}).toArray();
+
+  res.send({ projects: allProjects });
 });
