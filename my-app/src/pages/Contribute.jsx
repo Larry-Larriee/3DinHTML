@@ -5,7 +5,6 @@ import Step from "../components/helper/Step";
 
 import UploadCode from "../components/UploadCode";
 import UploadImage from "../components/UploadImages";
-import ProjectTitle from "../components/ProjectTitle";
 import ProjectDescription from "../components/ProjectDescription";
 import Credits from "../components/Credits";
 
@@ -94,9 +93,9 @@ export default function Contribute() {
           <article className="w-96 h-full flex-none flex flex-col gap-12 bg-prim-2 rounded-xl pt-10 pl-8 relative">
             <Step number={1} title={"Uploading Code"} cycle={cycle} />
             <Step number={2} title={"Uploading Images"} cycle={cycle} />
-            <Step number={3} title={"Project Title"} cycle={cycle} />
-            <Step number={4} title={"Project Description"} cycle={cycle} />
-            <Step number={5} title={"Credits"} cycle={cycle} />
+            <Step number={3} title={"Description"} cycle={cycle} />
+            <Step number={4} title={"Tags"} cycle={cycle} />
+            <Step number={5} title={"Project Attribution"} cycle={cycle} />
 
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -137,9 +136,11 @@ export default function Contribute() {
           )}
 
           {cycle === 3 && (
-            <ProjectTitle
+            <ProjectDescription
               changeTitle={changeTitle}
               changeTitleInputRef={changeTitleInputRef}
+              changeDescription={changeDescription}
+              changeDescriptionInputRef={changeDescriptionInputRef}
               changeCycleAdd={changeCycleAdd}
               changeCycleRemove={changeCycleRemove}
             />
@@ -147,6 +148,8 @@ export default function Contribute() {
 
           {cycle === 4 && (
             <ProjectDescription
+              changeTitle={changeTitle}
+              changeTitleInputRef={changeTitleInputRef}
               changeDescription={changeDescription}
               changeDescriptionInputRef={changeDescriptionInputRef}
               changeCycleAdd={changeCycleAdd}

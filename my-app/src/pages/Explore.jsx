@@ -1,10 +1,25 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import Selection from "../components/helper/Selection";
 import CompleteProject from "../components/aframe/CompleteProject";
 import Navigation from "../components/Navigation";
+import Loading from "../components/Loading";
 
 export default function Explore() {
+  const [projects, setProjects] = useState([]);
+
+  const changeProjects = (data) => {
+    setProjects(data);
+  };
+
+  useEffect(() => {
+    fetch("http://localhost:5000/api/explore").then((response) => {
+      response.json().then((data) => {
+        changeProjects(data.projects);
+      });
+    });
+  }, []);
+
   return (
     <>
       <div className="flex w-full flex-col gap-20">
@@ -52,30 +67,21 @@ export default function Explore() {
             </p>
 
             <div className="flex flex-col w-full justify-between gap-36">
-              <CompleteProject
-                aframe={
-                  "<a-scene><a-assets><img id='skyTexture' src='https://cdn.aframe.io/a-painter/images/sky.jpg' crossOrigin='anonymous'></a-assets><a-entity geometry='primitive: box' material='color: red' position='-2, 0, -4'></a-entity><a-entity geometry='primitive: box' material='color: green' position='0, 0, -4'></a-entity><a-entity geometry='primitive: box' material='color: blue' position='2, 0, -4'></a-entity> <a-sky src='#skyTexture'></a-sky> <a-camera></a-camera></a-scene>"
-                }
-                title={"Blocks Fly in the Sky"}
-                description={"A simple scene with blocks flying in the sky."}
-              />
-
-              <CompleteProject
-                aframe={
-                  "<a-scene><a-assets><img id='skyTexture' src='https://cdn.aframe.io/a-painter/images/sky.jpg' crossOrigin='anonymous'></a-assets><a-entity geometry='primitive: box' material='color: red' position='-2, 0, -4'></a-entity><a-entity geometry='primitive: box' material='color: green' position='0, 0, -4'></a-entity><a-entity geometry='primitive: box' material='color: blue' position='2, 0, -4'></a-entity> <a-sky src='#skyTexture'></a-sky> <a-camera></a-camera></a-scene>"
-                }
-                title={"Blocks Fly in the Sky"}
-                description={"A simple scene with blocks flying in the sky."}
-              />
-
-              <CompleteProject
-                aframe={
-                  "<a-scene><a-assets><img id='skyTexture' src='https://cdn.aframe.io/a-painter/images/sky.jpg' crossOrigin='anonymous'></a-assets><a-entity geometry='primitive: box' material='color: red' position='-2, 0, -4'></a-entity><a-entity geometry='primitive: box' material='color: green' position='0, 0, -4'></a-entity><a-entity geometry='primitive: box' material='color: blue' position='2, 0, -4'></a-entity> <a-sky src='#skyTexture'></a-sky> <a-camera></a-camera></a-scene>"
-                }
-                title={"Blocks Fly in the Sky"}
-                description={"A simple scene with blocks flying in the sky."}
-              />
+              {projects &&
+                projects.map((project) => {
+                  return (
+                    <CompleteProject
+                      key={project._id}
+                      aframe={project.aframe}
+                      title={project.metaData.title}
+                      name={project.metaData.name}
+                      description={project.metaData.description}
+                    />
+                  );
+                })}
             </div>
+
+            <Loading />
           </div>
         </div>
 

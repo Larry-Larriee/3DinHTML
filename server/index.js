@@ -48,16 +48,14 @@ app.post("/api/contribute", async (req, res) => {
   await projects.insertOne({
     aframe,
     image,
-    title,
-    description,
-    name,
+    metaData: {
+      title,
+      description,
+      name,
+    },
   });
 
   res.send({ result: "Received" });
-});
-
-app.listen(5000, () => {
-  console.log("Server is running on port 5000");
 });
 
 // the explore route retrieves all projects from the database and sends it back to the client
@@ -70,4 +68,8 @@ app.get("/api/explore", async (req, res) => {
   const allProjects = await projects.find({}).toArray();
 
   res.send({ projects: allProjects });
+});
+
+app.listen(5000, () => {
+  console.log("Server is running on port 5000");
 });
