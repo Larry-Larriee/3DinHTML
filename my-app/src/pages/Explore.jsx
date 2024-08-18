@@ -76,6 +76,7 @@ export default function Explore() {
                       title={project.metaData.title}
                       name={project.metaData.name}
                       description={project.metaData.description}
+                      tags={project.metaData.tags}
                     />
                   );
                 })}

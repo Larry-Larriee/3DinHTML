@@ -3,10 +3,11 @@ import Navigation from "../components/Navigation";
 
 import Step from "../components/helper/Step";
 
-import UploadCode from "../components/UploadCode";
-import UploadImage from "../components/UploadImages";
-import ProjectDescription from "../components/ProjectDescription";
-import Credits from "../components/Credits";
+import UploadCode from "../components/aframe/UploadCode";
+import UploadImage from "../components/aframe/UploadImages";
+import ProjectDescription from "../components/aframe/ProjectDescription";
+import Credits from "../components/aframe/Credits";
+import Tags from "../components/aframe/Tags";
 
 export default function Contribute() {
   let [userAframe, setUserAframe] = useState("");
@@ -33,6 +34,29 @@ export default function Contribute() {
     setDescription(changeDescriptionInputRef.current.value);
   };
   const changeDescriptionInputRef = useRef();
+
+  let [tags, setTags] = useState([]);
+  const changeTags = (ref) => {
+    if (tags.includes(ref.current.innerText)) {
+      // if the tag is not equal to the target tag, keep it in the new array
+      setTags(tags.filter((tag) => tag !== ref.current.innerText));
+      ref.current.style.backgroundColor = "#2b2f36";
+      return;
+    }
+
+    setTags([...tags, ref.current.innerText]);
+    ref.current.style.backgroundColor = "#15803d";
+  };
+  const tagOneRef = useRef();
+  const tagTwoRef = useRef();
+  const tagThreeRef = useRef();
+  const tagFourRef = useRef();
+
+  useEffect(() => {
+    if (tags) {
+      console.log(tags);
+    }
+  }, [tags]);
 
   let [name, setName] = useState("");
   const changeName = () => {
@@ -72,6 +96,7 @@ export default function Contribute() {
           title: title,
           description: description,
           name: name,
+          tags: tags,
         }),
       })
         .then((res) => res.json())
@@ -82,7 +107,7 @@ export default function Contribute() {
           console.log(err);
         });
     }
-  }, [submitted, userAframe, imageUpload, title, description, name]);
+  }, [submitted, userAframe, imageUpload, title, description, name, tags]);
 
   return (
     <>
@@ -147,11 +172,12 @@ export default function Contribute() {
           )}
 
           {cycle === 4 && (
-            <ProjectDescription
-              changeTitle={changeTitle}
-              changeTitleInputRef={changeTitleInputRef}
-              changeDescription={changeDescription}
-              changeDescriptionInputRef={changeDescriptionInputRef}
+            <Tags
+              changeTags={changeTags}
+              tagOneRef={tagOneRef}
+              tagTwoRef={tagTwoRef}
+              tagThreeRef={tagThreeRef}
+              tagFourRef={tagFourRef}
               changeCycleAdd={changeCycleAdd}
               changeCycleRemove={changeCycleRemove}
             />

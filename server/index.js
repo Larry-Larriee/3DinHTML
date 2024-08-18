@@ -40,7 +40,7 @@ app.use(bodyParser.json());
 
 // the contribute route inserts user project data into the database
 app.post("/api/contribute", async (req, res) => {
-  const { aframe, image, title, description, name } = req.body;
+  const { aframe, image, title, description, name, tags } = req.body;
   const projects = client
     .db(process.env.DATABASE)
     .collection(process.env.COLLECTION);
@@ -52,6 +52,7 @@ app.post("/api/contribute", async (req, res) => {
       title,
       description,
       name,
+      tags,
     },
   });
 

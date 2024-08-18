@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Cycle from "./helper/Cycle";
+import Cycle from "../helper/Cycle";
 
 Credits.propTypes = {
   changeName: PropTypes.func.isRequired,

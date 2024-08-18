@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import Dropzone from "react-dropzone";
-import Cycle from "./helper/Cycle";
+import Cycle from "../helper/Cycle";
 
 UploadImage.propTypes = {
   imageUpload: PropTypes.string,
