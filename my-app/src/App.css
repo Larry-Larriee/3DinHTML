@@ -101,6 +101,9 @@
   .leading-sm {
     line-height: 1.25 !important;
   }
+  .leading-button {
+    line-height: 3rem !important;
+  }
 }
 
 @layer utilities {
