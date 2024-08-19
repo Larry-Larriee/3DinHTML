@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Project from "./Project";
 import PropTypes from "prop-types";
 
@@ -18,6 +18,27 @@ export default function CompleteProject({
   name,
   tags,
 }) {
+  const [copied, setCopied] = useState(false);
+
+  const clipboardAframe = () => {
+    navigator.clipboard.writeText(aframe);
+    setCopied(true);
+  };
+
+  // the nature of useEffect is to run when the function dependency changes value.
+  // if the user tries to spam the copy button, the useEffect will not spam the function because the copied state is still true
+  // this means there will always be one setTimout running at a time
+  useEffect(() => {
+    if (copied) {
+      const timeout = setTimeout(() => {
+        setCopied(false);
+      }, 1000);
+
+      // cleanup function by clearing the timeout
+      return () => clearTimeout(timeout);
+    }
+  }, [copied]);
+
   return (
     <section className="flex gap-12 w-full">
       <Project aframe={aframe} size={"big"} />
@@ -45,6 +66,25 @@ export default function CompleteProject({
               );
             })}
         </div>
+
+        {/* when the other element has a flex-none, the w-full or h-full is second to the other element's definite width or height */}
+        <section className="flex h-full justify-end flex-col">
+          {copied ? (
+            <p
+              className="text-prim-1 bg-prim-6 w-40 text-center py-3 rounded-2xl font-semibold text-xl hover:cursor-pointer hover:scale-105 duration-200 transition ease-in-out"
+              onClick={() => clipboardAframe()}
+            >
+              Copied
+            </p>
+          ) : (
+            <p
+              className="text-prim-1 bg-prim-5 w-40 text-center py-3 rounded-2xl font-semibold text-xl hover:cursor-pointer hover:scale-105 duration-200 transition ease-in-out"
+              onClick={() => clipboardAframe()}
+            >
+              Copy Project
+            </p>
+          )}
+        </section>
       </div>
     </section>
   );
