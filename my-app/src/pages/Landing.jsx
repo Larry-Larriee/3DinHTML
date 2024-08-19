@@ -148,7 +148,7 @@ function App() {
         </div>
       </section>
 
-      <section className="flex flex-col items-center gap-5 mb-10">
+      <section className="flex flex-col items-center gap-5 mb-16 mt-8">
         <p className="text-prim-1 text-2xl xl:text-4xxl font-semibold">
           that&apos;s enough reading lol.
         </p>

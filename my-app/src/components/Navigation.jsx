@@ -26,7 +26,7 @@ export default function Navigation() {
   };
 
   return (
-    <nav className="w-full border-b-2 flex gap-3 py-3 justify-between px-12 items-center bg-prim-2">
+    <nav className="w-full flex-none border-b-2 flex gap-3 py-3 justify-between px-12 items-center bg-prim-2">
       <div
         className="flex gap-3 items-center hover:cursor-pointer"
         onClick={() => openLanding()}
