@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 
 let svgSelection = {
@@ -8,7 +8,7 @@ let svgSelection = {
       fill="none"
       viewBox="0 0 24 24"
       strokeWidth={1.5}
-      stroke="#deded6"
+      stroke="#BE7C4D"
       className="w-8 h-8"
     >
       <path
@@ -24,7 +24,7 @@ let svgSelection = {
       fill="none"
       viewBox="0 0 24 24"
       strokeWidth={1.5}
-      stroke="#deded6"
+      stroke="#DE5456"
       className="w-8 h-8"
     >
       <path
@@ -40,7 +40,7 @@ let svgSelection = {
       fill="none"
       viewBox="0 0 24 24"
       strokeWidth={1.5}
-      stroke="#deded6"
+      stroke="#648767"
       className="w-8 h-8"
     >
       <path
@@ -56,7 +56,7 @@ let svgSelection = {
       fill="none"
       viewBox="0 0 24 24"
       strokeWidth={1.5}
-      stroke="#deded6"
+      stroke="#9CAFB7"
       className="w-8 h-8"
     >
       <path
@@ -72,7 +72,7 @@ let svgSelection = {
       fill="none"
       viewBox="0 0 24 24"
       strokeWidth={1.5}
-      stroke="#deded6"
+      stroke="#EAD2AC"
       className="w-8 h-8"
     >
       <path
@@ -88,7 +88,7 @@ let svgSelection = {
       fill="none"
       viewBox="0 0 24 24"
       strokeWidth={1.5}
-      stroke="#deded6"
+      stroke="#605B56"
       className="w-8 h-8"
     >
       <path
@@ -104,15 +104,44 @@ let svgSelection = {
 Selection.propTypes = {
   svg: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  selectionFocus: PropTypes.string.isRequired,
+  changeSelectionFocus: PropTypes.func.isRequired,
+};
+
+const titleColors = {
+  featured: "#be7c4d",
+  recent: "#DE5456",
+  games: "#648767",
+  educative: "#9cafb7",
+  lightWeight: "#ead2ac",
+  heavy: "#605b56",
 };
 
 // Selection component is used specifically for the side navigation for the Explore page
-export default function Selection({ svg, title }) {
+export default function Selection({
+  svg,
+  title,
+  selectionFocus,
+  changeSelectionFocus,
+}) {
+  const titleRef = useRef();
+
+  useEffect(() => {
+    if (selectionFocus === title && titleRef.current)
+      titleRef.current.style.color = titleColors[svg];
+    else titleRef.current.style.color = "#deded6";
+  }, [selectionFocus, title, svg]);
+
   return (
     <>
-      <div className="flex gap-5 items-center hover:scale-105 duration-200 transition ease-in-out hover:cursor-pointer">
+      <div
+        className="flex gap-5 items-center hover:scale-105 duration-200 transition ease-in-out hover:cursor-pointer"
+        onClick={() => changeSelectionFocus(title)}
+      >
         {svgSelection[svg]}
-        <p className="text-prim-1 font-medium text-xl">{title}</p>
+        <p ref={titleRef} className="font-medium text-xl">
+          {title}
+        </p>
       </div>
     </>
   );

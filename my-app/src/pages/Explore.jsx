@@ -20,6 +20,12 @@ export default function Explore() {
     });
   }, []);
 
+  const [selectionFocus, setSelectionFocus] = useState("Featured");
+
+  const changeSelectionFocus = (title) => {
+    setSelectionFocus(title);
+  };
+
   return (
     <>
       <div className="flex w-full flex-col gap-20">
@@ -52,18 +58,48 @@ export default function Explore() {
             </section>
 
             <section className="flex flex-col gap-6">
-              <Selection title="Featured" svg="featured" />
-              <Selection title="Recent" svg="recent" />
-              <Selection title="Gaming & Fun" svg="games" />
-              <Selection title="Educative" svg="educative" />
-              <Selection title="Lightweight" svg="lightWeight" />
-              <Selection title="Needs Strong PC" svg="heavy" />
+              <Selection
+                changeSelectionFocus={changeSelectionFocus}
+                selectionFocus={selectionFocus}
+                title="Featured"
+                svg="featured"
+              />
+              <Selection
+                changeSelectionFocus={changeSelectionFocus}
+                selectionFocus={selectionFocus}
+                title="Recent"
+                svg="recent"
+              />
+              <Selection
+                changeSelectionFocus={changeSelectionFocus}
+                selectionFocus={selectionFocus}
+                title="Gaming & Fun"
+                svg="games"
+              />
+              <Selection
+                changeSelectionFocus={changeSelectionFocus}
+                selectionFocus={selectionFocus}
+                title="Educative"
+                svg="educative"
+              />
+              <Selection
+                changeSelectionFocus={changeSelectionFocus}
+                selectionFocus={selectionFocus}
+                title="Lightweight"
+                svg="lightWeight"
+              />
+              <Selection
+                changeSelectionFocus={changeSelectionFocus}
+                selectionFocus={selectionFocus}
+                title="Needs Strong PC"
+                svg="heavy"
+              />
             </section>
           </aside>
 
           <div className="flex flex-col gap-12 w-full">
             <p className="text-4xl font-semibold font-league text-prim-1">
-              Here&apos;s what we got..
+              Featured Projects
             </p>
 
             <div className="flex flex-col w-full justify-between gap-36">

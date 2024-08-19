@@ -11,6 +11,7 @@
   --primary-color-3: #26282f;
   --primary-color-4: #2b2f36;
   --primary-color-5: #ce4a00;
+  --primary-color-6: #15803d;
 }
 
 .a-enter-vr-button {
@@ -36,11 +37,29 @@
   .bg-prim-5 {
     background-color: var(--primary-color-5);
   }
+  .bg-prim-6 {
+    background-color: var(--primary-color-6);
+  }
 }
 
 @layer utilities {
   .text-prim-1 {
     color: var(--primary-color-1);
+  }
+  .text-prim-2 {
+    color: var(--primary-color-2);
+  }
+  .text-prim-3 {
+    color: var(--primary-color-3);
+  }
+  .text-prim-4 {
+    color: var(--primary-color-4);
+  }
+  .text-prim-5 {
+    color: var(--primary-color-5);
+  }
+  .text-prim-6 {
+    color: var(--primary-color-6);
   }
 }
 
