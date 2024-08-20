@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 require("dotenv").config();
 const { MongoClient, ServerApiVersion } = require("mongodb");
 
@@ -57,6 +58,25 @@ app.post("/api/contribute", async (req, res) => {
   });
 
   res.send({ result: "Received" });
+});
+
+app.post("/api/createAccount", async (req, res) => {
+  const { username, password } = req.body;
+  const users = client.db(process.env.DATABASE).collection("accounts");
+
+  await users.insertOne({
+    username,
+    password,
+  });
+
+  res.cookie(username, password, {
+    httpOnly: false,
+    maxAge: 90000000,
+    sameSite: "none",
+    secure: true,
+  });
+
+  res.send({ result: "Account Created" });
 });
 
 // the explore route retrieves all projects from the database and sends it back to the client
