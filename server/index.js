@@ -31,7 +31,7 @@ testMongoDB();
 // allow cross-origin requests and automatically convert JSON to JS objects
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://threedinhtml.onrender.com"],
+    origin: ["http://localhost:3000", "https://3dhtml.vercel.app"],
 
     // allow cookies to be sent back to the client
     credentials: true,
