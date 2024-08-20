@@ -31,7 +31,7 @@ testMongoDB();
 // allow cross-origin requests and automatically convert JSON to JS objects
 app.use(
   cors({
-    origin: ["http://localhost:3000"],
+    origin: ["http://localhost:3000", "https://threedinhtml.onrender.com"],
 
     // allow cookies to be sent back to the client
     credentials: true,
@@ -89,6 +89,10 @@ app.get("/api/explore", async (req, res) => {
   const allProjects = await projects.find({}).toArray();
 
   res.send({ projects: allProjects });
+});
+
+app.get("/", async (req, res) => {
+  res.send("Hello World");
 });
 
 app.listen(5000, () => {

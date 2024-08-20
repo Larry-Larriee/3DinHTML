@@ -84,7 +84,7 @@ export default function Contribute() {
 
   useEffect(() => {
     if (submitted) {
-      fetch("http://localhost:5000/api/contribute", {
+      fetch("https://threedinhtml.onrender.com/api/contribute", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

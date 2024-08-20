@@ -15,7 +15,7 @@ export default function Explore() {
   };
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/explore").then((response) => {
+    fetch("https://threedinhtml.onrender.com/api/explore").then((response) => {
       response.json().then((data) => {
         changeProjects(data.projects);
       });
