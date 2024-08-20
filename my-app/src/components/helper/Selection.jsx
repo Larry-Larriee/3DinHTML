@@ -117,7 +117,11 @@ const titleColors = {
   heavy: "#605b56",
 };
 
-// Selection component is used specifically for the side navigation for the Explore page
+// Selection component is used specifically for the side navigation for the Explore page. It renders the selection options and title color changes
+// svg (string): the object key to the svg image
+// title (string): the title of the selection. this does not have to be the same as the svg name
+// selectionFocus (string): the current selectionFocus which the user changes
+// changeSelectionFocus (function): the function allowing the user to change the selection focus to the option they want, allowing useEffect to render the color change
 export default function Selection({
   svg,
   title,

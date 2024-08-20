@@ -7,6 +7,10 @@ Cycle.propTypes = {
   changeCycleSubmit: PropTypes.func,
 };
 
+// Cycle component is used specifically for the contribute page. It returns buttons that will allow the user to navigate through the steps
+// changeCycleAdd (function): function that will change the cycle state to the next step
+// changeCycleRemove (function): function that will change the cycle state to the previous step
+// changeCycleSubmit (function): function that will submit the project to the database
 export default function Cycle({
   changeCycleAdd = null,
   changeCycleRemove = null,

@@ -9,7 +9,10 @@ EditorUI.propTypes = {
   descriptionSize: PropTypes.string,
 };
 
-// EditorUI is a component that returns an example of a code editor
+// EditorUI is a component that returns an example of a code editor. this code editor example is not a real code editor and is primarily used on the landing page
+// title (string): the title of the code editor, such as index.html
+// description (string): the description of the code editor aka the code part, but it can be text as well
+// descriptionSize (string): the size of the description text. this can be text-xl or text-2xl
 export default function EditorUI({
   title,
   description,

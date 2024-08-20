@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Cycle from "../helper/Cycle";
 
-ProjectDescription.propTypes = {
+Tags.propTypes = {
   changeCycleAdd: PropTypes.func.isRequired,
   changeCycleRemove: PropTypes.func.isRequired,
   changeTags: PropTypes.func.isRequired,
@@ -12,8 +12,9 @@ ProjectDescription.propTypes = {
   tagFourRef: PropTypes.object.isRequired,
 };
 
-// ProjectDescription component is used specifically for the contribute page
-export default function ProjectDescription({
+// The tags component renders tags that the user can select for their project. Users can select multiple tags and the useState will
+// keep track of the tags that the user has selected in an array. The value of the tags are the same as the category name (innerHTML) such as "Gaming & Fun"
+export default function Tags({
   changeTags,
   tagOneRef,
   tagTwoRef,

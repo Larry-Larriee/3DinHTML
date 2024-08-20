@@ -5,6 +5,8 @@ import CompleteProject from "../components/aframe/CompleteProject";
 import Navigation from "../components/Navigation";
 import Loading from "../components/Loading";
 
+import RenderAllProjects from "../components/RenderAllProjects";
+
 export default function Explore() {
   const [projects, setProjects] = useState([]);
 
@@ -28,7 +30,7 @@ export default function Explore() {
 
   return (
     <>
-      <div className="flex w-full flex-col gap-20">
+      <div className="flex w-full flex-col gap-20 relative min-h-screen">
         <Navigation />
 
         {/* the w-10/12 is not in the center because this file does not justify-center/items-center the main divs */}
@@ -99,11 +101,12 @@ export default function Explore() {
 
           <div className="flex flex-col gap-12 w-full">
             <p className="text-4xl font-semibold font-league text-prim-1">
-              Featured Projects
+              {selectionFocus} Projects
             </p>
 
             <div className="flex flex-col w-full justify-between gap-36">
               {projects &&
+                selectionFocus === "Featured" &&
                 projects.map((project) => {
                   return (
                     <CompleteProject
@@ -116,6 +119,37 @@ export default function Explore() {
                     />
                   );
                 })}
+
+              {projects &&
+                selectionFocus === "Recent" &&
+                projects.map((project) => {
+                  return (
+                    <CompleteProject
+                      key={project._id}
+                      aframe={project.aframe}
+                      title={project.metaData.title}
+                      name={project.metaData.name}
+                      description={project.metaData.description}
+                      tags={project.metaData.tags}
+                    />
+                  );
+                })}
+
+              {projects && selectionFocus === "Gaming & Fun" && (
+                <RenderAllProjects projects={projects} tag={"Gaming & Fun"} />
+              )}
+              {projects && selectionFocus === "Educative" && (
+                <RenderAllProjects projects={projects} tag={"Educative"} />
+              )}
+              {projects && selectionFocus === "Lightweight" && (
+                <RenderAllProjects projects={projects} tag={"Lightweight"} />
+              )}
+              {projects && selectionFocus === "Needs Strong PC" && (
+                <RenderAllProjects
+                  projects={projects}
+                  tag={"Needs Strong PC"}
+                />
+              )}
             </div>
 
             <Loading />

@@ -153,7 +153,6 @@ export default function Contribute() {
 
           {cycle === 2 && (
             <UploadImage
-              imageUpload={imageUpload}
               changeImageUpload={changeImageUpload}
               changeCycleAdd={changeCycleAdd}
               changeCycleRemove={changeCycleRemove}

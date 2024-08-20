@@ -10,19 +10,15 @@ UploadImage.propTypes = {
   changeCycleRemove: PropTypes.func.isRequired,
 };
 
-// UploadImage component is used specifically for the contribute page
+// UploadImage component is used specifically for the contribute page. It allows the user to upload images for their project by rendering a dropzone
+// changeImageUpload (function): function that will change the imageUpload state to the name of the image file, such as fish.png
+// changeCycleAdd (function): function that will change the cycle state to the next step. this is used for the cycle component
+// changeCycleRemove (function): function that will change the cycle state to the previous step. this is used for the cycle component
 export default function UploadImage({
-  imageUpload,
   changeImageUpload,
   changeCycleAdd,
   changeCycleRemove,
 }) {
-  useEffect(() => {
-    if (imageUpload) {
-      console.log(imageUpload);
-    }
-  }, [imageUpload]);
-
   return (
     <>
       <section className="bg-prim-2 flex w-full min-h-250 px-16 py-10 flex-col gap-8 rounded-xl relative">

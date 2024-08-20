@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 
+// Navigation component is used to render the navigation bar at the top of the page. It is used in all pages aside from the landing page
 export default function Navigation() {
   const [menuOpen, setMenuOpen] = useState(false);
 

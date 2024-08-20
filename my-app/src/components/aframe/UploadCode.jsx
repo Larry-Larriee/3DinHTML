@@ -8,7 +8,10 @@ UploadCode.propTypes = {
   changeCycleAdd: PropTypes.func.isRequired,
 };
 
-// UploadCode component is used specifically for the contribute page
+// UploadCode component is used specifically for the contribute page. It is used to store the code for the a-frame environment
+// changeUserAframe (function): function that uses useState to store the value of the user's code
+// textAreaAframeRef (object): a reference to the text area where the user will paste their code. used along with changeUserAframe
+// changeCycleAdd (function): function that will change the cycle state to the next step. this is used for the cycle component
 export default function UploadCode({
   changeUserAframe,
   textAreaAframeRef,
