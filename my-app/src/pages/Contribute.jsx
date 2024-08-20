@@ -82,9 +82,11 @@ export default function Contribute() {
     setSubmitted(true);
   };
 
+  const serverURL = import.meta.env.VITE_DEVELOPMENT_SERVER;
+
   useEffect(() => {
     if (submitted) {
-      fetch("https://threedinhtml.onrender.com/api/contribute", {
+      fetch(serverURL + "/api/contribute", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -128,7 +128,8 @@ function App() {
           <img
             src={aFrameLogo}
             alt="A-Frame Logo"
-            className="w-full lg:w-full xl:w-144"
+            className="w-full lg:w-full xl:w-144 rounded-xl"
+            draggable="false"
           />
         </div>
 
