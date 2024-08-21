@@ -42,6 +42,7 @@ export default function Contribute() {
           setSignUp(false);
           if (data.result === "Account Created")
             window.location.href = "/success";
+          else window.alert(data.result);
         });
     }
   }, [signUp, serverURL, username, password]);
@@ -63,12 +64,15 @@ export default function Contribute() {
         .then((data) => {
           setSignIn(false);
           if (data.result === "Signed In") window.location.href = "/success";
+          else window.alert(data.result);
         });
     }
   }, [signIn, serverURL, username, password]);
 
   useEffect(() => {
     const changeCookieExists = (username) => {
+      // you don't need to setCookiesExists to false because when the user moves from the success page (where deleteAccount is called) to the account page
+      // the useEffect will mount check if the cookie exists and by default, cookieExists is false
       setCookieExists(true);
 
       setLoggedInAs(username);

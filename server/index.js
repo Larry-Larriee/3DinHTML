@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 require("dotenv").config();
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const crypto = require("crypto");
+const scanUsername = require("./helper/scanUsername");
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(process.env.URI, {
@@ -77,6 +78,9 @@ app.get("/api/explore", async (req, res) => {
 app.post("/api/account/signup", async (req, res) => {
   const { username, password } = req.body;
   const users = client.db(process.env.DATABASE).collection("accounts");
+
+  const scan = await scanUsername(users, username);
+  if (scan.result !== "ok") return res.send({ result: scan.result });
 
   // create an authorization token for the user to use as part of their cookie
   const tokenAuthentication = crypto.randomBytes(16).toString("hex");

@@ -52,12 +52,6 @@ export default function Contribute() {
   const tagThreeRef = useRef();
   const tagFourRef = useRef();
 
-  useEffect(() => {
-    if (tags) {
-      console.log(tags);
-    }
-  }, [tags]);
-
   let [name, setName] = useState("");
   const changeName = () => {
     setName(changeNameInputRef.current.value);
@@ -103,7 +97,7 @@ export default function Contribute() {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
+          window.alert(data.result);
         })
         .catch((err) => {
           console.log(err);
@@ -119,6 +113,24 @@ export default function Contribute() {
     tags,
     serverURL,
   ]);
+
+  useEffect(() => {
+    if (changeNameInputRef.current) {
+      fetch(serverURL + "/api/account/checkCookie", {
+        method: "GET",
+        credentials: "include",
+      }).then((response) =>
+        response.json().then((data) => {
+          if (data.result === "exists") {
+            setName(data.username);
+            changeNameInputRef.current.value = data.username;
+          }
+        })
+      );
+    }
+    // no dependency array so useEffect runs on every rerender
+    // new content is loaded into the DOM when the user changes cycles, causing the useEffect to run
+  });
 
   return (
     <>

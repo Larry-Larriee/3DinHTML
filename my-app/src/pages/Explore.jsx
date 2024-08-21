@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import Selection from "../components/helper/Selection";
 import CompleteProject from "../components/aframe/CompleteProject";
@@ -30,6 +30,17 @@ export default function Explore() {
     setSelectionFocus(title);
   };
 
+  const [search, setSearch] = useState("");
+  const searchRef = useRef();
+
+  const changeSearch = () => {
+    setSearch(searchRef.current.value);
+  };
+
+  useEffect(() => {
+    console.log(search);
+  }, [search]);
+
   return (
     <>
       <div className="flex w-full flex-col gap-20">
@@ -58,6 +69,8 @@ export default function Explore() {
                 type="text"
                 placeholder="Search"
                 className="text-prim-1 w-full bg-prim-4 font-medium text-lg focus:outline-none"
+                onChange={() => changeSearch()}
+                ref={searchRef}
               />
             </section>
 
