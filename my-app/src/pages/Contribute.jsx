@@ -17,10 +17,11 @@ export default function Contribute() {
     setUserAframe(textAreaAframeRef.current.value);
   };
 
-  let [imageUpload, setImageUpload] = useState("");
+  let [imageUpload, setImageUpload] = useState([]);
 
   const changeImageUpload = (acceptedFile) => {
-    setImageUpload(acceptedFile[0]["name"]);
+    // dropzone returns an array of files, so append the new files to the imageUpload array
+    setImageUpload([...imageUpload, ...acceptedFile]);
   };
 
   let [title, setTitle] = useState("");
@@ -176,6 +177,7 @@ export default function Contribute() {
 
           {cycle === 2 && (
             <UploadImage
+              imageUpload={imageUpload}
               changeImageUpload={changeImageUpload}
               changeCycleAdd={changeCycleAdd}
               changeCycleRemove={changeCycleRemove}

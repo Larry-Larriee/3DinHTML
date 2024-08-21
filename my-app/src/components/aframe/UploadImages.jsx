@@ -4,7 +4,7 @@ import Dropzone from "react-dropzone";
 import Cycle from "../helper/Cycle";
 
 UploadImage.propTypes = {
-  imageUpload: PropTypes.string,
+  imageUpload: PropTypes.array,
   changeImageUpload: PropTypes.func.isRequired,
   changeCycleAdd: PropTypes.func.isRequired,
   changeCycleRemove: PropTypes.func.isRequired,
@@ -15,6 +15,7 @@ UploadImage.propTypes = {
 // changeCycleAdd (function): function that will change the cycle state to the next step. this is used for the cycle component
 // changeCycleRemove (function): function that will change the cycle state to the previous step. this is used for the cycle component
 export default function UploadImage({
+  imageUpload,
   changeImageUpload,
   changeCycleAdd,
   changeCycleRemove,
@@ -37,6 +38,7 @@ export default function UploadImage({
         {/* this means it will take up all available space if possible or shrink if required */}
         <div className="flex flex-grow-0 gap-5 items-center">
           <Dropzone
+            // onDrop={(acceptedFiles) => console.log(acceptedFiles)}
             onDrop={(acceptedFiles) => changeImageUpload(acceptedFiles)}
           >
             {/* getRootProps provides the nessessary props to the div like onDragOver */}
@@ -47,9 +49,26 @@ export default function UploadImage({
                 {...getRootProps()}
               >
                 <input {...getInputProps()} />
-                <p className="text-prim-1 xl:text-xl w-full px-4 text-center text-lg">
-                  Drag and drop your assets here, or click to select files
-                </p>
+                {imageUpload.length === 0 && (
+                  <p className="text-prim-1 xl:text-xl w-full px-4 text-center text-lg">
+                    Drag and drop your assets here, or click to select files
+                  </p>
+                )}
+
+                {imageUpload.length > 0 &&
+                  imageUpload.map((image, index) => {
+                    // the generated imageURL is temporary and will be removed when the page is closed or refreshed
+                    const imageURL = URL.createObjectURL(image);
+
+                    return (
+                      <img
+                        alt={image.name + index}
+                        key={image.name + index}
+                        src={imageURL}
+                        className="max-w-36 max-h-w6 object-cover"
+                      />
+                    );
+                  })}
               </div>
             )}
           </Dropzone>
