@@ -44,15 +44,20 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 // req.file is a property of the request object (req) in Express.js applications that contains information about an uploaded file. It is typically populated when a file is uploaded using the multer middleware.
+const uploadedImages = multer({ dest: "resources/" });
 
 // the contribute route inserts user project data into the database
 app.post("/api/contribute", async (req, res) => {
   const { aframe, image, title, description, name, tags } = req.body;
+  const file = req.files.file;
+  const data = req.files.data;
+
   const projects = client
     .db(process.env.DATABASE)
     .collection(process.env.COLLECTION);
 
-  // let uploadImages;
+  console.log(file, data);
+
   // let generatedImageURL;
 
   // // uploadImage renders the image object from the client and turns it into a file in the server
@@ -68,7 +73,7 @@ app.post("/api/contribute", async (req, res) => {
 
   await projects.insertOne({
     aframe: aframe,
-    image: generatedImageURL,
+    image: image,
 
     // imageBackup is created in case the server fails and the multer images that are stored in the server are lost
     imageBackup: image,
