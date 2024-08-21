@@ -130,8 +130,50 @@ app.post("/api/account/signin", async (req, res) => {
       }
     );
 
-    res.send({ result: "Signed In" });
+    return res.send({ result: "Signed In" });
   }
+});
+
+app.get("/api/account/checkCookie", async (req, res) => {
+  const accountAuthorization = req.cookies.accountAuthorization;
+
+  if (accountAuthorization === undefined)
+    return res.send({ result: "no cookie or cookie is not valid" });
+  const { username, tokenAuthentication } = JSON.parse(accountAuthorization);
+
+  const accounts = client.db(process.env.DATABASE).collection("accounts");
+  const user = await accounts.findOne({ tokenAuthentication });
+
+  if (user)
+    return res.send({
+      result: "exists",
+      username: username,
+      tokenAuthentication: tokenAuthentication,
+    });
+
+  return res.send({ result: "no cookie or cookie is not valid" });
+});
+
+app.get("/api/account/deleteAccount", async (req, res) => {
+  const accountAuthorization = req.cookies.accountAuthorization;
+
+  if (accountAuthorization === undefined)
+    return res.send({
+      result:
+        "no cookie or cookie is not valid (it may have expired or been deleted)",
+    });
+
+  const { username, tokenAuthentication } = JSON.parse(accountAuthorization);
+  res.clearCookie("accountAuthorization");
+
+  const accounts = client.db(process.env.DATABASE).collection("accounts");
+  const deletion = await accounts.deleteOne({ tokenAuthentication });
+
+  if (deletion) return res.send({ result: "Account Deleted" });
+  if (deletion === undefined)
+    return res.send({
+      result: "Account to delete does not exist, or longer exists.",
+    });
 });
 
 app.get("/", async (req, res) => {

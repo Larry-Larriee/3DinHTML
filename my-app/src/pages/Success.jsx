@@ -2,6 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import Navigation from "../components/Navigation";
 
 export default function Success() {
+  const [cookieExists, setCookieExists] = useState(false);
+  const [loggedInAs, setLoggedInAs] = useState("");
+
   const goToExplore = () => {
     window.location.href = "/explore";
   };
@@ -10,13 +13,54 @@ export default function Success() {
     window.location.href = "/contribute";
   };
 
+  const serverURL = import.meta.env.VITE_SERVER;
+
+  useEffect(() => {
+    const changeCookieExists = (username) => {
+      setCookieExists(true);
+
+      setLoggedInAs(username);
+    };
+
+    fetch(serverURL + "/api/account/checkCookie", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.result === "exists") {
+          changeCookieExists(data.username);
+        }
+      });
+  }, [serverURL, cookieExists]);
+
+  function deleteAccount() {
+    fetch(serverURL + "/api/account/deleteAccount", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    }).then((response) => {
+      response.json().then((data) => {
+        window.alert(data.result);
+
+        // the logged in as will no longer be dislayed once the cookie is void after account deletion.
+        setCookieExists(false);
+      });
+    });
+  }
+
   return (
     <>
       <div className="flex w-full flex-col items-center gap-12">
         <Navigation />
 
         <div className="w-full px-12 flex justify-center mb-5 2xl:mb-0">
-          <div className="w-full flex xl:bg-prim-2 min-h-250 rounded-2xl xl:p-12 flex-col gap-10 xl:gap-12">
+          <div className="w-full flex xl:bg-prim-2 min-h-250 rounded-2xl xl:p-12 flex-col gap-10 xl:gap-12 relative">
             <section className="flex flex-col gap-5 xl:gap-10 xl:w-10/12">
               <div className="flex gap-5 sm:justify-between lg:justify-start items-center">
                 <h1 className="text-5xl font-league text-prim-1">
@@ -52,7 +96,10 @@ export default function Success() {
             </section>
 
             <section className="flex w-full flex-col gap-5 sm:mb-5 xl:mb-0 xl:gap-8">
-              <p className="text-xl bg-prim-5 rounded-xl shadow-xl font-semibold w-72 text-center py-4 hover:cursor-pointer hover:scale-105 transition ease-in-out duration-200 text-prim-1">
+              <p
+                className="text-xl bg-prim-5 rounded-xl shadow-xl font-semibold w-72 text-center py-4 hover:cursor-pointer hover:scale-105 transition ease-in-out duration-200 text-prim-1"
+                onClick={() => deleteAccount()}
+              >
                 Delete My Account
               </p>
               <p
@@ -68,6 +115,12 @@ export default function Success() {
                 Contribute
               </p>
             </section>
+
+            {cookieExists && (
+              <p className="absolute xl:left-auto -bottom-8 left-0 xl:right-5 xl:bottom-3 text-prim-1 font-league text-xl">
+                You are signed in as: {loggedInAs}
+              </p>
+            )}
           </div>
         </div>
       </div>

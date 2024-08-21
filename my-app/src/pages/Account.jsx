@@ -5,6 +5,9 @@ export default function Contribute() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const [cookieExists, setCookieExists] = useState(false);
+  const [loggedInAs, setLoggedInAs] = useState("");
+
   const userNameRef = useRef();
   const passwordRef = useRef();
 
@@ -64,13 +67,35 @@ export default function Contribute() {
     }
   }, [signIn, serverURL, username, password]);
 
+  useEffect(() => {
+    const changeCookieExists = (username) => {
+      setCookieExists(true);
+
+      setLoggedInAs(username);
+    };
+
+    fetch(serverURL + "/api/account/checkCookie", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.result === "exists") {
+          changeCookieExists(data.username);
+        }
+      });
+  }, [serverURL, cookieExists]);
+
   return (
     <>
       <div className="flex w-full flex-col items-center gap-12">
         <Navigation />
 
         <div className="w-full px-12 flex justify-center">
-          <div className="w-full flex xl:bg-prim-2 xl:min-h-250 justify-center rounded-2xl">
+          <div className="w-full flex xl:bg-prim-2 xl:min-h-250 justify-center rounded-2xl relative">
             <section className="w-full xl:w-1/3 xl:bg-prim-3 items-center rounded-2xl flex flex-col xl:my-10 xl:p-10 gap-12">
               <p className="text-5xl font-league text-prim-1">Account</p>
 
@@ -111,6 +136,12 @@ export default function Contribute() {
                 </div>
               </article>
             </section>
+
+            {cookieExists && (
+              <p className="absolute -bottom-16 left-0 xl:left-auto xl:right-5 xl:bottom-3 text-prim-1 font-league text-xl">
+                You are signed in as: {loggedInAs}
+              </p>
+            )}
           </div>
         </div>
       </div>
