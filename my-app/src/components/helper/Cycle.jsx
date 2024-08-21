@@ -18,7 +18,8 @@ export default function Cycle({
 }) {
   return (
     <>
-      <div className="flex justify-end gap-5 absolute bottom-10 right-16">
+      {/* I wanted to use position absolute because I wanted the contribute page to stay a custom fixed height of h-250 */}
+      <div className="flex xl:justify-end gap-5 xl:absolute xl:bottom-10 xl:right-16">
         {changeCycleRemove && (
           <p
             className="select-none hover:scale-105 duration-200 transition ease-in-out text-2xl text-white bg-prim-5 font-league hover:cursor-pointer py-2 w-36 rounded-xl text-center"

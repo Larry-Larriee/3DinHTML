@@ -82,7 +82,7 @@ export default function Contribute() {
     setSubmitted(true);
   };
 
-  const serverURL = import.meta.env.VITE_DEVELOPMENT_SERVER;
+  const serverURL = import.meta.env.VITE_SERVER;
 
   useEffect(() => {
     if (submitted) {
@@ -109,15 +109,24 @@ export default function Contribute() {
           console.log(err);
         });
     }
-  }, [submitted, userAframe, imageUpload, title, description, name, tags]);
+  }, [
+    submitted,
+    userAframe,
+    imageUpload,
+    title,
+    description,
+    name,
+    tags,
+    serverURL,
+  ]);
 
   return (
     <>
       <div className="flex w-full flex-col gap-12">
         <Navigation />
 
-        <div className="w-full flex items-center justify-center gap-16 px-12">
-          <article className="w-96 h-full flex-none flex flex-col gap-12 bg-prim-2 rounded-xl pt-10 pl-8 relative">
+        <div className="w-full flex items-center justify-center gap-16 px-12 flex-col xl:flex-row">
+          <article className="w-full xl:w-96 h-auto xl:h-full flex-none lg:flex lg:flex-col gap-6 xl:gap-12 bg-prim-2 rounded-xl py-10 xl:pt-10 pl-8 relative hidden">
             <Step number={1} title={"Uploading Code"} cycle={cycle} />
             <Step number={2} title={"Uploading Images"} cycle={cycle} />
             <Step number={3} title={"Description"} cycle={cycle} />

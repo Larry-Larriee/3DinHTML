@@ -18,12 +18,14 @@ export default function Credits({
 }) {
   return (
     <>
-      <section className="bg-prim-2 flex w-full min-h-250 px-16 py-10 flex-col gap-8 rounded-xl relative">
-        <h1 className="font-bold text-4xxl text-prim-1 font-league">Credits</h1>
-        <p className="font-league text-prim-1 text-2xl">
+      <section className="xl:bg-prim-2 flex w-full min-h-250 xl:px-16 xl:py-10 flex-col gap-8 rounded-xl relative">
+        <h1 className="font-bold text-3xl xl:text-4xxl text-prim-1 font-league">
+          Credits
+        </h1>
+        <p className="font-league text-prim-1 text-xl xl:text-2xl">
           Give yourself a name as credit!
         </p>
-        <p className="font-league text-prim-1 text-xl">
+        <p className="font-league text-prim-1 text-lg xl:text-xl">
           If you have an account, this name will be autofilled for you.
           Furthermore, you will not have an end tag attached to your name.
           It&apos;s your name. No one else will be able to steal it.

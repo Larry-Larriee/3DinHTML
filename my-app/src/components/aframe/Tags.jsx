@@ -25,16 +25,20 @@ export default function Tags({
 }) {
   return (
     <>
-      <section className="bg-prim-2 flex w-full min-h-250 px-16 py-10 flex-col gap-8 rounded-xl relative">
-        <h1 className="font-bold text-4xxl text-prim-1 font-league">Tags</h1>
-        <p className="font-league text-prim-1 text-2xl">Nice Work!</p>
-        <p className="font-league text-prim-1 text-xl">
+      <section className="xl:bg-prim-2 flex w-full min-h-250 xl:px-16 xl:py-10 flex-col gap-8 rounded-xl relative">
+        <h1 className="font-bold text-3xl xl:text-4xxl text-prim-1 font-league">
+          Tags
+        </h1>
+        <p className="font-league text-prim-1 text-xl xl:text-2xl">
+          Nice Work!
+        </p>
+        <p className="font-league text-prim-1 text-lg xl:text-xl">
           Now we&apos;re going to add tags for your project. Tags are how you
           can categorize your work. This will help others find your creations
           easier.
         </p>
 
-        <div className="flex w-full gap-5 items-center">
+        <div className="flex w-full gap-5 flex-wrap">
           <article
             ref={tagOneRef}
             onClick={() => changeTags(tagOneRef)}

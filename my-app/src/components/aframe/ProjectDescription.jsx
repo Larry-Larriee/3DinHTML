@@ -22,12 +22,14 @@ export default function ProjectDescription({
 }) {
   return (
     <>
-      <section className="bg-prim-2 flex w-full min-h-250 px-16 py-10 flex-col gap-8 rounded-xl relative">
-        <h1 className="font-bold text-4xxl text-prim-1 font-league">
+      <section className="xl:bg-prim-2 flex w-full min-h-250 xl:px-16 xl:py-10 flex-col gap-8 rounded-xl relative">
+        <h1 className="font-bold text-3xl xl:text-4xxl text-prim-1 font-league">
           Project Description
         </h1>
-        <p className="font-league text-prim-1 text-2xl">Almost there!</p>
-        <p className="font-league text-prim-1 text-xl">
+        <p className="font-league text-prim-1 text-xl xl:text-2xl">
+          Almost there!
+        </p>
+        <p className="font-league text-prim-1 text-lg xl:text-xl">
           Let&apos;s give your project a Title and Description. Something
           simple. And don&apos;t worry, you can leave your description blank if
           you can&apos;t think of anything.

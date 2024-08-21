@@ -14,7 +14,7 @@ export default function Explore() {
     setProjects(data);
   };
 
-  const serverURL = import.meta.env.VITE_DEVELOPMENT_SERVER;
+  const serverURL = import.meta.env.VITE_SERVER;
 
   useEffect(() => {
     fetch(serverURL + "/api/explore").then((response) => {
@@ -158,6 +158,8 @@ export default function Explore() {
           </div>
         </div>
 
+        {/* if the footer is in a dynamically rendered page it will not change its position dynamically as well. */}
+        {/* because vite has both a root and body with flex properties, conventional methods to keep it staying on the bottom may not work */}
         <footer className="flex flex-none w-full relative">
           <p className="text-white text-base font-league absolute left-5 bottom-2">
             ©2024 Larry Le MIT License

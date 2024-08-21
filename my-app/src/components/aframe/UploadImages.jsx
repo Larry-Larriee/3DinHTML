@@ -21,14 +21,14 @@ export default function UploadImage({
 }) {
   return (
     <>
-      <section className="bg-prim-2 flex w-full min-h-250 px-16 py-10 flex-col gap-8 rounded-xl relative">
-        <h1 className="font-bold text-4xxl text-prim-1 font-league">
+      <section className="xl:bg-prim-2 flex w-full min-h-250 xl:px-16 xl:py-10 flex-col gap-8 rounded-xl relative">
+        <h1 className="font-bold text-3xl xl:text-4xxl text-prim-1 font-league">
           Uploading Images
         </h1>
-        <p className="font-league text-prim-1 text-2xl">
+        <p className="font-league text-prim-1 text-xl xl:text-2xl">
           If uploading images doesn&apos;t apply to you, skip to step 3!
         </p>
-        <p className="font-league text-prim-1 text-xl">
+        <p className="font-league text-prim-1 text-lg xl:text-xl">
           If you&apos;re pasting assets which go into your folder (i.e.
           images/background.png), please upload that exact image here.
         </p>
@@ -47,7 +47,7 @@ export default function UploadImage({
                 {...getRootProps()}
               >
                 <input {...getInputProps()} />
-                <p className="text-prim-1 text-xl">
+                <p className="text-prim-1 xl:text-xl w-full px-4 text-center text-lg">
                   Drag and drop your assets here, or click to select files
                 </p>
               </div>
