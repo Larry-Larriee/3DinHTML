@@ -19,18 +19,50 @@ export default function Contribute() {
   const [signUp, setSignUp] = useState(false);
   const [signIn, setSignIn] = useState(false);
 
+  const serverURL = import.meta.env.VITE_SERVER;
+
   useEffect(() => {
     if (signUp) {
-      console.log("Sign Up");
-      // fetch user creation
-      setSignUp(false);
+      fetch(serverURL + "/api/account/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          username: username,
+          password: password,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setSignUp(false);
+          if (data.result === "Account Created")
+            window.location.href = "/success";
+        });
     }
+  }, [signUp, serverURL, username, password]);
+
+  useEffect(() => {
     if (signIn) {
-      console.log("Sign In");
-      // fetch user authentication
-      setSignIn(false);
+      fetch(serverURL + "/api/account/signin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          username: username,
+          password: password,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setSignIn(false);
+          if (data.result === "Signed In") window.location.href = "/success";
+        });
     }
-  }, [signUp, signIn]);
+  }, [signIn, serverURL, username, password]);
 
   return (
     <>
@@ -38,8 +70,8 @@ export default function Contribute() {
         <Navigation />
 
         <div className="w-full px-12 flex justify-center">
-          <div className="w-full flex bg-prim-2 min-h-250 justify-center rounded-2xl">
-            <section className="w-1/3 bg-prim-3 items-center rounded-2xl flex flex-col my-10 p-10 gap-12">
+          <div className="w-full flex xl:bg-prim-2 xl:min-h-250 justify-center rounded-2xl">
+            <section className="w-full xl:w-1/3 xl:bg-prim-3 items-center rounded-2xl flex flex-col xl:my-10 xl:p-10 gap-12">
               <p className="text-5xl font-league text-prim-1">Account</p>
 
               <div className="flex flex-col gap-1 w-full flex-none">

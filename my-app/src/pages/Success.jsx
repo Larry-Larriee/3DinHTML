@@ -2,15 +2,23 @@ import React, { useState, useEffect, useRef } from "react";
 import Navigation from "../components/Navigation";
 
 export default function Success() {
+  const goToExplore = () => {
+    window.location.href = "/explore";
+  };
+
+  const goToContribute = () => {
+    window.location.href = "/contribute";
+  };
+
   return (
     <>
       <div className="flex w-full flex-col items-center gap-12">
         <Navigation />
 
-        <div className="w-full px-12 flex justify-center">
-          <div className="w-full flex bg-prim-2 min-h-250 rounded-2xl p-12 flex-col gap-12">
-            <section className="flex flex-col gap-10 w-10/12">
-              <div className="flex gap-5 items-center">
+        <div className="w-full px-12 flex justify-center mb-5 2xl:mb-0">
+          <div className="w-full flex xl:bg-prim-2 min-h-250 rounded-2xl xl:p-12 flex-col gap-10 xl:gap-12">
+            <section className="flex flex-col gap-5 xl:gap-10 xl:w-10/12">
+              <div className="flex gap-5 sm:justify-between lg:justify-start items-center">
                 <h1 className="text-5xl font-league text-prim-1">
                   You&apos;re in!
                 </h1>
@@ -31,11 +39,11 @@ export default function Success() {
                 </svg>
               </div>
 
-              <p className="text-2xl font-league text-prim-1">
+              <p className="text-xl xl:text-2xl font-league text-prim-1">
                 With an account, you&apos;re able to autofill you credentials
                 when contributing projects.
               </p>
-              <p className="text-2xl font-league text-prim-1">
+              <p className="text-xl xl:text-2xl font-league text-prim-1">
                 Please keep in mind that you should never reuse the same
                 password for all of your accounts. If you would like to delete
                 your account, you have the option to do so below. Otherwise, go
@@ -43,14 +51,20 @@ export default function Success() {
               </p>
             </section>
 
-            <section className="flex w-full flex-col gap-8">
+            <section className="flex w-full flex-col gap-5 sm:mb-5 xl:mb-0 xl:gap-8">
               <p className="text-xl bg-prim-5 rounded-xl shadow-xl font-semibold w-72 text-center py-4 hover:cursor-pointer hover:scale-105 transition ease-in-out duration-200 text-prim-1">
                 Delete My Account
               </p>
-              <p className="text-xl bg-green-800 rounded-xl shadow-xl font-semibold w-72 text-center py-4 hover:cursor-pointer hover:scale-105 transition ease-in-out duration-200 text-prim-1">
+              <p
+                className="text-xl bg-green-800 rounded-xl shadow-xl font-semibold w-72 text-center py-4 hover:cursor-pointer hover:scale-105 transition ease-in-out duration-200 text-prim-1"
+                onClick={() => goToExplore()}
+              >
                 Explore
               </p>
-              <p className="text-xl bg-green-800 rounded-xl shadow-xl font-semibold w-72 text-center py-4 hover:cursor-pointer hover:scale-105 transition ease-in-out duration-200 text-prim-1">
+              <p
+                className="text-xl bg-green-800 rounded-xl shadow-xl font-semibold w-72 text-center py-4 hover:cursor-pointer hover:scale-105 transition ease-in-out duration-200 text-prim-1"
+                onClick={() => goToContribute()}
+              >
                 Contribute
               </p>
             </section>
