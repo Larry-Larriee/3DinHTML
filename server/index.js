@@ -5,9 +5,11 @@ const cookieParser = require("cookie-parser");
 require("dotenv").config();
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const multer = require("multer");
+const path = require("path");
 const crypto = require("crypto");
 const scanUsername = require("./helper/scanUsername");
-const { request } = require("http");
+const imgur = require("imgur");
+const fs = require("fs");
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(process.env.URI, {
@@ -46,8 +48,21 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
 // multer will automatically determine if the formdata is an image and store it in the resources folder
-// multer also sorts the images and the aframe code into separate objects (req.files vs req.body)
-const upload = multer({ dest: "resources/" });
+// multer also sorts the images and the aframe code into separate objects (req.files vs req.body). note that the files in "images" are all file objects sharing the same key
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "resources/");
+  },
+  // multer will create filenames for each file object in the "images" multer field
+  // cb (callback) is a function that multer uses to determine the filename
+  filename: (req, file, cb) => {
+    const newFilename =
+      crypto.randomBytes(16).toString("hex") + path.extname(file.originalname);
+    cb(null, newFilename);
+  },
+});
+
+const upload = multer({ storage: storage });
 app.use(
   upload.fields([
     { name: "images", maxCount: Infinity },
@@ -76,6 +91,21 @@ app.post("/api/contribute", async (req, res) => {
   });
 
   res.send({ result: "Received" });
+});
+
+// currently figuring out to use imgur api and token
+imgur.setClientId(process.env.IMGUR_CLIENT_ID);
+
+// filesystem will watch when the image is inserted by multer and then upload the image to imgur
+fs.watch("resources/", async (eventType, filename) => {
+  const imageUpload = await imgur.upload("resources/" + filename);
+
+  // delete the image from the server after it has been uploaded to imgur
+  fs.unlink(`resources/${filename}`, (err) => {
+    if (err) throw err;
+  });
+
+  console.log(imageUpload.link);
 });
 
 // the explore route retrieves all projects from the database and sends it back to the client
