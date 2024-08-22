@@ -123,46 +123,71 @@ export default function Explore() {
               {projects &&
                 selectionFocus === "Featured" &&
                 projects.map((project) => {
-                  return (
-                    <CompleteProject
-                      key={project._id}
-                      aframe={project.aframe}
-                      title={project.metaData.title}
-                      name={project.metaData.name}
-                      description={project.metaData.description}
-                      tags={project.metaData.tags}
-                    />
-                  );
+                  if (
+                    project.metaData.title
+                      .toLowerCase()
+                      .includes(search.toLocaleLowerCase())
+                  ) {
+                    return (
+                      <CompleteProject
+                        key={project._id}
+                        aframe={project.aframe}
+                        title={project.metaData.title}
+                        name={project.metaData.name}
+                        description={project.metaData.description}
+                        tags={project.metaData.tags}
+                      />
+                    );
+                  }
                 })}
 
               {projects &&
                 selectionFocus === "Recent" &&
                 projects.map((project) => {
-                  return (
-                    <CompleteProject
-                      key={project._id}
-                      aframe={project.aframe}
-                      title={project.metaData.title}
-                      name={project.metaData.name}
-                      description={project.metaData.description}
-                      tags={project.metaData.tags}
-                    />
-                  );
+                  if (
+                    project.metaData.title
+                      .toLowerCase()
+                      .includes(search.toLocaleLowerCase())
+                  ) {
+                    return (
+                      <CompleteProject
+                        key={project._id}
+                        aframe={project.aframe}
+                        title={project.metaData.title}
+                        name={project.metaData.name}
+                        description={project.metaData.description}
+                        tags={project.metaData.tags}
+                      />
+                    );
+                  }
                 })}
 
               {projects && selectionFocus === "Gaming & Fun" && (
-                <RenderAllProjects projects={projects} tag={"Gaming & Fun"} />
+                <RenderAllProjects
+                  projects={projects}
+                  tag={"Gaming & Fun"}
+                  search={search}
+                />
               )}
               {projects && selectionFocus === "Educative" && (
-                <RenderAllProjects projects={projects} tag={"Educative"} />
+                <RenderAllProjects
+                  projects={projects}
+                  tag={"Educative"}
+                  search={search}
+                />
               )}
               {projects && selectionFocus === "Lightweight" && (
-                <RenderAllProjects projects={projects} tag={"Lightweight"} />
+                <RenderAllProjects
+                  projects={projects}
+                  tag={"Lightweight"}
+                  search={search}
+                />
               )}
               {projects && selectionFocus === "Needs Strong PC" && (
                 <RenderAllProjects
                   projects={projects}
                   tag={"Needs Strong PC"}
+                  search={search}
                 />
               )}
             </div>

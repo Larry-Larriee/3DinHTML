@@ -3,6 +3,19 @@
 
 :root {
   --primary-background-color: #1b1b1f;
+  --primary-color-1: #deded6;
+  --primary-color-2: #202127;
+  --primary-color-3: #26282f;
+  --primary-color-4: #2b2f36;
+  --primary-color-5: #ce4a00;
+  --primary-color-6: #15803d;
+}
+
+html {
+  scrollbar-width: thin;
+
+  /* the first color is the thumb (scroll) and the second color is the background */
+  scrollbar-color: var(--primary-color-1) var(--primary-color-4);
 }
 
 body {

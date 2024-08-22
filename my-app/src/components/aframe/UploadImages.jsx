@@ -45,12 +45,12 @@ export default function UploadImage({
             {/* getInputProps provides the nessessary props to the input like onChange */}
             {({ getRootProps, getInputProps }) => (
               <div
-                className="flex justify-center items-center w-full h-56 border-4 border-dashed border-white bg-prim-3 hover:cursor-pointer"
+                className="flex w-full min-h-56 border-4 border-dashed border-white bg-prim-3 hover:cursor-pointer gap-3 p-3 flex-wrap"
                 {...getRootProps()}
               >
                 <input {...getInputProps()} />
                 {imageUpload.length === 0 && (
-                  <p className="text-prim-1 xl:text-xl w-full px-4 text-center text-lg">
+                  <p className="leading-56 text-prim-1 xl:text-xl w-full px-4 text-center text-lg">
                     Drag and drop your assets here, or click to select files
                   </p>
                 )}
@@ -65,7 +65,7 @@ export default function UploadImage({
                         alt={image.name + index}
                         key={image.name + index}
                         src={imageURL}
-                        className="max-w-36 max-h-w6 object-cover"
+                        className="max-w-32 max-h-16 object-cover"
                       />
                     );
                   })}

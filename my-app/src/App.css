@@ -104,6 +104,9 @@
   .leading-button {
     line-height: 3rem !important;
   }
+  .leading-56 {
+    line-height: 14rem !important;
+  }
 }
 
 @layer utilities {

@@ -94,19 +94,19 @@ app.post("/api/contribute", async (req, res) => {
 });
 
 // currently figuring out to use imgur api and token
-imgur.setClientId(process.env.IMGUR_CLIENT_ID);
+// imgur.setClientId(process.env.IMGUR_CLIENT_ID);
 
 // filesystem will watch when the image is inserted by multer and then upload the image to imgur
-fs.watch("resources/", async (eventType, filename) => {
-  const imageUpload = await imgur.upload("resources/" + filename);
+// fs.watch("resources/", async (eventType, filename) => {
+//   const imageUpload = await imgur.upload("resources/" + filename);
 
-  // delete the image from the server after it has been uploaded to imgur
-  fs.unlink(`resources/${filename}`, (err) => {
-    if (err) throw err;
-  });
+//   // delete the image from the server after it has been uploaded to imgur
+//   fs.unlink(`resources/${filename}`, (err) => {
+//     if (err) throw err;
+//   });
 
-  console.log(imageUpload.link);
-});
+//   console.log(imageUpload.link);
+// });
 
 // the explore route retrieves all projects from the database and sends it back to the client
 // ideally, the client will not render all the projects at once, but use lazy loading to slowly display all projects
