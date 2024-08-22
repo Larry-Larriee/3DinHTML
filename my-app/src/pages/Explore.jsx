@@ -24,10 +24,21 @@ export default function Explore() {
     });
   }, [serverURL]);
 
+  // maxProjects is the total number of projects that have the potential to be rendered at once. if the nuber of projects is less than the max number, there is no problem
+  // at the start, 3 projects can be rendered at a time. clicking on "load more projects" will increase the max number by 3
+  // maxProjects is also aware of search rendering. the user can click on "load more projects" to render more projects that match the search query
+  const [maxProjects, setMaxProjects] = useState(3);
+
+  const changeMaxProjects = () => setMaxProjects((prev) => prev + 3);
+
   const [selectionFocus, setSelectionFocus] = useState("Featured");
 
   const changeSelectionFocus = (title) => {
     setSelectionFocus(title);
+
+    // reset the max projects to 3 when the user clicks on a different selection
+    // if the user doom scrolls and clicks on a different selection, the max projects will be reset to 3 so a ton of project won't be rendered at once
+    setMaxProjects(3);
   };
 
   const [search, setSearch] = useState("");
@@ -36,10 +47,6 @@ export default function Explore() {
   const changeSearch = () => {
     setSearch(searchRef.current.value);
   };
-
-  useEffect(() => {
-    console.log(search);
-  }, [search]);
 
   return (
     <>
@@ -122,11 +129,12 @@ export default function Explore() {
             <div className="flex flex-col w-full justify-between gap-20 xl:gap-36">
               {projects &&
                 selectionFocus === "Featured" &&
-                projects.map((project) => {
+                projects.map((project, index) => {
                   if (
                     project.metaData.title
                       .toLowerCase()
-                      .includes(search.toLocaleLowerCase())
+                      .includes(search.toLocaleLowerCase()) &&
+                    index < maxProjects
                   ) {
                     return (
                       <CompleteProject
@@ -143,11 +151,12 @@ export default function Explore() {
 
               {projects &&
                 selectionFocus === "Recent" &&
-                projects.map((project) => {
+                projects.map((project, index) => {
                   if (
                     project.metaData.title
                       .toLowerCase()
-                      .includes(search.toLocaleLowerCase())
+                      .includes(search.toLocaleLowerCase()) &&
+                    index < maxProjects
                   ) {
                     return (
                       <CompleteProject
@@ -167,6 +176,7 @@ export default function Explore() {
                   projects={projects}
                   tag={"Gaming & Fun"}
                   search={search}
+                  maxProjects={maxProjects}
                 />
               )}
               {projects && selectionFocus === "Educative" && (
@@ -174,6 +184,7 @@ export default function Explore() {
                   projects={projects}
                   tag={"Educative"}
                   search={search}
+                  maxProjects={maxProjects}
                 />
               )}
               {projects && selectionFocus === "Lightweight" && (
@@ -181,6 +192,7 @@ export default function Explore() {
                   projects={projects}
                   tag={"Lightweight"}
                   search={search}
+                  maxProjects={maxProjects}
                 />
               )}
               {projects && selectionFocus === "Needs Strong PC" && (
@@ -188,11 +200,16 @@ export default function Explore() {
                   projects={projects}
                   tag={"Needs Strong PC"}
                   search={search}
+                  maxProjects={maxProjects}
                 />
               )}
             </div>
 
-            <Loading projects={projects} />
+            <Loading
+              projects={projects}
+              selectionFocus={selectionFocus}
+              changeMaxProjects={changeMaxProjects}
+            />
           </div>
         </div>
 
