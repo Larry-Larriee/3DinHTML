@@ -42,46 +42,33 @@ app.use(
 );
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
 
 // req.file is a property of the request object (req) in Express.js applications that contains information about an uploaded file. It is typically populated when a file is uploaded using the multer middleware.
-const uploadedImages = multer({ dest: "resources/" });
+const upload = multer({ dest: "resources/" });
+app.use(
+  upload.fields([
+    { name: "images", maxCount: Infinity },
+    { name: "contribution", maxCount: 1 },
+  ])
+);
 
 // the contribute route inserts user project data into the database
 app.post("/api/contribute", async (req, res) => {
-  const { aframe, image, title, description, name, tags } = req.body;
-  const file = req.files.file;
-  const data = req.files.data;
+  const { images, contribution } = req.files;
 
   const projects = client
     .db(process.env.DATABASE)
     .collection(process.env.COLLECTION);
 
-  console.log(file, data);
-
-  // let generatedImageURL;
-
-  // // uploadImage renders the image object from the client and turns it into a file in the server
-  // if (image) {
-  //   uploadImages = multer({ dest: "resources/" });
-
-  //   for (let i = 0; i < image.length; i++) {
-  //     generatedImageURL = `/resources/" + ${crypto
-  //       .randomBytes(16)
-  //       .toString("hex")}`;
-  //   }
-  // }
-
   await projects.insertOne({
-    aframe: aframe,
-    image: image,
-
-    // imageBackup is created in case the server fails and the multer images that are stored in the server are lost
-    imageBackup: image,
+    aframe: contribution.aframe,
+    image: images,
     metaData: {
-      title: title,
-      description: description,
-      name: name,
-      tags: tags,
+      title: contribution.title,
+      description: contribution.description,
+      name: contribution.name,
+      tags: contribution.tags,
     },
   });
 

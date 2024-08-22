@@ -83,31 +83,22 @@ export default function Contribute() {
     if (submitted) {
       // the object that is provided by imageUpload is a file object, not a JS object
       // we use FormData to convert the file object into a JS object
-      const imageFormData = new FormData();
+      const formData = new FormData();
 
       if (imageUpload.length !== 0) {
         // using FormData, we can actually append the file object with the same key name
         for (let i = 0; i < imageUpload.length; i++) {
-          imageFormData.append("file", imageUpload[i]);
+          formData.append("images", imageUpload[i]);
         }
       }
-
-      // making sure that the request body is not empty by adding a result key
-      imageFormData.append("result", "success");
-
       // we must use a new header (multipart/form-data) to send the imageFormData and as a result must also make FormData for the aframe code
-      const aframeFormData = new FormData();
-      aframeFormData.append(
-        "data",
-        JSON.stringify({
-          aframe: userAframe,
-          image: imageFormData,
-          title: title,
-          description: description,
-          name: name,
-          tags: tags,
-        })
-      );
+      formData.append("contribution", {
+        aframe: userAframe,
+        title: title,
+        description: description,
+        name: name,
+        tags: tags,
+      });
 
       fetch(serverURL + "/api/contribute", {
         method: "POST",
@@ -115,10 +106,7 @@ export default function Contribute() {
           "Content-Type": "multipart/form-data",
         },
         credentials: "include",
-        body: JSON.stringify({
-          file: imageFormData,
-          data: aframeFormData,
-        }),
+        body: formData,
       })
         .then((res) => res.json())
         .then((data) => {
