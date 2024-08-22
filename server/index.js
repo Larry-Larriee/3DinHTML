@@ -7,6 +7,7 @@ const { MongoClient, ServerApiVersion } = require("mongodb");
 const multer = require("multer");
 const crypto = require("crypto");
 const scanUsername = require("./helper/scanUsername");
+const { request } = require("http");
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(process.env.URI, {
@@ -44,18 +45,20 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
-// req.file is a property of the request object (req) in Express.js applications that contains information about an uploaded file. It is typically populated when a file is uploaded using the multer middleware.
+// multer will automatically determine if the formdata is an image and store it in the resources folder
+// multer also sorts the images and the aframe code into separate objects (req.files vs req.body)
 const upload = multer({ dest: "resources/" });
 app.use(
   upload.fields([
     { name: "images", maxCount: Infinity },
-    { name: "contribution", maxCount: 1 },
+    { name: "contribution", maxCount: Infinity },
   ])
 );
 
 // the contribute route inserts user project data into the database
 app.post("/api/contribute", async (req, res) => {
-  const { images, contribution } = req.files;
+  const { images } = req.files;
+  const contribution = JSON.parse(req.body.contribution);
 
   const projects = client
     .db(process.env.DATABASE)

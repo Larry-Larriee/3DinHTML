@@ -81,6 +81,8 @@ export default function Contribute() {
 
   useEffect(() => {
     if (submitted) {
+      console.log(imageUpload, userAframe, title, description, name, tags);
+
       // the object that is provided by imageUpload is a file object, not a JS object
       // we use FormData to convert the file object into a JS object
       const formData = new FormData();
@@ -92,19 +94,19 @@ export default function Contribute() {
         }
       }
       // we must use a new header (multipart/form-data) to send the imageFormData and as a result must also make FormData for the aframe code
-      formData.append("contribution", {
-        aframe: userAframe,
-        title: title,
-        description: description,
-        name: name,
-        tags: tags,
-      });
+      formData.append(
+        "contribution",
+        JSON.stringify({
+          aframe: userAframe,
+          title: title,
+          description: description,
+          name: name,
+          tags: tags,
+        })
+      );
 
       fetch(serverURL + "/api/contribute", {
         method: "POST",
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
         credentials: "include",
         body: formData,
       })
