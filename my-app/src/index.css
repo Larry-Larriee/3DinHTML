@@ -12,8 +12,6 @@
 }
 
 html {
-  scrollbar-width: thin;
-
   /* the first color is the thumb (scroll) and the second color is the background */
   scrollbar-color: var(--primary-color-1) var(--primary-color-4);
 }

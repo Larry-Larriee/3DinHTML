@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import "aframe";
 
@@ -7,6 +7,7 @@ EditorUI.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   descriptionSize: PropTypes.string,
+  highlight: PropTypes.string,
 };
 
 // EditorUI is a component that returns an example of a code editor. this code editor example is not a real code editor and is primarily used on the landing page
@@ -17,7 +18,10 @@ export default function EditorUI({
   title,
   description,
   descriptionSize = "text-2xl",
+  highlight,
 }) {
+  let descriptionArr = description.split(highlight);
+
   return (
     <>
       {/* it's worth noting that w-full will take precidence over fixed widths like w-96 in a flexbox */}
@@ -33,17 +37,34 @@ export default function EditorUI({
         </section>
 
         {/* the pre element allows react to interpret the \n as a JS string line break */}
+        {/* javascript inside of a component return statement is converted into HTML (with the expection being js inside a pre element) */}
         {descriptionSize === "text-2xl" ? (
           <pre>
-            <p className="text-prim-1 text-xl xl:text-2xl leading-relaxed font-semibold pl-5 w-11/12 xl:w-10/12">
-              {description}
+            <p className="text-prim-1 text-xl xl:text-2xl leading-relaxed font-medium pl-5 w-11/12 xl:w-10/12">
+              {highlight ? (
+                <>
+                  {descriptionArr[0]}
+                  <span className="text-prim-5">{highlight}</span>
+                  {descriptionArr[1]}
+                </>
+              ) : (
+                description
+              )}
             </p>
           </pre>
         ) : (
           // if the descriptionSize is not text-2xl, then it will automatically set to text-xl
           <pre>
             <p className="text-prim-1 text-lg xl:text-xl leading-relaxed font-semibold pl-5 w-11/12 xl:w-10/12">
-              {description}
+              {highlight ? (
+                <>
+                  {descriptionArr[0]}
+                  <span className="text-prim-5">{highlight}</span>
+                  {descriptionArr[1]}
+                </>
+              ) : (
+                description
+              )}
             </p>
           </pre>
         )}

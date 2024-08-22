@@ -20,8 +20,11 @@ export default function CompleteProject({
 }) {
   const [copied, setCopied] = useState(false);
 
+  // strings that are JSON.parsed are automatically converted into js strings, meaning we can we \n to create a new line
   const clipboardAframe = () => {
-    navigator.clipboard.writeText(aframe);
+    navigator.clipboard.writeText(
+      `<!-- ${title} was created by ${name} --> \n ${aframe}`
+    );
     setCopied(true);
   };
 

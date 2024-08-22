@@ -94,8 +94,9 @@ function App() {
             title={"index.html"}
             descriptionSize={"text-xl"}
             description={
-              "<a-scene embedded class='w-full h-full'>\n\t<a-torus color='#4CC3D9' />\n\n\t<a-sky color='#0000FF' />\n</a-scene>"
+              "<a-scene embedded class='w-full h-full'> \n\t <a-torus color='#4CC3D9' /> \n\n\t <a-sky color='#0000FF' /> \n </a-scene>"
             }
+            highlight={"embedded"}
           />
 
           <article className="flex flex-col gap-5 w-full lg:144 xl:w-144 order-1 lg:order-2">
