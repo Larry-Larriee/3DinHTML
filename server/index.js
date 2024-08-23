@@ -5,11 +5,12 @@ const cookieParser = require("cookie-parser");
 require("dotenv").config();
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const multer = require("multer");
-const path = require("path");
 const crypto = require("crypto");
 const scanUsername = require("./helper/scanUsername");
 const imgur = require("imgur");
 const fs = require("fs");
+const path = require("path");
+const url = require("url");
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(process.env.URI, {
@@ -70,7 +71,8 @@ app.use(
   ])
 );
 
-// the contribute route inserts user project data into the database
+// the contribute route inserts the user's project data into the database. in the client, the name will be autofilled with the username given
+// by the user's cookie. there is no need for the server to autofill the name
 app.post("/api/contribute", async (req, res) => {
   const { images } = req.files;
   const contribution = JSON.parse(req.body.contribution);
@@ -93,23 +95,7 @@ app.post("/api/contribute", async (req, res) => {
   res.send({ result: "Received" });
 });
 
-// currently figuring out to use imgur api and token
-// imgur.setClientId(process.env.IMGUR_CLIENT_ID);
-
-// filesystem will watch when the image is inserted by multer and then upload the image to imgur
-// fs.watch("resources/", async (eventType, filename) => {
-//   const imageUpload = await imgur.upload("resources/" + filename);
-
-//   // delete the image from the server after it has been uploaded to imgur
-//   fs.unlink(`resources/${filename}`, (err) => {
-//     if (err) throw err;
-//   });
-
-//   console.log(imageUpload.link);
-// });
-
 // the explore route retrieves all projects from the database and sends it back to the client
-// ideally, the client will not render all the projects at once, but use lazy loading to slowly display all projects
 app.get("/api/explore", async (req, res) => {
   const projects = client
     .db(process.env.DATABASE)
@@ -120,6 +106,8 @@ app.get("/api/explore", async (req, res) => {
   res.send({ projects: allProjects });
 });
 
+// the signup route creates a new user account in the database and sends back a cookie for the user
+// the username must not have a forbidden word in it and is unique
 app.post("/api/account/signup", async (req, res) => {
   const { username, password } = req.body;
   const users = client.db(process.env.DATABASE).collection("accounts");
@@ -153,6 +141,7 @@ app.post("/api/account/signup", async (req, res) => {
   res.send({ result: "Account Created" });
 });
 
+// the signin route signs in the user if they have a valid username and password and sends back a cookie for the user
 app.post("/api/account/signin", async (req, res) => {
   const { username, password } = req.body;
   const accounts = client.db(process.env.DATABASE).collection("accounts");
@@ -183,6 +172,7 @@ app.post("/api/account/signin", async (req, res) => {
   }
 });
 
+// the checkCookie route checks if the user has a cookie and if the cookie is valid with a valid token
 app.get("/api/account/checkCookie", async (req, res) => {
   const accountAuthorization = req.cookies.accountAuthorization;
 
@@ -203,6 +193,7 @@ app.get("/api/account/checkCookie", async (req, res) => {
   return res.send({ result: "no cookie or cookie is not valid" });
 });
 
+// the deleteAccount route deletes the user account information from the database and clears the cookie from the client
 app.get("/api/account/deleteAccount", async (req, res) => {
   const accountAuthorization = req.cookies.accountAuthorization;
 
@@ -225,10 +216,32 @@ app.get("/api/account/deleteAccount", async (req, res) => {
     });
 });
 
+// when a get request is made to this route, the server will send a buffer image back to the client. this buffer image acts the same
+// as if the server is hosting the image
+// ex: http://127.0.0.1:5000/assets?filename=55b3d6f5b968b5d670d5a60ef801c8a0.png
+app.get("/assets", (req, res) => {
+  const filename = req.query.filename;
+
+  if (fs.existsSync(`./resources/${filename}`)) {
+    fs.readFile(`./resources/${filename}`, (err, data) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send("Error retrieving image");
+      } else {
+        res.setHeader("Content-Type", "image/jpeg");
+        res.send(data);
+      }
+    });
+  }
+});
+
 app.get("/", async (req, res) => {
   res.send("Hello World");
 });
 
 app.listen(5000, () => {
   console.log("Server is running on port 5000");
+
+  // code that uses mongodb to generate the image file in the server if the file is not found by fs
+  // code runs on server start
 });
