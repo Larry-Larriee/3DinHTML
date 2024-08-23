@@ -80,21 +80,33 @@ app.post("/api/contribute", async (req, res) => {
   // in order to get around this, we manually convert the image buffer to base64 and store it in mongodb to use later when rebuffering and rewriting files back into the server
   let base64Images = [];
 
-  // generate image files for all images sent in the formdata
-  for (let i = 0; i < images.length; i += 1) {
-    fs.writeFile(
-      `./resources/${images[i].originalname}`,
-      images[i].buffer,
-      (err) => {
-        if (err) {
-          console.error(err);
-        } else {
-          console.log("File saved successfully!");
+  if (images) {
+    // generate image files for all images sent in the formdata
+    for (let i = 0; i < images.length; i += 1) {
+      fs.writeFile(
+        `./resources/${images[i].originalname}`,
+        images[i].buffer,
+        (err) => {
+          if (err) {
+            console.error(err);
+          } else {
+            console.log("File saved successfully!");
+          }
         }
-      }
+      );
+
+      base64Images.push(images[i].buffer.toString("base64"));
+    }
+
+    // replace the src local path (which has its own folders and images) with server's image hosting url
+    // note that there may be multiple image assets in the aframe code
+    contribution.aframe = contribution.aframe.replace(
+      /src="([^"]+)"/g,
+      `src="${process.env.SERVER}/assets?filename=`
     );
 
-    base64Images.push(images[i].buffer.toString("base64"));
+    // code that looks at all the server urls and adds the appropriate image file name to the end of the url
+    // this code also needs to make sure not add the same image file name twice in the aframe
   }
 
   const projects = client
