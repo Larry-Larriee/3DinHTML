@@ -22,6 +22,8 @@ export default function Contribute() {
   const changeImageUpload = (acceptedFile) => {
     // dropzone returns an array of files, so append the new files to the imageUpload array
     setImageUpload([...imageUpload, ...acceptedFile]);
+
+    console.log(acceptedFile);
   };
 
   let [title, setTitle] = useState("");

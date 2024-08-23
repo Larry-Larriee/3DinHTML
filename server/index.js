@@ -7,10 +7,8 @@ const { MongoClient, ServerApiVersion } = require("mongodb");
 const multer = require("multer");
 const crypto = require("crypto");
 const scanUsername = require("./helper/scanUsername");
-const imgur = require("imgur");
 const fs = require("fs");
 const path = require("path");
-const url = require("url");
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(process.env.URI, {
@@ -50,7 +48,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // multer will automatically determine if the formdata is an image and store it in the resources folder
 // multer also sorts the images and the aframe code into separate objects (req.files vs req.body). note that the files in "images" are all file objects sharing the same key
-const storage = multer.diskStorage({
+const storage = multer.memoryStorage({
   destination: (req, file, cb) => {
     cb(null, "resources/");
   },
@@ -76,6 +74,21 @@ app.use(
 app.post("/api/contribute", async (req, res) => {
   const { images } = req.files;
   const contribution = JSON.parse(req.body.contribution);
+
+  // generate image files for all images sent in the formdata
+  for (let i = 0; i < images.length; i += 1) {
+    fs.writeFile(
+      `./resources/${images[i].originalname}`,
+      images[i].buffer,
+      (err) => {
+        if (err) {
+          console.error(err);
+        } else {
+          console.log("File saved successfully!");
+        }
+      }
+    );
+  }
 
   const projects = client
     .db(process.env.DATABASE)
@@ -244,4 +257,38 @@ app.listen(5000, () => {
 
   // code that uses mongodb to generate the image file in the server if the file is not found by fs
   // code runs on server start
+  const projects = client
+    .db(process.env.DATABASE)
+    .collection(process.env.COLLECTION);
+
+  projects
+    .find({})
+    .toArray()
+    .then((projects) => {
+      projects.forEach((project) => {
+        // if the project has an image, check if the image exists in the server already
+        if (project.image) {
+          for (let i = 0; i < project.image.length; i += 1) {
+            let imageFileName = project.image[i].originalname;
+            let buffer = project.image[i].buffer;
+
+            // console.log(buffer);
+
+            if (!fs.existsSync(`./resources/${imageFileName}`)) {
+              fs.writeFile(
+                `./resources/${project.image[i].originalname}`,
+                buffer,
+                (err) => {
+                  if (err) {
+                    console.error(err);
+                  } else {
+                    console.log("File saved successfully!");
+                  }
+                }
+              );
+            }
+          }
+        }
+      });
+    });
 });
