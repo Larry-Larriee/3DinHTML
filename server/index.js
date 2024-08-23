@@ -9,6 +9,7 @@ const crypto = require("crypto");
 const scanUsername = require("./helper/scanUsername");
 const fs = require("fs");
 const path = require("path");
+const Buffer = require("buffer").Buffer;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(process.env.URI, {
@@ -75,6 +76,10 @@ app.post("/api/contribute", async (req, res) => {
   const { images } = req.files;
   const contribution = JSON.parse(req.body.contribution);
 
+  // mongodb automatically converts the image buffer to binary with the Binary.createFromBase64() method (this is a bad thing)
+  // in order to get around this, we manually convert the image buffer to base64 and store it in mongodb to use later when rebuffering and rewriting files back into the server
+  let base64Images = [];
+
   // generate image files for all images sent in the formdata
   for (let i = 0; i < images.length; i += 1) {
     fs.writeFile(
@@ -88,6 +93,8 @@ app.post("/api/contribute", async (req, res) => {
         }
       }
     );
+
+    base64Images.push(images[i].buffer.toString("base64"));
   }
 
   const projects = client
@@ -97,6 +104,7 @@ app.post("/api/contribute", async (req, res) => {
   await projects.insertOne({
     aframe: contribution.aframe,
     image: images,
+    base64Images: base64Images,
     metaData: {
       title: contribution.title,
       description: contribution.description,
@@ -255,8 +263,8 @@ app.get("/", async (req, res) => {
 app.listen(5000, () => {
   console.log("Server is running on port 5000");
 
-  // code that uses mongodb to generate the image file in the server if the file is not found by fs
-  // code runs on server start
+  // the server will be able to reference images to host in the assets get request even if the server is restarted or fails
+  // we use mongodb to store a base64 string of the image buffer and then write the image file into the server using the buffer
   const projects = client
     .db(process.env.DATABASE)
     .collection(process.env.COLLECTION);
@@ -270,9 +278,9 @@ app.listen(5000, () => {
         if (project.image) {
           for (let i = 0; i < project.image.length; i += 1) {
             let imageFileName = project.image[i].originalname;
-            let buffer = project.image[i].buffer;
 
-            // console.log(buffer);
+            const base64String = project.base64Images[i];
+            const buffer = Buffer.from(base64String, "base64");
 
             if (!fs.existsSync(`./resources/${imageFileName}`)) {
               fs.writeFile(
