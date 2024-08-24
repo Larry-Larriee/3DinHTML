@@ -48,14 +48,18 @@ export default function CompleteProject({
 
       <div className="flex flex-none max-w-80 xl:w-80 flex-col gap-6">
         <section className="flex flex-col">
-          <h1 className="text-prim-1 font-semibold font-league text-3xl">
+          <h1 className="text-prim-2 dark:text-prim-1 font-semibold font-league text-3xl">
             {title}
           </h1>
-          <p className="text-prim-1 font-medium font-league text-lg">{name}</p>
+          <p className="text-prim-2 dark:text-prim-1 font-medium font-league text-lg">
+            {name}
+          </p>
         </section>
 
         <div className="flex order-2 xl:order-1">
-          <p className="font-league text-prim-1 text-xl">{description}</p>
+          <p className="font-league text-prim-2 dark:text-prim-1 text-xl">
+            {description}
+          </p>
         </div>
 
         {tags && (
@@ -64,7 +68,7 @@ export default function CompleteProject({
               tags.map((tag) => {
                 return (
                   <div className="flex" key={tag}>
-                    <p className="bg-prim-4 rounded-3xl px-5 py-2 text-prim-1 font-league text-lg hover:scale-105 ease-in-out duration-200 transition">
+                    <p className="bg-prim-4 rounded-3xl px-5 py-2 text-white dark:text-prim-1 font-league text-lg hover:scale-105 ease-in-out duration-200 transition">
                       {tag}
                     </p>
                   </div>
@@ -76,14 +80,14 @@ export default function CompleteProject({
         <section className="flex h-full justify-end flex-col order-3">
           {copied ? (
             <p
-              className="text-prim-1 bg-prim-6 w-40 text-center py-3 rounded-2xl font-semibold text-xl hover:cursor-pointer hover:scale-105 duration-200 transition ease-in-out"
+              className="text-white dark:text-prim-1 bg-prim-6 w-40 text-center py-3 rounded-2xl font-semibold text-xl hover:cursor-pointer hover:scale-105 duration-200 transition ease-in-out"
               onClick={() => clipboardAframe()}
             >
               Copied
             </p>
           ) : (
             <p
-              className="text-prim-1 bg-prim-5 w-40 text-center py-3 rounded-2xl font-semibold text-xl hover:cursor-pointer hover:scale-105 duration-200 transition ease-in-out"
+              className="text-white dark:text-prim-1 bg-prim-5 w-40 text-center py-3 rounded-2xl font-semibold text-xl hover:cursor-pointer hover:scale-105 duration-200 transition ease-in-out"
               onClick={() => clipboardAframe()}
             >
               Copy Project

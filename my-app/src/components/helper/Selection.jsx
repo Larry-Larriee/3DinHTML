@@ -133,7 +133,10 @@ export default function Selection({
   useEffect(() => {
     if (selectionFocus === title && titleRef.current)
       titleRef.current.style.color = titleColors[svg];
-    else titleRef.current.style.color = "#deded6";
+    else if (localStorage.getItem("theme") === "dark")
+      titleRef.current.style.color = "#deded6";
+    else if (localStorage.getItem("theme") === "light")
+      titleRef.current.style.color = "#202127";
   }, [selectionFocus, title, svg]);
 
   return (

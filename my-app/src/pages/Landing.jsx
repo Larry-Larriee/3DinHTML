@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import Demo1 from "../components/aframe/Demo1";
 import Project from "../components/aframe/Project";
@@ -42,7 +42,7 @@ function App() {
           viewBox="0 0 24 24"
           strokeWidth={1}
           stroke="currentColor"
-          className="w-12 h-12 hover:cursor-pointer hover:rotate-180 text-prim-2 duration-1000 transition ease-in-out dark:text-white hover:text-yellow-400"
+          className="w-12 h-12 hover:cursor-pointer hover:rotate-180 text-prim-2 duration-1000 transition ease-in-out dark:text-white hover:text-yellow-400 active:text-orange-500"
           onClick={() => toggleTheme()}
         >
           <path
@@ -81,7 +81,7 @@ function App() {
         <Demo1 />
       </section>
 
-      <section className="flex w-full justify-center xl:mb-12 flex-col gap-16 xl:gap-28 items-center py-16 bg-sec-1 dark:bg-prim-2">
+      <section className="flex w-full justify-center xl:mb-12 flex-col gap-16 xl:gap-28 items-center py-16 bg-sec-3 dark:bg-prim-2">
         <article className="flex flex-col w-10/12 gap-5">
           <h1 className="text-prim-2 dark:text-prim-1 text-center font-semibold text-5xl xl:text-5xxl">
             Hundreds of projects
@@ -203,7 +203,7 @@ function App() {
       </section>
 
       <footer className="relative w-full">
-        <p className="text-white text-base font-league absolute left-5 bottom-2">
+        <p className="text-prim-2 dark:text-white text-base font-league absolute left-5 bottom-2">
           ©2024 Larry Le MIT License
         </p>
       </footer>

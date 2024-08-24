@@ -43,7 +43,7 @@ export default function Demo() {
       )}
 
       {toolTip && (
-        <p className="absolute z-1 -bottom-10 font-league text-prim-1 animate-pulse text-xl">
+        <p className="absolute z-1 -bottom-10 font-league text-prim-2 dark:text-prim-1 animate-pulse text-xl">
           by Kevin Ngo and Diego Marcos
         </p>
       )}

@@ -27,13 +27,15 @@ export default function Navigation() {
   };
 
   return (
-    <nav className="w-full flex-none border-b-2 flex gap-3 py-3 justify-between px-12 items-center bg-prim-2">
+    <nav className="w-full flex-none flex gap-3 py-3 justify-between px-12 items-center bg-sec-1 dark:bg-prim-2">
       <div
         className="flex gap-3 items-center hover:cursor-pointer"
         onClick={() => openLanding()}
       >
-        <h1 className="text-prim-1 text-4xl font-lemon">3D</h1>
-        <p className="text-prim-1 text-2xl font-league">in HTML</p>
+        <h1 className="text-prim-2 dark:text-prim-1 text-4xl font-lemon">3D</h1>
+        <p className="text-prim-2 dark:text-prim-1 text-2xl font-league">
+          in HTML
+        </p>
       </div>
 
       <svg
@@ -41,8 +43,8 @@ export default function Navigation() {
         fill="none"
         viewBox="0 0 24 24"
         strokeWidth={1.5}
-        stroke="#deded6"
-        className="h-12 w-12 hover:cursor-pointer hover:scale-105 duration-200 transition ease-in-out"
+        stroke="currentColor"
+        className="h-12 w-12 hover:cursor-pointer hover:scale-105 duration-200 transition ease-in-out dark:text-prim-1 text-prim-2"
         onClick={() => changeMenuOpen()}
       >
         <path
@@ -59,10 +61,10 @@ export default function Navigation() {
           className="fixed inset-0 w-screen h-screen"
         >
           <DialogPanel
-            className="flex flex-col gap-8 absolute bg-prim-3 left-0 w-80 h-screen z-30 opacity-0"
+            className="flex flex-col gap-8 absolute bg-light-mode dark:bg-prim-3 left-0 w-80 h-screen z-30 opacity-0"
             ref={menu}
           >
-            <DialogTitle className="text-prim-1 text-4xl pt-9 pl-10 font-lemon">
+            <DialogTitle className="text-prim-2 dark:text-prim-1 text-4xl pt-9 pl-10 font-lemon">
               Menu
             </DialogTitle>
 
@@ -70,7 +72,7 @@ export default function Navigation() {
               <li>
                 <a
                   href="/"
-                  className="hover:scale-105 duration-200 ease-in-out transition font-league text-xl text-prim-1"
+                  className="hover:scale-105 duration-200 ease-in-out transition font-league text-xl text-prim-2 dark:text-prim-1"
                 >
                   Home
                 </a>
@@ -78,7 +80,7 @@ export default function Navigation() {
               <li>
                 <a
                   href="/account"
-                  className="hover:scale-105 duration-200 ease-in-out transition font-league text-xl text-prim-1"
+                  className="hover:scale-105 duration-200 ease-in-out transition font-league text-xl text-prim-2 dark:text-prim-1"
                 >
                   Account
                 </a>
@@ -86,7 +88,7 @@ export default function Navigation() {
               <li>
                 <a
                   href="/explore"
-                  className="hover:scale-105 duration-200 ease-in-out transition font-league text-xl text-prim-1"
+                  className="hover:scale-105 duration-200 ease-in-out transition font-league text-xl text-prim-2 dark:text-prim-1"
                 >
                   Explore
                 </a>
@@ -94,7 +96,7 @@ export default function Navigation() {
               <li>
                 <a
                   href="/contribute"
-                  className="hover:scale-105 duration-200 ease-in-out transition font-league text-xl text-prim-1"
+                  className="hover:scale-105 duration-200 ease-in-out transition font-league text-xl text-prim-2 dark:text-prim-1"
                 >
                   Contribute
                 </a>

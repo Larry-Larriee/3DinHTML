@@ -16,7 +16,7 @@ export default function Loading({ projects, changeMaxProjects }) {
         <div className="flex">
           <p
             onClick={() => changeMaxProjects()}
-            className="px-5 py-3 bg-prim-5 text-xl rounded-xl text-prim-1 font-semibold hover:cursor-pointer duration-200 ease-in-out transition hover:scale-105"
+            className="px-5 py-3 bg-prim-5 text-xl rounded-xl text-white dark:text-prim-1 font-semibold hover:cursor-pointer duration-200 ease-in-out transition hover:scale-105"
           >
             Load More Projects
           </p>

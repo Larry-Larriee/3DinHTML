@@ -14,7 +14,7 @@ export default function Project({ aframe, size = "small" }) {
     <>
       {size === "small" && (
         <iframe
-          className="w-32 h-24 lg:w-64 lg:h-48 xl:w-72 xl:h-64 bg-white"
+          className="w-32 h-24 lg:w-64 lg:h-48 xl:w-72 xl:h-64 bg-white rounded-lg"
           srcDoc={header + aframe}
         ></iframe>
       )}
