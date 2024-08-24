@@ -22,7 +22,25 @@ function App() {
     if (localStorage.getItem("theme") === "dark")
       localStorage.setItem("theme", "light");
     else localStorage.setItem("theme", "dark");
+
+    console.log("toggled");
   };
+
+  // mounting theme through react instead of index.html
+  // useEffect(() => {
+  //   if (!localStorage.getItem("theme")) localStorage.setItem("theme", "dark");
+
+  //   const mountTheme = () => {
+  //     const body = document.body;
+
+  //     if (body.classList.contains("dark")) body.classList.remove("dark");
+  //     if (body.classList.contains("light")) body.classList.remove("light");
+
+  //     body.classList.add(localStorage.getItem("theme"));
+  //   };
+
+  //   mountTheme();
+  // }, []);
 
   return (
     <div className="flex w-full items-center gap-20 flex-col">
