@@ -4,6 +4,7 @@ import Selection from "../components/helper/Selection";
 import CompleteProject from "../components/aframe/CompleteProject";
 import Navigation from "../components/Navigation";
 import Loading from "../components/Loading";
+import UseTheme from "../components/hooks/UseTheme";
 
 import RenderAllProjects from "../components/RenderAllProjects";
 
@@ -47,6 +48,8 @@ export default function Explore() {
   const changeSearch = () => {
     setSearch(searchRef.current.value);
   };
+
+  let { theme, toggleTheme } = UseTheme();
 
   return (
     <>

@@ -18,19 +18,19 @@ export default function Step({ number, title, cycle }) {
       <section className="flex items-center gap-6 hover:scale-105 duration-200 ease-in-out transition hover:cursor-default">
         {cycle === number ? (
           <>
-            <p className="text-prim-1 text-xl xl:text-2xl font-bold font-league min-w-5">
+            <p className="text-prim-2 dark:text-prim-1 text-xl xl:text-2xl font-bold font-league min-w-5">
               {number}
             </p>
-            <p className="text-prim-1 text-xl xl:text-2xl font-bold font-league">
+            <p className="text-prim-2 dark:text-prim-1 text-xl xl:text-2xl font-bold font-league">
               {title}
             </p>
           </>
         ) : (
           <>
-            <p className="text-prim-1 text-xl xl:text-2xl font-league min-w-5">
+            <p className="text-prim-2 dark:text-prim-1 text-xl xl:text-2xl font-league min-w-5">
               {number}
             </p>
-            <p className="text-prim-1 text-xl xl:text-2xl font-league">
+            <p className="text-prim-2 dark:text-prim-1 text-xl xl:text-2xl font-league">
               {title}
             </p>
           </>

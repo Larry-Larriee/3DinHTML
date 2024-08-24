@@ -8,6 +8,7 @@ import UploadImage from "../components/aframe/UploadImages";
 import ProjectDescription from "../components/aframe/ProjectDescription";
 import Credits from "../components/aframe/Credits";
 import Tags from "../components/aframe/Tags";
+import UseTheme from "../components/hooks/UseTheme";
 
 export default function Contribute() {
   let [userAframe, setUserAframe] = useState("");
@@ -41,14 +42,23 @@ export default function Contribute() {
   let [tags, setTags] = useState([]);
   const changeTags = (ref) => {
     if (tags.includes(ref.current.innerText)) {
-      // if the tag is not equal to the target tag, keep it in the new array
+      // if the tag is not equal to the target tag, keep it in the new array. in other words, remove the target tag from the array when the user clicks it again
       setTags(tags.filter((tag) => tag !== ref.current.innerText));
-      ref.current.style.backgroundColor = "#2b2f36";
+      if (localStorage.getItem("theme") === "dark") {
+        ref.current.style.backgroundColor = "#2b2f36";
+        ref.current.style.color = "#ffffff";
+      }
+      if (localStorage.getItem("theme") === "light") {
+        ref.current.style.backgroundColor = "#d9d9d9";
+        ref.current.style.color = "#2b2f36";
+      }
+
       return;
     }
 
     setTags([...tags, ref.current.innerText]);
     ref.current.style.backgroundColor = "#15803d";
+    ref.current.style.color = "#ffffff";
   };
   const tagOneRef = useRef();
   const tagTwoRef = useRef();
@@ -149,13 +159,15 @@ export default function Contribute() {
     // new content is loaded into the DOM when the user changes cycles, causing the useEffect to run
   });
 
+  let { theme, toggleTheme } = UseTheme();
+
   return (
     <>
       <div className="flex w-full flex-col gap-12">
         <Navigation />
 
         <div className="w-full flex items-center justify-center gap-16 px-12 flex-col xl:flex-row">
-          <article className="w-full xl:w-96 h-auto xl:h-full flex-none lg:flex lg:flex-col gap-6 xl:gap-12 bg-prim-2 rounded-xl py-10 xl:pt-10 pl-8 relative hidden">
+          <article className="w-full xl:w-96 h-auto xl:h-full flex-none lg:flex lg:flex-col gap-6 xl:gap-12 xl:bg-sec-1 dark:xl:bg-prim-2 rounded-xl py-10 xl:pt-10 pl-8 relative hidden shadow-md dark:shadow-none">
             <Step number={1} title={"Uploading Code"} cycle={cycle} />
             <Step number={2} title={"Uploading Images"} cycle={cycle} />
             <Step number={3} title={"Description"} cycle={cycle} />
@@ -166,9 +178,9 @@ export default function Contribute() {
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
-              strokeWidth={1.25}
-              stroke="#deded6"
-              className="absolute w-40 -z-10 h-40 -top-12 -right-12"
+              strokeWidth={1}
+              stroke="currentColor"
+              className="absolute w-40 -z-10 h-40 -top-12 -right-12 text-prim-2 dark:text-prim-1"
             >
               <path
                 strokeLinecap="round"

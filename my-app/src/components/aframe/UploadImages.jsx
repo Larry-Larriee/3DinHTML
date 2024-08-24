@@ -22,14 +22,14 @@ export default function UploadImage({
 }) {
   return (
     <>
-      <section className="xl:bg-prim-2 flex w-full min-h-250 xl:px-16 xl:py-10 flex-col gap-8 rounded-xl relative">
-        <h1 className="font-bold text-3xl xl:text-4xxl text-prim-1 font-league">
+      <section className="xl:bg-sec-1 dark:shadow-none shadow-md dark:xl:bg-prim-2 flex w-full min-h-250 xl:px-16 xl:py-10 flex-col gap-8 rounded-xl relative">
+        <h1 className="font-bold text-3xl xl:text-4xxl text-prim-2 dark:text-prim-1 font-league">
           Uploading Images
         </h1>
-        <p className="font-league text-prim-1 text-xl xl:text-2xl">
+        <p className="font-league text-prim-2 dark:text-prim-1 text-xl xl:text-2xl">
           If uploading images doesn&apos;t apply to you, skip to step 3!
         </p>
-        <p className="font-league text-prim-1 text-lg xl:text-xl">
+        <p className="font-league text-prim-2 dark:text-prim-1 text-lg xl:text-xl">
           If you&apos;re pasting assets which go into your folder (i.e.
           images/background.png), please upload that exact image here.
         </p>
@@ -38,19 +38,18 @@ export default function UploadImage({
         {/* this means it will take up all available space if possible or shrink if required */}
         <div className="flex flex-grow-0 gap-5 items-center">
           <Dropzone
-            // onDrop={(acceptedFiles) => console.log(acceptedFiles)}
             onDrop={(acceptedFiles) => changeImageUpload(acceptedFiles)}
           >
             {/* getRootProps provides the nessessary props to the div like onDragOver */}
             {/* getInputProps provides the nessessary props to the input like onChange */}
             {({ getRootProps, getInputProps }) => (
               <div
-                className="flex w-full min-h-56 border-4 border-dashed border-white bg-prim-3 hover:cursor-pointer gap-3 p-3 flex-wrap"
+                className="flex w-full min-h-56 border-4 border-dashed border-prim-2 dark:border-white bg-none dark:bg-prim-3 hover:cursor-pointer gap-3 p-3 flex-wrap"
                 {...getRootProps()}
               >
                 <input {...getInputProps()} />
                 {imageUpload.length === 0 && (
-                  <p className="leading-56 text-prim-1 xl:text-xl w-full px-4 text-center text-lg">
+                  <p className="leading-56 text-prim-2 dark:text-prim-1 xl:text-xl w-full px-4 text-center text-lg">
                     Drag and drop your assets here, or click to select files
                   </p>
                 )}

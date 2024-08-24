@@ -168,3 +168,9 @@
     color: var(--primary-color-2);
   }
 }
+
+@layer utilities {
+  .border-prim-2 {
+    border-color: var(--primary-color-2);
+  }
+}

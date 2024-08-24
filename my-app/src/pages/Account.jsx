@@ -93,6 +93,8 @@ export default function Contribute() {
       });
   }, [serverURL, cookieExists]);
 
+  let { theme, toggleTheme } = UseTheme();
+
   return (
     <>
       <div className="flex w-full flex-col items-center gap-12">
