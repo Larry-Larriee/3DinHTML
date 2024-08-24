@@ -3,6 +3,7 @@
 
 :root {
   --primary-background-color: #1b1b1f;
+  --secondary-background-color: #f9f9fa;
   --primary-color-1: #deded6;
   --primary-color-2: #202127;
   --primary-color-3: #26282f;
@@ -20,8 +21,6 @@ body {
   margin: 0;
   display: flex;
   place-items: center;
-
-  background-color: var(--primary-background-color);
 }
 
 pre {

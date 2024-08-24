@@ -6,12 +6,24 @@
 @tailwind utilities;
 
 :root {
+  --primary-background-color: #1b1b1f;
   --primary-color-1: #deded6;
   --primary-color-2: #202127;
   --primary-color-3: #26282f;
   --primary-color-4: #2b2f36;
   --primary-color-5: #ce4a00;
   --primary-color-6: #15803d;
+  --secondary-background-color: #f9f9fa;
+  --secondary-color-1: #f5f5f5;
+}
+
+@layer utilities {
+  .bg-dark-mode {
+    background-color: var(--primary-background-color);
+  }
+  .bg-light-mode {
+    background-color: var(--secondary-background-color);
+  }
 }
 
 .a-enter-vr-button {
@@ -39,6 +51,9 @@
   }
   .bg-prim-6 {
     background-color: var(--primary-color-6);
+  }
+  .bg-sec-1 {
+    background-color: var(--secondary-color-1);
   }
 }
 
