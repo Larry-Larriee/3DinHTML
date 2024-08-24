@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import Demo1 from "../components/aframe/Demo1";
 import Project from "../components/aframe/Project";
 
 import aFrameLogo from "../assets/aframe-logo.png";
 import EditorUI from "../components/helper/EditorUI";
+import UseTheme from "../components/hooks/UseTheme";
 
 function App() {
   let openAFrame = () => {
@@ -17,33 +18,33 @@ function App() {
     window.location.href = "/contribute";
   };
 
-  // the theme should have already been set to dark by default through index.html, so we can toggle here
-  let toggleTheme = () => {
-    if (localStorage.getItem("theme") === "dark")
-      localStorage.setItem("theme", "light");
-    else localStorage.setItem("theme", "dark");
+  const topLevelRef = useRef(null);
+  // let { theme, setTheme } = UseTheme(topLevelRef);
+  let [theme, setTheme] = useState("dark");
 
-    console.log("toggled");
+  // for whatever reason the useEffect is slower than react rendering the topLevelRef, so this code works on the main page but making a hook out of it doesn't work
+  useEffect(() => {
+    if (topLevelRef.current.classList.contains("dark"))
+      topLevelRef.current.classList.remove("dark");
+    if (topLevelRef.current.classList.contains("light"))
+      topLevelRef.current.classList.remove("light");
+
+    topLevelRef.current.classList.add(theme);
+
+    if (topLevelRef.current.classList.contains("light"))
+      document.body.style.backgroundColor = "#f9f9fa";
+    else document.body.style.backgroundColor = "#1B1B1F";
+  }, [theme, topLevelRef]);
+
+  // thanks to tailwind, the dark class of the parent trickles down to the children (we don't need to pass the theme state to children)
+  // the only expection is the iframe, which uses srcdoc and therefores doesn't have tailwind capabilities, so we can pass the theme state to it and thats it
+  let toggleTheme = () => {
+    if (theme === "dark") setTheme("light");
+    else setTheme("dark");
   };
 
-  // mounting theme through react instead of index.html
-  // useEffect(() => {
-  //   if (!localStorage.getItem("theme")) localStorage.setItem("theme", "dark");
-
-  //   const mountTheme = () => {
-  //     const body = document.body;
-
-  //     if (body.classList.contains("dark")) body.classList.remove("dark");
-  //     if (body.classList.contains("light")) body.classList.remove("light");
-
-  //     body.classList.add(localStorage.getItem("theme"));
-  //   };
-
-  //   mountTheme();
-  // }, []);
-
   return (
-    <div className="flex w-full items-center gap-20 flex-col">
+    <div ref={topLevelRef} className="flex w-full items-center gap-20 flex-col">
       <nav className="w-10/12 flex pt-10 justify-between items-center">
         <div className="flex gap-3 items-center">
           <h1 className="text-prim-2 dark:text-prim-1 text-6xl font-lemon">
@@ -96,7 +97,7 @@ function App() {
           </article>
         </div>
 
-        <Demo1 />
+        <Demo1 theme={theme} />
       </section>
 
       <section className="flex w-full justify-center xl:mb-12 flex-col gap-16 xl:gap-28 items-center py-16 bg-sec-3 dark:bg-prim-2">

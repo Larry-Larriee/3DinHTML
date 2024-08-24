@@ -1,9 +1,14 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect, useRef } from "react";
 import "../../App.css";
+import propTypes from "prop-types";
+
+Demo.propTypes = {
+  theme: propTypes.string.isRequired,
+};
 
 // aframe does not need to be installed because it is imported in index.html
-export default function Demo() {
+export default function Demo({ theme }) {
   const [toolTip, setToolTip] = useState(false);
 
   let changeToolTip = () => {
@@ -22,7 +27,7 @@ export default function Demo() {
     >
       {/* the embedded property of a-scene removes the default full-screen canvas render */}
 
-      {localStorage.getItem("theme") === "dark" && (
+      {theme === "dark" && (
         <iframe
           className="w-full h-full"
           srcDoc={
@@ -32,7 +37,7 @@ export default function Demo() {
         ></iframe>
       )}
 
-      {localStorage.getItem("theme") === "light" && (
+      {theme === "light" && (
         <iframe
           className="w-full h-full"
           srcDoc={
