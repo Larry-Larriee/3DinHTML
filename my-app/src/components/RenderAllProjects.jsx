@@ -24,74 +24,79 @@ export default function RenderAllProjects({
     return 450;
   };
 
+  // renderedProjects is the array of projects that the list will render. when the user searches, the value is updated and the component will rerender
+  // renderedProjects is also tag aware, meaning that clicking on a section containing isTagSpecific will also update renderedProjects
+  const [renderedProjects, setRenderedProjects] = useState(projects);
+
+  useEffect(() => {
+    if (isTagSpecific === false) {
+      let newRenderedProjects = [];
+
+      for (let i = 0; i < projects.length; i += 1) {
+        if (
+          projects[i].metaData.title
+            .toLocaleLowerCase()
+            .includes(search.toLocaleLowerCase())
+        ) {
+          newRenderedProjects.push(projects[i]);
+        }
+      }
+
+      setRenderedProjects(newRenderedProjects);
+    }
+
+    if (isTagSpecific === true) {
+      let newRenderedProjects = [];
+
+      for (let i = 0; i < projects.length; i += 1) {
+        if (
+          projects[i].metaData.title
+            .toLocaleLowerCase()
+            .includes(search.toLocaleLowerCase()) &&
+          projects[i].metaData.tags &&
+          projects[i].metaData.tags.includes(tag)
+        ) {
+          newRenderedProjects.push(projects[i]);
+        }
+      }
+
+      setRenderedProjects(newRenderedProjects);
+    }
+  }, [search, projects, isTagSpecific, tag]);
+
+  useEffect(() => {
+    console.log(renderedProjects);
+  }, [renderedProjects]);
+
   return (
-    <div className="w-full h-full">
-      {isTagSpecific === true && (
-        <List
-          itemCount={projects.length}
-          height={500}
-          width={500}
-          itemSize={projectHeight}
-          className="w-full-important h-144"
-        >
-          {({ index, style }) => {
-            if (
-              projects[index].metaData.tags &&
-              projects[index].metaData.title
-                .toLowerCase()
-                .includes(search.toLocaleLowerCase())
-            ) {
-              for (let i = 0; i < projects[index].metaData.tags.length; i++) {
-                if (projects[index].metaData.tags[i] === tag) {
-                  return (
-                    <div style={style}>
-                      <CompleteProject
-                        key={projects[index]._id}
-                        aframe={projects[index].aframe}
-                        title={projects[index].metaData.title}
-                        name={projects[index].metaData.name}
-                        description={projects[index].metaData.description}
-                        tags={projects[index].metaData.tags}
-                      />
-                    </div>
-                  );
-                }
-              }
-            }
-          }}
-        </List>
-      )}
-      {isTagSpecific === false && (
-        // by default, the width and height of the list will be 500px
-        <List
-          itemCount={projects.length}
-          height={500}
-          width={500}
-          itemSize={projectHeight}
-          className="w-full-important h-136"
-        >
-          {/* style prop is needed as the list attaches the elements into the DOM */}
-          {({ index, style }) => {
-            if (
-              projects[index].metaData.title
-                .toLowerCase()
-                .includes(search.toLocaleLowerCase())
-            ) {
+    <>
+      {renderedProjects && (
+        <div className="w-full h-full">
+          <List
+            itemCount={renderedProjects.length}
+            height={500}
+            width={500}
+            itemSize={projectHeight}
+            className="w-full-important h-144"
+          >
+            {/* style prop is needed as the list attaches the elements into the DOM */}
+            {({ index, style }) => {
               return (
-                <div style={style} key={projects[index]._id}>
+                <div style={style}>
                   <CompleteProject
-                    aframe={projects[index].aframe}
-                    title={projects[index].metaData.title}
-                    name={projects[index].metaData.name}
-                    description={projects[index].metaData.description}
-                    tags={projects[index].metaData.tags}
+                    key={renderedProjects[index]._id}
+                    aframe={renderedProjects[index].aframe}
+                    title={renderedProjects[index].metaData.title}
+                    name={renderedProjects[index].metaData.name}
+                    description={renderedProjects[index].metaData.description}
+                    tags={renderedProjects[index].metaData.tags}
                   />
                 </div>
               );
-            }
-          }}
-        </List>
+            }}
+          </List>
+        </div>
       )}
-    </div>
+    </>
   );
 }
