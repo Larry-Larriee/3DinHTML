@@ -111,16 +111,22 @@
 
 @layer utilities {
   .w-144 {
-    width: 30rem;
+    width: 30rem !important;
   }
   .w-192 {
-    width: 36rem;
+    width: 36rem !important;
   }
   .max-h-144 {
-    max-height: 30rem;
+    max-height: 30rem !important;
   }
   .min-h-250 {
-    min-height: 40rem;
+    min-height: 40rem !important;
+  }
+  .w-full-important {
+    width: 100% !important;
+  }
+  .h-full-important {
+    height: 100% !important;
   }
 }
 

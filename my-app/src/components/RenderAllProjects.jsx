@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import { VariableSizeList as List } from "react-window";
 
 RenderAllProjects.propTypes = {
   projects: PropTypes.array.isRequired,
@@ -23,31 +24,35 @@ export default function RenderAllProjects({
 }) {
   // code that will use scroll position of the user to determine when to render more aframe projects
   // to do this, instead of the projects array being mapped, a separate array, which will be updated with more and more projects as the user scrolls, will be mapped
-  const [renderedProjects, setRenderedProjects] = useState([]); // this will be the array that will be mapped. assumes at least 3 projects are in the database (which there will be)
+  // const [renderedProjects, setRenderedProjects] = useState([]); // this will be the array that will be mapped. assumes at least 3 projects are in the database (which there will be)
 
-  // initialize projects array with the first three projects
-  useEffect(() => {
-    if (renderedProjects.length === 0 && projects) {
-      setRenderedProjects([projects[0], projects[1], projects[2]]);
-      console.log(renderedProjects);
-    }
-  }, [projects, renderedProjects]);
+  // // initialize projects array with the first three projects
+  // useEffect(() => {
+  //   if (renderedProjects.length === 0 && projects) {
+  //     setRenderedProjects([projects[0], projects[1], projects[2]]);
+  //     console.log(renderedProjects);
+  //   }
+  // }, [projects, renderedProjects]);
 
-  useEffect(() => {
-    try {
-      if (currentScrollPos > 0.7) {
-        setRenderedProjects([
-          ...renderedProjects,
-          projects[renderedProjects.length],
-        ]); // render one new project at a time
-      }
-    } catch (err) {
-      console.log("we may have reached the end of the projects array");
-    }
-  }, [currentScrollPos, projects, renderedProjects]);
+  // useEffect(() => {
+  //   try {
+  //     if (currentScrollPos > 0.7) {
+  //       setRenderedProjects([
+  //         ...renderedProjects,
+  //         projects[renderedProjects.length],
+  //       ]); // render one new project at a time
+  //     }
+  //   } catch (err) {
+  //     console.log("we may have reached the end of the projects array");
+  //   }
+  // }, [currentScrollPos, projects, renderedProjects]);
+
+  const projectHeight = () => {
+    return 500;
+  };
 
   return (
-    <>
+    <div className="w-full h-full">
       {isTagSpecific === true &&
         projects.map((project) => {
           if (
@@ -72,8 +77,7 @@ export default function RenderAllProjects({
             }
           }
         })}
-
-      {isTagSpecific === false &&
+      {/* {isTagSpecific === false &&
         projects.map((project) => {
           if (
             project.metaData.title
@@ -91,7 +95,32 @@ export default function RenderAllProjects({
               />
             );
           }
-        })}
-    </>
+        })} */}
+
+      {isTagSpecific === false && (
+        // by default, the width and height of the list will be 500px
+        <List
+          itemCount={projects.length}
+          height={500}
+          width={500}
+          itemSize={projectHeight}
+          className="w-full-important min-h-250"
+        >
+          {/* style prop is needed as the list attaches the elements into the DOM */}
+          {({ index, style }) => (
+            <div style={style}>
+              <CompleteProject
+                key={projects[index]._id}
+                aframe={projects[index].aframe}
+                title={projects[index].metaData.title}
+                name={projects[index].metaData.name}
+                description={projects[index].metaData.description}
+                tags={projects[index].metaData.tags}
+              />
+            </div>
+          )}
+        </List>
+      )}
+    </div>
   );
 }
