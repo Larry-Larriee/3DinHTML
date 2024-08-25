@@ -6,6 +6,7 @@ RenderAllProjects.propTypes = {
   tag: PropTypes.string,
   search: PropTypes.string.isRequired,
   isTagSpecific: PropTypes.bool,
+  currentScrollPos: PropTypes.number.isRequired,
 };
 
 import CompleteProject from "./aframe/CompleteProject";
@@ -18,9 +19,32 @@ export default function RenderAllProjects({
   tag,
   search,
   isTagSpecific = true,
+  currentScrollPos,
 }) {
   // code that will use scroll position of the user to determine when to render more aframe projects
   // to do this, instead of the projects array being mapped, a separate array, which will be updated with more and more projects as the user scrolls, will be mapped
+  const [renderedProjects, setRenderedProjects] = useState([]); // this will be the array that will be mapped. assumes at least 3 projects are in the database (which there will be)
+
+  // initialize projects array with the first three projects
+  useEffect(() => {
+    if (renderedProjects.length === 0 && projects) {
+      setRenderedProjects([projects[0], projects[1], projects[2]]);
+      console.log(renderedProjects);
+    }
+  }, [projects, renderedProjects]);
+
+  useEffect(() => {
+    try {
+      if (currentScrollPos > 0.7) {
+        setRenderedProjects([
+          ...renderedProjects,
+          projects[renderedProjects.length],
+        ]); // render one new project at a time
+      }
+    } catch (err) {
+      console.log("we may have reached the end of the projects array");
+    }
+  }, [currentScrollPos, projects, renderedProjects]);
 
   return (
     <>

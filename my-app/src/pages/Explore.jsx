@@ -39,15 +39,30 @@ export default function Explore() {
   let { theme, toggleTheme } = UseTheme();
 
   const [currentScrollPos, setCurrentScrollPos] = useState(0);
+  const [maxPageHeight, setMaxPageHeight] = useState(0);
 
   // get the current scroll position of the user everytime they scroll, which will be used to determine when to render more projects
   useEffect(() => {
-    window.addEventListener("scroll", setCurrentScrollPos(window.scrollY));
+    window.addEventListener("scroll", () =>
+      setCurrentScrollPos(window.scrollY)
+    );
 
     return () => {
-      window.removeEventListener("scroll", setCurrentScrollPos(window.scrollY));
+      window.removeEventListener("scroll", () =>
+        setCurrentScrollPos(window.scrollY)
+      );
     };
   }, []);
+
+  useEffect(() => {
+    console.log(
+      currentScrollPos,
+      // body.scroll is the height of the entire page, while innerheight is the height of the window screen
+      // combining the two gives an accurate representation of the entire page height with respect to scrolling
+      document.body.scrollHeight - window.innerHeight,
+      currentScrollPos / (document.body.scrollHeight - window.innerHeight) + "%"
+    );
+  }, [currentScrollPos]);
 
   return (
     <>
@@ -133,6 +148,7 @@ export default function Explore() {
                   projects={projects}
                   search={search}
                   isTagSpecific={false}
+                  currentScrollPos={currentScrollPos}
                 />
               )}
 
