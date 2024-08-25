@@ -10,28 +10,5 @@
   <body class="bg-light-mode dark:bg-dark-mode">
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
-
-    <!-- <script>
-      // the first time the user enters the site, the theme will be set to dark
-      if (!localStorage.getItem("theme")) localStorage.setItem("theme", "dark");
-
-      // by adding a dark class to the body, we change the theme of all css selectors with the dark: prefix
-      // note that this only runs once, which is on mount
-      document.body.classList.add(localStorage.getItem("theme"));
-
-      window.addEventListener("storage", (event) => {
-        console.log(event.key);
-
-        // event key is the key that had its value modfied
-        if (event.key === "theme") {
-          const body = document.body;
-
-          if (body.classList.contains("dark")) body.classList.remove("dark");
-          if (body.classList.contains("light")) body.classList.remove("light");
-
-          body.classList.add(localStorage.getItem("theme"));
-        }
-      });
-    </script> -->
   </body>
 </html>

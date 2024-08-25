@@ -107,7 +107,19 @@ app.post("/api/contribute", async (req, res) => {
 
     // code that looks at all the server urls and adds the appropriate image file name to the end of the url
     // this code also needs to make sure not add the same image file name twice in the aframe
+    // ex. ["<a-assets><img", "'55b3d6f5b968b5d670d5a60ef801c8a0.png'></a-assets>" ]
+    let aframeAssetsSplit = contribution.aframe.split("filename=");
+
+    for (let i = 0; i < images.lengthl; i += 1) {
+      aframeAssetsSplit.splice(
+        i * 2 + 1,
+        0,
+        `filename=${images[i].originalname}`
+      );
+    }
   }
+
+  contribution.aframe = aframeAssetsSplit.join("");
 
   const projects = client
     .db(process.env.DATABASE)
