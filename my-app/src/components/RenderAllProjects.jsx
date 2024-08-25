@@ -7,7 +7,6 @@ RenderAllProjects.propTypes = {
   tag: PropTypes.string,
   search: PropTypes.string.isRequired,
   isTagSpecific: PropTypes.bool,
-  currentScrollPos: PropTypes.number.isRequired,
 };
 
 import CompleteProject from "./aframe/CompleteProject";
@@ -20,83 +19,48 @@ export default function RenderAllProjects({
   tag,
   search,
   isTagSpecific = true,
-  currentScrollPos,
 }) {
-  // code that will use scroll position of the user to determine when to render more aframe projects
-  // to do this, instead of the projects array being mapped, a separate array, which will be updated with more and more projects as the user scrolls, will be mapped
-  // const [renderedProjects, setRenderedProjects] = useState([]); // this will be the array that will be mapped. assumes at least 3 projects are in the database (which there will be)
-
-  // // initialize projects array with the first three projects
-  // useEffect(() => {
-  //   if (renderedProjects.length === 0 && projects) {
-  //     setRenderedProjects([projects[0], projects[1], projects[2]]);
-  //     console.log(renderedProjects);
-  //   }
-  // }, [projects, renderedProjects]);
-
-  // useEffect(() => {
-  //   try {
-  //     if (currentScrollPos > 0.7) {
-  //       setRenderedProjects([
-  //         ...renderedProjects,
-  //         projects[renderedProjects.length],
-  //       ]); // render one new project at a time
-  //     }
-  //   } catch (err) {
-  //     console.log("we may have reached the end of the projects array");
-  //   }
-  // }, [currentScrollPos, projects, renderedProjects]);
-
   const projectHeight = () => {
-    return 500;
+    return 450;
   };
 
   return (
     <div className="w-full h-full">
-      {isTagSpecific === true &&
-        projects.map((project) => {
-          if (
-            project.metaData.tags &&
-            project.metaData.title
-              .toLowerCase()
-              .includes(search.toLocaleLowerCase())
-          ) {
-            for (let i = 0; i < project.metaData.tags.length; i++) {
-              if (project.metaData.tags[i] === tag) {
-                return (
-                  <CompleteProject
-                    key={project._id}
-                    aframe={project.aframe}
-                    title={project.metaData.title}
-                    name={project.metaData.name}
-                    description={project.metaData.description}
-                    tags={project.metaData.tags}
-                  />
-                );
+      {isTagSpecific === true && (
+        <List
+          itemCount={projects.length}
+          height={500}
+          width={500}
+          itemSize={projectHeight}
+          className="w-full-important h-144"
+        >
+          {({ index, style }) => {
+            if (
+              projects[index].metaData.tags &&
+              projects[index].metaData.title
+                .toLowerCase()
+                .includes(search.toLocaleLowerCase())
+            ) {
+              for (let i = 0; i < projects[index].metaData.tags.length; i++) {
+                if (projects[index].metaData.tags[i] === tag) {
+                  return (
+                    <div style={style}>
+                      <CompleteProject
+                        key={projects[index]._id}
+                        aframe={projects[index].aframe}
+                        title={projects[index].metaData.title}
+                        name={projects[index].metaData.name}
+                        description={projects[index].metaData.description}
+                        tags={projects[index].metaData.tags}
+                      />
+                    </div>
+                  );
+                }
               }
             }
-          }
-        })}
-      {/* {isTagSpecific === false &&
-        projects.map((project) => {
-          if (
-            project.metaData.title
-              .toLowerCase()
-              .includes(search.toLocaleLowerCase())
-          ) {
-            return (
-              <CompleteProject
-                key={project._id}
-                aframe={project.aframe}
-                title={project.metaData.title}
-                name={project.metaData.name}
-                description={project.metaData.description}
-                tags={project.metaData.tags}
-              />
-            );
-          }
-        })} */}
-
+          }}
+        </List>
+      )}
       {isTagSpecific === false && (
         // by default, the width and height of the list will be 500px
         <List
@@ -104,21 +68,28 @@ export default function RenderAllProjects({
           height={500}
           width={500}
           itemSize={projectHeight}
-          className="w-full-important min-h-250"
+          className="w-full-important h-136"
         >
           {/* style prop is needed as the list attaches the elements into the DOM */}
-          {({ index, style }) => (
-            <div style={style}>
-              <CompleteProject
-                key={projects[index]._id}
-                aframe={projects[index].aframe}
-                title={projects[index].metaData.title}
-                name={projects[index].metaData.name}
-                description={projects[index].metaData.description}
-                tags={projects[index].metaData.tags}
-              />
-            </div>
-          )}
+          {({ index, style }) => {
+            if (
+              projects[index].metaData.title
+                .toLowerCase()
+                .includes(search.toLocaleLowerCase())
+            ) {
+              return (
+                <div style={style} key={projects[index]._id}>
+                  <CompleteProject
+                    aframe={projects[index].aframe}
+                    title={projects[index].metaData.title}
+                    name={projects[index].metaData.name}
+                    description={projects[index].metaData.description}
+                    tags={projects[index].metaData.tags}
+                  />
+                </div>
+              );
+            }
+          }}
         </List>
       )}
     </div>

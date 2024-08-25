@@ -116,6 +116,9 @@
   .w-192 {
     width: 36rem !important;
   }
+  .h-144 {
+    height: 30rem !important;
+  }
   .max-h-144 {
     max-height: 30rem !important;
   }
