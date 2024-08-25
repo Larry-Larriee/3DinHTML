@@ -31,7 +31,9 @@ export default function UploadImage({
         </p>
         <p className="font-league text-prim-2 dark:text-prim-1 text-lg xl:text-xl">
           If you&apos;re pasting assets which go into your folder (i.e.
-          images/background.png), please upload that exact image here.
+          images/background.png), upload that exact image here. Please also
+          upload in the order it&apos;s imported by &lt;a-assets&gt; (so
+          id&apos;s aren&apos;t mixed up).
         </p>
 
         {/* flex items by default have both a flex-grow and flex-shrink of 1 */}

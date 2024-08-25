@@ -79,7 +79,7 @@ export default function Contribute() {
     setCycle((prev) => prev - 1);
   };
   const changeCycleSubmit = () => {
-    // submit the form with a fetch
+    // submit the form with a fetch. because the useEffect waits for the submitted state to change, and for it to be true, the user data will only be sent once (good thing)
     changeSubmitted(true);
   };
 
@@ -197,6 +197,7 @@ export default function Contribute() {
 
           {cycle === 1 && (
             <UploadCode
+              userAframe={userAframe}
               changeUserAframe={changeUserAframe}
               textAreaAframeRef={textAreaAframeRef}
               changeCycleAdd={changeCycleAdd}
@@ -214,8 +215,10 @@ export default function Contribute() {
 
           {cycle === 3 && (
             <ProjectDescription
+              title={title}
               changeTitle={changeTitle}
               changeTitleInputRef={changeTitleInputRef}
+              description={description}
               changeDescription={changeDescription}
               changeDescriptionInputRef={changeDescriptionInputRef}
               changeCycleAdd={changeCycleAdd}
@@ -237,6 +240,7 @@ export default function Contribute() {
 
           {cycle === 5 && (
             <Credits
+              name={name}
               changeName={changeName}
               changeNameInputRef={changeNameInputRef}
               changeCycleRemove={changeCycleRemove}

@@ -102,24 +102,24 @@ app.post("/api/contribute", async (req, res) => {
     // note that there may be multiple image assets in the aframe code
     contribution.aframe = contribution.aframe.replace(
       /src="([^"]+)"/g,
-      `src="${process.env.SERVER}/assets?filename=`
+      `src="${process.env.SERVER}/assets?filename="`
     );
 
-    // code that looks at all the server urls and adds the appropriate image file name to the end of the url
-    // this code also needs to make sure not add the same image file name twice in the aframe
-    // ex. ["<a-assets><img", "'55b3d6f5b968b5d670d5a60ef801c8a0.png'></a-assets>" ]
+    // the aframe code is split by filename= so we can later insert the image names between the split code
+    // it is assumed that images in the image array are in the same order as the aframe code, (so we don't have id's mixed up)
     let aframeAssetsSplit = contribution.aframe.split("filename=");
 
-    for (let i = 0; i < images.lengthl; i += 1) {
+    // for each image, insert the filename between the split aframe code. the number of images are the same as the number of filename='s that existed before the split
+    for (let i = 0; i < images.length; i += 1) {
       aframeAssetsSplit.splice(
         i * 2 + 1,
         0,
         `filename=${images[i].originalname}`
       );
     }
-  }
 
-  contribution.aframe = aframeAssetsSplit.join("");
+    contribution.aframe = aframeAssetsSplit.join("");
+  }
 
   const projects = client
     .db(process.env.DATABASE)
@@ -284,7 +284,8 @@ app.get("/", async (req, res) => {
   res.send("Hello World");
 });
 
-app.listen(5000, () => {
+app.listen(5000, async () => {
+  await new Promise((resolve) => setTimeout(resolve, 2000));
   console.log("Server is running on port 5000");
 
   // the server will be able to reference images to host in the assets get request even if the server is restarted or fails

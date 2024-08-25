@@ -1,10 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Cycle from "../helper/Cycle";
+import { Description } from "@headlessui/react";
 
 ProjectDescription.propTypes = {
+  title: PropTypes.string.isRequired,
   changeTitle: PropTypes.func.isRequired,
   changeTitleInputRef: PropTypes.object.isRequired,
+  description: PropTypes.string.isRequired,
   changeDescription: PropTypes.func.isRequired,
   changeDescriptionInputRef: PropTypes.object.isRequired,
   changeCycleAdd: PropTypes.func.isRequired,
@@ -13,8 +16,10 @@ ProjectDescription.propTypes = {
 
 // ProjectDescription component is used specifically for the contribute page
 export default function ProjectDescription({
+  title,
   changeTitle,
   changeTitleInputRef,
+  description,
   changeDescription,
   changeDescriptionInputRef,
   changeCycleAdd,
@@ -39,6 +44,7 @@ export default function ProjectDescription({
           type="text"
           className="h-12 bg-sec-2 dark:bg-prim-4 rounded-xl p-5 text-prim-2 dark:text-prim-1 placeholder-prim-2 dark:placeholder-gray-500 focus:outline-none"
           placeholder="Title"
+          value={title}
           onChange={() => changeTitle()}
           ref={changeTitleInputRef}
         />
@@ -47,6 +53,7 @@ export default function ProjectDescription({
           type="text"
           className="h-12 bg-sec-2 dark:bg-prim-4 rounded-xl p-5 text-prim-2 dark:text-prim-1 placeholder-prim-2 dark:placeholder-gray-500 focus:outline-none"
           placeholder="Description"
+          value={description}
           onChange={() => changeDescription()}
           ref={changeDescriptionInputRef}
         />

@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Cycle from "../helper/Cycle";
 
 UploadCode.propTypes = {
+  userAframe: PropTypes.string.isRequired,
   changeUserAframe: PropTypes.func.isRequired,
   textAreaAframeRef: PropTypes.object.isRequired,
   changeCycleAdd: PropTypes.func.isRequired,
@@ -13,6 +14,7 @@ UploadCode.propTypes = {
 // textAreaAframeRef (object): a reference to the text area where the user will paste their code. used along with changeUserAframe
 // changeCycleAdd (function): function that will change the cycle state to the next step. this is used for the cycle component
 export default function UploadCode({
+  userAframe,
   changeUserAframe,
   textAreaAframeRef,
   changeCycleAdd,
@@ -35,6 +37,7 @@ export default function UploadCode({
         <textarea
           ref={textAreaAframeRef}
           onChange={() => changeUserAframe()}
+          value={userAframe}
           className="overflow-y-auto h-32 xl:h-48 2xl:h-64 resize-none bg-sec-2 dark:bg-prim-4 rounded-xl p-3 xl:p-5 text-prim-2 dark:text-prim-1 focus:outline-none"
         />
 
