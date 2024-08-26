@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Project from "./Project";
 import PropTypes from "prop-types";
 
@@ -8,6 +8,7 @@ CompleteProject.propTypes = {
   description: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   tags: PropTypes.array,
+  changeProjectHeight: PropTypes.func.isRequired,
 };
 
 // used specifically for the explore page
@@ -17,6 +18,7 @@ export default function CompleteProject({
   description,
   name,
   tags,
+  changeProjectHeight,
 }) {
   const [copied, setCopied] = useState(false);
 
@@ -42,8 +44,19 @@ export default function CompleteProject({
     }
   }, [copied]);
 
+  const projectComponentRef = useRef();
+  // when the component finishes mounting display the height of the component
+  useEffect(() => {
+    if (projectComponentRef.current) {
+      changeProjectHeight(projectComponentRef.current.clientHeight);
+    }
+  }, [projectComponentRef, changeProjectHeight]);
+
   return (
-    <section className="flex gap-8 xl:gap-12 w-full flex-col xl:flex-row">
+    <section
+      ref={projectComponentRef}
+      className="flex gap-8 xl:gap-12 w-full flex-col xl:flex-row"
+    >
       <Project aframe={aframe} size={"big"} />
 
       <div className="flex flex-none max-w-80 xl:w-80 flex-col gap-6">

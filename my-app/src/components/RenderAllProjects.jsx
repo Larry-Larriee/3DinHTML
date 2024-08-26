@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 import { VariableSizeList as List } from "react-window";
 
@@ -20,10 +20,6 @@ export default function RenderAllProjects({
   search,
   isTagSpecific = true,
 }) {
-  const projectHeight = () => {
-    return 450;
-  };
-
   // renderedProjects is the array of projects that the list will render. when the user searches, the value is updated and the component will rerender
   // renderedProjects is also tag aware, meaning that clicking on a section containing isTagSpecific will also update renderedProjects
   const [renderedProjects, setRenderedProjects] = useState(projects);
@@ -64,9 +60,20 @@ export default function RenderAllProjects({
     }
   }, [search, projects, isTagSpecific, tag]);
 
+  // calculate the project height to modify itemSize in the List component as needed
+  const [projectHeight, setProjectHeight] = useState([]);
+
+  const changeProjectHeight = useCallback((height) => {
+    setProjectHeight((prev) => [...prev, height]);
+  }, []);
+
   useEffect(() => {
-    console.log(renderedProjects);
-  }, [renderedProjects]);
+    console.log(projectHeight);
+  }, [projectHeight]);
+
+  const modProjectHeight = () => {
+    return 450;
+  };
 
   return (
     <>
@@ -76,7 +83,7 @@ export default function RenderAllProjects({
             itemCount={renderedProjects.length}
             height={500}
             width={500}
-            itemSize={projectHeight}
+            itemSize={modProjectHeight}
             className="w-full-important h-144"
           >
             {/* style prop is needed as the list attaches the elements into the DOM */}
@@ -90,6 +97,7 @@ export default function RenderAllProjects({
                     name={renderedProjects[index].metaData.name}
                     description={renderedProjects[index].metaData.description}
                     tags={renderedProjects[index].metaData.tags}
+                    changeProjectHeight={changeProjectHeight}
                   />
                 </div>
               );
