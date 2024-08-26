@@ -120,6 +120,12 @@
   .h-144 {
     height: 30rem !important;
   }
+  .h-156 {
+    height: 32rem !important;
+  }
+  .h-192 {
+    height: 36rem !important;
+  }
   .max-h-144 {
     max-height: 30rem !important;
   }

@@ -35,11 +35,12 @@ export default function ProjectDescription({
     // manage the changeTitleInputRef.current of this specific render cycle
     const titleInputRef = changeTitleInputRef.current;
 
-    titleInputRef.addEventListener("keydown", () => {
+    titleInputRef.addEventListener("keydown", (event) => {
       if (
         titleInputRef.value.length === 50 &&
         titleReachedMax &&
-        titleDebounce === false
+        titleDebounce === false &&
+        !event.repeat
       ) {
         setTitleDebounce(true);
         console.log("debounce");
@@ -56,7 +57,7 @@ export default function ProjectDescription({
     });
 
     return () => {
-      titleInputRef.removeEventListener("keydown", () => {
+      titleInputRef.removeEventListener("keypress", () => {
         if (titleInputRef.value.length === 50 && titleReachedMax) {
           titleInputRef.classList.add("yelling-red");
 
@@ -70,6 +71,56 @@ export default function ProjectDescription({
       });
     };
   }, [titleReachedMax, changeTitleInputRef, titleDebounce]);
+
+  const [descriptionReachedMax, setdescriptionReachedMax] = useState(false);
+  const [descriptionDebounce, setdescriptionDebounce] = useState(false);
+
+  // once the user reaches the maximum amount of characters AND attempts to add more, an animation will play indiciating they've reached the limit
+  useEffect(() => {
+    if (!changeDescriptionInputRef && !changeDescriptionInputRef.current)
+      return;
+
+    // manage the changedescriptionInputRef.current of this specific render cycle
+    const descriptionInputRef = changeDescriptionInputRef.current;
+
+    descriptionInputRef.addEventListener("keydown", (event) => {
+      if (
+        descriptionInputRef.value.length === 80 &&
+        descriptionReachedMax &&
+        descriptionDebounce === false &&
+        !event.repeat
+      ) {
+        setdescriptionDebounce(true);
+        console.log("debounce");
+        descriptionInputRef.classList.add("yelling-red");
+
+        setTimeout(() => {
+          descriptionInputRef.classList.remove("yelling-red");
+          setdescriptionDebounce(false);
+        }, 1000);
+      }
+
+      if (descriptionInputRef.value.length === 80)
+        setdescriptionReachedMax(true);
+      else setdescriptionReachedMax(false);
+    });
+
+    return () => {
+      descriptionInputRef.removeEventListener("keydown", () => {
+        if (descriptionInputRef.value.length === 80 && descriptionReachedMax) {
+          descriptionInputRef.classList.add("yelling-red");
+
+          setTimeout(() => {
+            descriptionInputRef.classList.remove("yelling-red");
+          }, 1000);
+        }
+
+        if (descriptionInputRef.value.length === 80)
+          setdescriptionReachedMax(true);
+        else setdescriptionReachedMax(false);
+      });
+    };
+  }, [descriptionReachedMax, changeDescriptionInputRef, descriptionDebounce]);
 
   return (
     <>

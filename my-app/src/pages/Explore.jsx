@@ -167,7 +167,7 @@ export default function Explore() {
 
         {/* if the footer is in a dynamically rendered page it will not change its position dynamically as well. */}
         {/* because vite has both a root and body with flex properties, conventional methods to keep it staying on the bottom may not work */}
-        <footer className="flex flex-none text-prim-2 dark:text-white text-base font-league absolute left-5 bottom-0">
+        <footer className="hidden flex-none text-prim-2 xl:flex dark:text-white text-base font-league absolute left-5 bottom-0">
           ©2024 Larry Le MIT License
         </footer>
       </div>

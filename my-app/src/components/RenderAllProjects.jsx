@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 import { VariableSizeList as List } from "react-window";
+import SetProjectHeight from "../components/hooks/SetProjectHeight";
 
 RenderAllProjects.propTypes = {
   projects: PropTypes.array.isRequired,
@@ -60,43 +61,26 @@ export default function RenderAllProjects({
     }
   }, [search, projects, isTagSpecific, tag]);
 
-  // calculate the project height to modify itemSize in the List component as needed
-  // const [projectHeight, setProjectHeight] = useState([]);
+  let [projectHeight, modifyProjectHeight] = useState(SetProjectHeight());
 
-  // const changeProjectHeight = useCallback((height) => {
-  //   setProjectHeight((prev) => [...prev, height]);
-  // }, []);
-
-  // useEffect(() => {
-  //   if (projectHeight) {
-  //     console.log(projectHeight);
-  //   }
-  // }, [projectHeight]);
-
-  const modProjectHeight = () => {
-    return 450;
+  const displayProjectHeight = () => {
+    return projectHeight;
   };
+
+  useEffect(() => {
+    console.log(projectHeight);
+  }, [projectHeight]);
 
   return (
     <>
-      {renderedProjects && (
+      {renderedProjects && projectHeight && (
         <div className="w-full h-full">
           <List
             itemCount={renderedProjects.length}
             height={500}
             width={500}
-            itemSize={modProjectHeight}
-            className="w-full-important h-144"
-            // onItemsRendered={({ overscanStartIndex, overscanStopIndex }) => {
-            // console.log(overscanStartIndex, overscanStopIndex);
-            // let projectComponents = document.querySelectorAll(".test");
-
-            // console.log(projectComponents);
-
-            // for (let i = projectComponents; i <= projectComponents; i += 1) {
-            //   changeProjectHeight(projectComponents[i].clientHeight);
-            // }
-            // }}
+            itemSize={displayProjectHeight}
+            className="w-full-important h-156"
           >
             {/* style prop is needed as the list attaches the elements into the DOM */}
             {({ index, style }) => {
