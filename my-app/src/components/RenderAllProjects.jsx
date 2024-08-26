@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 import { VariableSizeList as List } from "react-window";
 
@@ -67,9 +67,11 @@ export default function RenderAllProjects({
     setProjectHeight((prev) => [...prev, height]);
   }, []);
 
-  useEffect(() => {
-    console.log(projectHeight);
-  }, [projectHeight]);
+  // useEffect(() => {
+  //   if (projectHeight) {
+  //     console.log(projectHeight);
+  //   }
+  // }, [projectHeight]);
 
   const modProjectHeight = () => {
     return 450;
@@ -85,6 +87,16 @@ export default function RenderAllProjects({
             width={500}
             itemSize={modProjectHeight}
             className="w-full-important h-144"
+            onItemsRendered={({ overscanStartIndex, overscanStopIndex }) => {
+              // console.log(overscanStartIndex, overscanStopIndex);
+              let projectComponents = document.querySelectorAll(".test");
+
+              console.log(projectComponents);
+
+              // for (let i = projectComponents; i <= projectComponents; i += 1) {
+              //   changeProjectHeight(projectComponents[i].clientHeight);
+              // }
+            }}
           >
             {/* style prop is needed as the list attaches the elements into the DOM */}
             {({ index, style }) => {
@@ -97,7 +109,6 @@ export default function RenderAllProjects({
                     name={renderedProjects[index].metaData.name}
                     description={renderedProjects[index].metaData.description}
                     tags={renderedProjects[index].metaData.tags}
-                    changeProjectHeight={changeProjectHeight}
                   />
                 </div>
               );
