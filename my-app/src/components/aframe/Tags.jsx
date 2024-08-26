@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import Cycle from "../helper/Cycle";
 
 Tags.propTypes = {
+  tags: PropTypes.array.isRequired,
   changeCycleAdd: PropTypes.func.isRequired,
   changeCycleRemove: PropTypes.func.isRequired,
   changeTags: PropTypes.func.isRequired,
@@ -15,6 +16,7 @@ Tags.propTypes = {
 // The tags component renders tags that the user can select for their project. Users can select multiple tags and the useState will
 // keep track of the tags that the user has selected in an array. The value of the tags are the same as the category name (innerHTML) such as "Gaming & Fun"
 export default function Tags({
+  tags,
   changeTags,
   tagOneRef,
   tagTwoRef,
@@ -23,6 +25,27 @@ export default function Tags({
   changeCycleAdd,
   changeCycleRemove,
 }) {
+  useEffect(() => {
+    if (tags.includes(tagOneRef.current.innerText)) {
+      tagOneRef.current.style.backgroundColor = "#15803d";
+      tagOneRef.current.style.color = "#ffffff";
+    }
+    if (tags.includes(tagTwoRef.current.innerText)) {
+      tagTwoRef.current.style.backgroundColor = "#15803d";
+      tagTwoRef.current.style.color = "#ffffff";
+    }
+    if (tags.includes(tagThreeRef.current.innerText)) {
+      tagThreeRef.current.style.backgroundColor = "#15803d";
+      tagThreeRef.current.style.color = "#ffffff";
+    }
+    if (tags.includes(tagFourRef.current.innerText)) {
+      tagFourRef.current.style.backgroundColor = "#15803d";
+      tagFourRef.current.style.color = "#ffffff";
+    }
+
+    console.log("tags");
+  }, [tags, tagOneRef, tagTwoRef, tagThreeRef, tagFourRef]);
+
   return (
     <>
       <section className="xl:bg-sec-1 dark:shadow-none shadow-md dark:xl:bg-prim-2 flex w-full min-h-250 xl:px-16 xl:py-10 flex-col gap-8 rounded-xl relative">

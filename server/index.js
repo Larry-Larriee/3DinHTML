@@ -53,13 +53,6 @@ const storage = multer.memoryStorage({
   destination: (req, file, cb) => {
     cb(null, "resources/");
   },
-  // multer will create filenames for each file object in the "images" multer field
-  // cb (callback) is a function that multer uses to determine the filename
-  filename: (req, file, cb) => {
-    const newFilename =
-      crypto.randomBytes(16).toString("hex") + path.extname(file.originalname);
-    cb(null, newFilename);
-  },
 });
 
 const upload = multer({ storage: storage });
@@ -80,11 +73,14 @@ app.post("/api/contribute", async (req, res) => {
   // in order to get around this, we manually convert the image buffer to base64 and store it in mongodb to use later when rebuffering and rewriting files back into the server
   let base64Images = [];
 
+  // random characters is generated so image files don't overwrite each other
+  const randomCharacters = crypto.randomBytes(20).toString("hex");
+
   if (images) {
     // generate image files for all images sent in the formdata
     for (let i = 0; i < images.length; i += 1) {
       fs.writeFile(
-        `./resources/${images[i].originalname}`,
+        `./resources/${images[i].originalname + randomCharacters}`,
         images[i].buffer,
         (err) => {
           if (err) {
@@ -114,7 +110,7 @@ app.post("/api/contribute", async (req, res) => {
       aframeAssetsSplit.splice(
         i * 2 + 1,
         0,
-        `filename=${images[i].originalname}`
+        `filename=${images[i].originalname + randomCharacters}`
       );
     }
 
@@ -128,6 +124,7 @@ app.post("/api/contribute", async (req, res) => {
   await projects.insertOne({
     aframe: contribution.aframe,
     image: images,
+    imageRandomCharacters: randomCharacters,
     base64Images: base64Images,
     metaData: {
       title: contribution.title,
@@ -302,23 +299,20 @@ app.listen(5000, async () => {
         // if the project has an image, check if the image exists in the server already
         if (project.image) {
           for (let i = 0; i < project.image.length; i += 1) {
-            let imageFileName = project.image[i].originalname;
+            let imageFileName =
+              project.image[i].originalname + project.imageRandomCharacters;
 
             const base64String = project.base64Images[i];
             const buffer = Buffer.from(base64String, "base64");
 
             if (!fs.existsSync(`./resources/${imageFileName}`)) {
-              fs.writeFile(
-                `./resources/${project.image[i].originalname}`,
-                buffer,
-                (err) => {
-                  if (err) {
-                    console.error(err);
-                  } else {
-                    console.log("File saved successfully!");
-                  }
+              fs.writeFile(`./resources/${imageFileName}`, buffer, (err) => {
+                if (err) {
+                  console.error(err);
+                } else {
+                  console.log("File saved successfully!");
                 }
-              );
+              });
             }
           }
         }

@@ -57,8 +57,10 @@ export default function Contribute() {
     }
 
     setTags([...tags, ref.current.innerText]);
-    ref.current.style.backgroundColor = "#15803d";
-    ref.current.style.color = "#ffffff";
+
+    // we don't need these lines because the selected style is already applied in the Tags.jsx useEffect (which runs on mount). this saves the user's options when they go back and forth between cycles
+    // ref.current.style.backgroundColor = "#15803d";
+    // ref.current.style.color = "#ffffff";
   };
   const tagOneRef = useRef();
   const tagTwoRef = useRef();
@@ -125,6 +127,9 @@ export default function Contribute() {
         .then((res) => res.json())
         .then((data) => {
           window.alert(data.result);
+
+          // allow the user to make a new submission after their first one
+          setSubmitted(false);
         })
         .catch((err) => {
           console.log(err);
@@ -228,6 +233,7 @@ export default function Contribute() {
 
           {cycle === 4 && (
             <Tags
+              tags={tags}
               changeTags={changeTags}
               tagOneRef={tagOneRef}
               tagTwoRef={tagTwoRef}

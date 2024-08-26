@@ -171,11 +171,9 @@
     }
   }
 
-  /* h-12 bg-sec-2 dark:bg-prim-4 rounded-xl p-5 text-prim-2 dark:text-prim-1 placeholder-prim-2 dark:placeholder-gray-500 focus:outline-none */
-
+  /* it's worth noting that currentColor will always start as the default color, and not the color with dark: even if dark: is active */
   @keyframes yelling-red {
     0% {
-      background-color: var(--secondary-color-2);
       transform: translateX(0rem);
     }
     33% {
@@ -183,11 +181,10 @@
       transform: translateX(-0.5rem);
     }
     66% {
-      background-color: var(--secondary-color-2);
+      background-color: var(--primary-color-7);
       transform: translateX(0.5rem);
     }
     100% {
-      background-color: var(--secondary-color-2);
       transform: translateX(0rem);
     }
   }

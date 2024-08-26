@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { VariableSizeList as List } from "react-window";
 import SetProjectHeight from "../components/hooks/SetProjectHeight";
