@@ -79,8 +79,11 @@ app.post("/api/contribute", async (req, res) => {
   if (images) {
     // generate image files for all images sent in the formdata
     for (let i = 0; i < images.length; i += 1) {
+      let fileParse = path.parse(images[i].originalname);
+      let { name, ext } = fileParse;
+
       fs.writeFile(
-        `./resources/${images[i].originalname + randomCharacters}`,
+        `./resources/${name + randomCharacters + ext}`,
         images[i].buffer,
         (err) => {
           if (err) {
@@ -107,10 +110,13 @@ app.post("/api/contribute", async (req, res) => {
 
     // for each image, insert the filename between the split aframe code. the number of images are the same as the number of filename='s that existed before the split
     for (let i = 0; i < images.length; i += 1) {
+      let fileParse = path.parse(images[i].originalname);
+      let { name, ext } = fileParse;
+
       aframeAssetsSplit.splice(
         i * 2 + 1,
         0,
-        `filename=${images[i].originalname + randomCharacters}`
+        `filename=${name + randomCharacters + ext}`
       );
     }
 
@@ -299,20 +305,28 @@ app.listen(5000, async () => {
         // if the project has an image, check if the image exists in the server already
         if (project.image) {
           for (let i = 0; i < project.image.length; i += 1) {
-            let imageFileName =
-              project.image[i].originalname + project.imageRandomCharacters;
+            let imageFileName = path.parse(project.image[i].originalname);
+            let { name, ext } = imageFileName;
 
             const base64String = project.base64Images[i];
             const buffer = Buffer.from(base64String, "base64");
 
-            if (!fs.existsSync(`./resources/${imageFileName}`)) {
-              fs.writeFile(`./resources/${imageFileName}`, buffer, (err) => {
-                if (err) {
-                  console.error(err);
-                } else {
-                  console.log("File saved successfully!");
+            if (
+              !fs.existsSync(
+                `./resources/${name + project.imageRandomCharacters + ext}`
+              )
+            ) {
+              fs.writeFile(
+                `./resources/${name + project.imageRandomCharacters + ext}`,
+                buffer,
+                (err) => {
+                  if (err) {
+                    console.error(err);
+                  } else {
+                    console.log("File saved successfully!");
+                  }
                 }
-              });
+              );
             }
           }
         }

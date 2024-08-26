@@ -62,12 +62,20 @@ export default function UploadImage({
                     const imageURL = URL.createObjectURL(image);
 
                     return (
-                      <img
-                        alt={image.name + index}
+                      <div
+                        className="w-auto h-auto relative"
                         key={image.name + index}
-                        src={imageURL}
-                        className="max-w-32 max-h-16 object-cover"
-                      />
+                      >
+                        <img
+                          alt={image.name + index}
+                          src={imageURL}
+                          className="max-w-32 max-h-16 object-cover"
+                        />
+
+                        <article className="w-5 h-5 flex justify-center items-center absolute -right-2 -top-2 bg-gray-300 rounded-full hover:bg-red-500">
+                          <p className="text-sm">X</p>
+                        </article>
+                      </div>
                     );
                   })}
               </div>
