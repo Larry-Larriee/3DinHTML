@@ -20,7 +20,7 @@ export default function Credits({
 }) {
   return (
     <>
-      <section className="xl:bg-sec-1 dark:xl:bg-prim-2 flex w-full min-h-250 xl:px-16 xl:py-10 flex-col gap-8 rounded-xl relative">
+      <section className="xl:bg-sec-1 xl:shadow-md dark:shadow-none dark:xl:bg-prim-2 flex w-full min-h-250 xl:px-16 xl:py-10 flex-col gap-8 rounded-xl relative">
         <h1 className="font-bold text-3xl xl:text-4xxl text-prim-2 dark:text-prim-1 font-league">
           Credits
         </h1>

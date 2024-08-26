@@ -9,6 +9,7 @@ import ProjectDescription from "../components/aframe/ProjectDescription";
 import Credits from "../components/aframe/Credits";
 import Tags from "../components/aframe/Tags";
 import UseTheme from "../components/hooks/UseTheme";
+import Preview from "../components/aframe/Preview";
 
 export default function Contribute() {
   let [userAframe, setUserAframe] = useState("");
@@ -23,9 +24,18 @@ export default function Contribute() {
   const changeImageUpload = (acceptedFile) => {
     // dropzone returns an array of files, so append the new files to the imageUpload array
     setImageUpload([...imageUpload, ...acceptedFile]);
-
-    console.log(acceptedFile);
   };
+
+  const removeImageUpload = (image) => {
+    if (imageUpload.includes(image)) {
+      // the filter method checks if the image is not the same as the param image, and if it's not, adds it to the return array
+      setImageUpload(imageUpload.filter((img) => img !== image));
+    }
+  };
+
+  useEffect(() => {
+    console.log(imageUpload);
+  }, [imageUpload]);
 
   let [title, setTitle] = useState("");
   const changeTitle = () => {
@@ -85,16 +95,26 @@ export default function Contribute() {
     changeSubmitted(true);
   };
 
+  // submmitted will trigger a preview, and confirmed will trigger a fetch POST request
   let [submitted, setSubmitted] = useState(false);
+  let [confirmed, setConfirmed] = useState(false);
 
   const changeSubmitted = () => {
     setSubmitted(true);
   };
 
+  const removeSubmitted = () => {
+    setSubmitted(false);
+  };
+
+  const changeConfirmed = () => {
+    setConfirmed(true);
+  };
+
   const serverURL = import.meta.env.VITE_SERVER;
 
   useEffect(() => {
-    if (submitted) {
+    if (confirmed) {
       console.log(imageUpload, userAframe, title, description, name, tags);
 
       // the object that is provided by imageUpload is a file object, not a JS object
@@ -129,14 +149,14 @@ export default function Contribute() {
           window.alert(data.result);
 
           // allow the user to make a new submission after their first one
-          setSubmitted(false);
+          setConfirmed(false);
         })
         .catch((err) => {
           console.log(err);
         });
     }
   }, [
-    submitted,
+    confirmed,
     userAframe,
     imageUpload,
     title,
@@ -171,6 +191,17 @@ export default function Contribute() {
       <div className="flex w-full flex-col gap-12">
         <Navigation />
 
+        {/* preview will only open if submitted is true. by changing confirmed, the fetch will hapen */}
+        <Preview
+          userAframe={userAframe}
+          title={title}
+          description={description}
+          name={name}
+          tags={tags}
+          changeConfirmed={changeConfirmed}
+          submitted={submitted}
+          changeSubmitted={removeSubmitted}
+        />
         <div className="w-full flex items-center justify-center gap-16 px-12 flex-col xl:flex-row">
           <article className="w-full xl:w-96 h-auto xl:h-full flex-none lg:flex lg:flex-col gap-6 xl:gap-12 xl:bg-sec-1 dark:xl:bg-prim-2 rounded-xl py-10 xl:pt-10 pl-8 relative hidden shadow-md dark:shadow-none">
             <Step number={1} title={"Uploading Code"} cycle={cycle} />
@@ -213,6 +244,7 @@ export default function Contribute() {
             <UploadImage
               imageUpload={imageUpload}
               changeImageUpload={changeImageUpload}
+              removeImageUpload={removeImageUpload}
               changeCycleAdd={changeCycleAdd}
               changeCycleRemove={changeCycleRemove}
             />

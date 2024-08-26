@@ -21,7 +21,7 @@ export default function UploadCode({
 }) {
   return (
     <>
-      <section className="xl:bg-sec-1 dark:xl:bg-prim-2 flex w-full xl:px-16 xl:py-10 flex-col gap-8 rounded-xl min-h-250 relative shadow-md dark:shadow-none">
+      <section className="xl:bg-sec-1 dark:xl:bg-prim-2 flex w-full xl:px-16 xl:py-10 flex-col gap-8 rounded-xl min-h-250 relative xl:shadow-md dark:shadow-none">
         <h1 className="font-bold text-3xl xl:text-4xxl text-prim-2 dark:text-prim-1 font-league">
           Uploading Code
         </h1>

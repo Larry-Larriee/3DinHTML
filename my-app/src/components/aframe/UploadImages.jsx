@@ -6,23 +6,26 @@ import Cycle from "../helper/Cycle";
 UploadImage.propTypes = {
   imageUpload: PropTypes.array,
   changeImageUpload: PropTypes.func.isRequired,
+  removeImageUpload: PropTypes.func.isRequired,
   changeCycleAdd: PropTypes.func.isRequired,
   changeCycleRemove: PropTypes.func.isRequired,
 };
 
 // UploadImage component is used specifically for the contribute page. It allows the user to upload images for their project by rendering a dropzone
 // changeImageUpload (function): function that will change the imageUpload state to the name of the image file, such as fish.png
+// removeImageUpload (function): function that will remove the image from the imageUpload state
 // changeCycleAdd (function): function that will change the cycle state to the next step. this is used for the cycle component
 // changeCycleRemove (function): function that will change the cycle state to the previous step. this is used for the cycle component
 export default function UploadImage({
   imageUpload,
   changeImageUpload,
+  removeImageUpload,
   changeCycleAdd,
   changeCycleRemove,
 }) {
   return (
     <>
-      <section className="xl:bg-sec-1 dark:shadow-none shadow-md dark:xl:bg-prim-2 flex w-full min-h-250 xl:px-16 xl:py-10 flex-col gap-8 rounded-xl relative">
+      <section className="xl:bg-sec-1 dark:shadow-none xl:shadow-md dark:xl:bg-prim-2 flex w-full min-h-250 xl:px-16 xl:py-10 flex-col gap-8 rounded-xl relative">
         <h1 className="font-bold text-3xl xl:text-4xxl text-prim-2 dark:text-prim-1 font-league">
           Uploading Images
         </h1>
@@ -38,7 +41,7 @@ export default function UploadImage({
 
         {/* flex items by default have both a flex-grow and flex-shrink of 1 */}
         {/* this means it will take up all available space if possible or shrink if required */}
-        <div className="flex flex-grow-0 gap-5 items-center">
+        <div className="flex flex-grow-0 gap-5 items-center relative">
           <Dropzone
             onDrop={(acceptedFiles) => changeImageUpload(acceptedFiles)}
           >
@@ -46,7 +49,7 @@ export default function UploadImage({
             {/* getInputProps provides the nessessary props to the input like onChange */}
             {({ getRootProps, getInputProps }) => (
               <div
-                className="flex w-full min-h-56 border-4 border-dashed border-prim-2 dark:border-white bg-none dark:bg-prim-3 hover:cursor-pointer gap-3 p-3 flex-wrap"
+                className="flex w-full min-h-56 border-4 border-dashed border-prim-2 dark:border-white bg-none dark:bg-prim-3 hover:cursor-pointer gap-3 p-3 flex-wrap relative z-20"
                 {...getRootProps()}
               >
                 <input {...getInputProps()} />
@@ -55,32 +58,38 @@ export default function UploadImage({
                     Drag and drop your assets here, or click to select files
                   </p>
                 )}
-
-                {imageUpload.length > 0 &&
-                  imageUpload.map((image, index) => {
-                    // the generated imageURL is temporary and will be removed when the page is closed or refreshed
-                    const imageURL = URL.createObjectURL(image);
-
-                    return (
-                      <div
-                        className="w-auto h-auto relative"
-                        key={image.name + index}
-                      >
-                        <img
-                          alt={image.name + index}
-                          src={imageURL}
-                          className="max-w-32 max-h-16 object-cover"
-                        />
-
-                        <article className="w-5 h-5 flex justify-center items-center absolute -right-2 -top-2 bg-gray-300 rounded-full hover:bg-red-500">
-                          <p className="text-sm">X</p>
-                        </article>
-                      </div>
-                    );
-                  })}
               </div>
             )}
           </Dropzone>
+
+          {imageUpload.length > 0 && (
+            <div className="absolute inset-0 flex w-full min-h-56 bg-none dark:bg-prim-3 hover:cursor-pointer gap-3 p-3 flex-wrap">
+              {imageUpload.map((image, index) => {
+                // the generated imageURL is temporary and will be removed when the page is closed or refreshed
+                const imageURL = URL.createObjectURL(image);
+
+                return (
+                  <div
+                    className="w-auto h-auto relative z-50"
+                    key={image.name + index}
+                  >
+                    <img
+                      alt={image.name + index}
+                      src={imageURL}
+                      className="max-w-32 max-h-16 object-cover"
+                    />
+
+                    <article
+                      className="w-5 h-5 flex justify-center items-center absolute -right-2 -top-2 bg-gray-300 rounded-full hover:bg-red-500 hover:text-white duration-200 transition ease-in-out"
+                      onClick={() => removeImageUpload(image)} // access imageupload and get the image file
+                    >
+                      <p className="text-sm">X</p>
+                    </article>
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
 
         <Cycle
