@@ -13,6 +13,7 @@
   --primary-color-4: #2b2f36;
   --primary-color-5: #ce4a00;
   --primary-color-6: #15803d;
+  --primary-color-7: #c94940;
   --secondary-background-color: #f9f9fa;
   --secondary-color-1: #f5f5f5;
   --secondary-color-2: #d9d9d9;
@@ -164,11 +165,35 @@
     }
   }
 
+  /* h-12 bg-sec-2 dark:bg-prim-4 rounded-xl p-5 text-prim-2 dark:text-prim-1 placeholder-prim-2 dark:placeholder-gray-500 focus:outline-none */
+
+  @keyframes yelling-red {
+    0% {
+      background-color: var(--secondary-color-2);
+      transform: translateX(0rem);
+    }
+    33% {
+      background-color: var(--primary-color-7);
+      transform: translateX(-0.5rem);
+    }
+    66% {
+      background-color: var(--secondary-color-2);
+      transform: translateX(0.5rem);
+    }
+    100% {
+      background-color: var(--secondary-color-2);
+      transform: translateX(0rem);
+    }
+  }
+
   .slide-in-from-left {
     animation: slideInFromLeft 0.5s ease-out forwards;
   }
   .slide-out-from-right {
     animation: slideOutFromRight 0.5s ease-out;
+  }
+  .yelling-red {
+    animation: yelling-red 400ms ease-out;
   }
 }
 

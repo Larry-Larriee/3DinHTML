@@ -66,7 +66,7 @@ export default function CompleteProject({
   // }, [changeProjectHeight]);
 
   return (
-    <section className="test flex gap-8 xl:gap-12 w-full flex-col xl:flex-row">
+    <section className="flex gap-8 xl:gap-12 w-full flex-col xl:flex-row">
       <Project aframe={aframe} size={"big"} />
 
       <div className="flex flex-none max-w-80 xl:w-80 flex-col gap-6">
@@ -86,7 +86,7 @@ export default function CompleteProject({
         </div>
 
         {tags && (
-          <div className="flex gap-3 order-1 xl:order-2">
+          <div className="flex gap-3 flex-wrap order-1 xl:order-2">
             {tags.length !== 0 &&
               tags.map((tag) => {
                 return (

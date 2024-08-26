@@ -61,11 +61,11 @@ export default function RenderAllProjects({
   }, [search, projects, isTagSpecific, tag]);
 
   // calculate the project height to modify itemSize in the List component as needed
-  const [projectHeight, setProjectHeight] = useState([]);
+  // const [projectHeight, setProjectHeight] = useState([]);
 
-  const changeProjectHeight = useCallback((height) => {
-    setProjectHeight((prev) => [...prev, height]);
-  }, []);
+  // const changeProjectHeight = useCallback((height) => {
+  //   setProjectHeight((prev) => [...prev, height]);
+  // }, []);
 
   // useEffect(() => {
   //   if (projectHeight) {
@@ -87,16 +87,16 @@ export default function RenderAllProjects({
             width={500}
             itemSize={modProjectHeight}
             className="w-full-important h-144"
-            onItemsRendered={({ overscanStartIndex, overscanStopIndex }) => {
-              // console.log(overscanStartIndex, overscanStopIndex);
-              let projectComponents = document.querySelectorAll(".test");
+            // onItemsRendered={({ overscanStartIndex, overscanStopIndex }) => {
+            // console.log(overscanStartIndex, overscanStopIndex);
+            // let projectComponents = document.querySelectorAll(".test");
 
-              console.log(projectComponents);
+            // console.log(projectComponents);
 
-              // for (let i = projectComponents; i <= projectComponents; i += 1) {
-              //   changeProjectHeight(projectComponents[i].clientHeight);
-              // }
-            }}
+            // for (let i = projectComponents; i <= projectComponents; i += 1) {
+            //   changeProjectHeight(projectComponents[i].clientHeight);
+            // }
+            // }}
           >
             {/* style prop is needed as the list attaches the elements into the DOM */}
             {({ index, style }) => {

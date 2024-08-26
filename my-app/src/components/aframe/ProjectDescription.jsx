@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Cycle from "../helper/Cycle";
 import { Description } from "@headlessui/react";
@@ -25,6 +25,52 @@ export default function ProjectDescription({
   changeCycleAdd,
   changeCycleRemove,
 }) {
+  const [titleReachedMax, setTitleReachedMax] = useState(false);
+  const [titleDebounce, setTitleDebounce] = useState(false);
+
+  // once the user reaches the maximum amount of characters AND attempts to add more, an animation will play indiciating they've reached the limit
+  useEffect(() => {
+    if (!changeTitleInputRef && !changeTitleInputRef.current) return;
+
+    // manage the changeTitleInputRef.current of this specific render cycle
+    const titleInputRef = changeTitleInputRef.current;
+
+    titleInputRef.addEventListener("keydown", () => {
+      if (
+        titleInputRef.value.length === 50 &&
+        titleReachedMax &&
+        titleDebounce === false
+      ) {
+        setTitleDebounce(true);
+        console.log("debounce");
+        titleInputRef.classList.add("yelling-red");
+
+        setTimeout(() => {
+          titleInputRef.classList.remove("yelling-red");
+          setTitleDebounce(false);
+        }, 1000);
+      }
+
+      if (titleInputRef.value.length === 50) setTitleReachedMax(true);
+      else setTitleReachedMax(false);
+    });
+
+    return () => {
+      titleInputRef.removeEventListener("keydown", () => {
+        if (titleInputRef.value.length === 50 && titleReachedMax) {
+          titleInputRef.classList.add("yelling-red");
+
+          setTimeout(() => {
+            titleInputRef.classList.remove("yelling-red");
+          }, 1000);
+        }
+
+        if (titleInputRef.value.length === 50) setTitleReachedMax(true);
+        else setTitleReachedMax(false);
+      });
+    };
+  }, [titleReachedMax, changeTitleInputRef, titleDebounce]);
+
   return (
     <>
       <section className="xl:bg-sec-1 dark:xl:bg-prim-2 flex w-full min-h-250 xl:px-16 xl:py-10 flex-col gap-8 rounded-xl relative shadow-md dark:shadow-none">
@@ -45,6 +91,7 @@ export default function ProjectDescription({
           className="h-12 bg-sec-2 dark:bg-prim-4 rounded-xl p-5 text-prim-2 dark:text-prim-1 placeholder-prim-2 dark:placeholder-gray-500 focus:outline-none"
           placeholder="Title"
           value={title}
+          maxLength={50}
           onChange={() => changeTitle()}
           ref={changeTitleInputRef}
         />
@@ -54,6 +101,7 @@ export default function ProjectDescription({
           className="h-12 bg-sec-2 dark:bg-prim-4 rounded-xl p-5 text-prim-2 dark:text-prim-1 placeholder-prim-2 dark:placeholder-gray-500 focus:outline-none"
           placeholder="Description"
           value={description}
+          maxLength={80}
           onChange={() => changeDescription()}
           ref={changeDescriptionInputRef}
         />
