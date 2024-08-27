@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 import Cycle from "../helper/Cycle";
-import { Description } from "@headlessui/react";
 
 ProjectDescription.propTypes = {
   title: PropTypes.string.isRequired,
@@ -28,108 +27,94 @@ export default function ProjectDescription({
   const [titleReachedMax, setTitleReachedMax] = useState(false);
   const [titleDebounce, setTitleDebounce] = useState(false);
 
-  // once the user reaches the maximum amount of characters AND attempts to add more, an animation will play indiciating they've reached the limit
-  useEffect(() => {
-    if (!changeTitleInputRef && !changeTitleInputRef.current) return;
-    let alphaNumericChar = /^[a-zA-Z0-9 ]+$/;
-
-    // manage the changeTitleInputRef.current of this specific render cycle
-    const titleInputRef = changeTitleInputRef.current;
-
-    titleInputRef.addEventListener("keyup", (event) => {
-      console.log(event.key);
-      if (alphaNumericChar.test(event.key) === false && event.key.length !== 1)
-        return;
+  // we need to pass e as an argument so useCallback can rerender the animation whenever the key is pressed and conditions are met
+  const maxCharactersAnimation = useCallback(
+    (inputRef, char, e) => {
+      console.log(e.key);
 
       if (
-        titleInputRef.value.length === 50 &&
+        inputRef.value.length === char &&
         titleReachedMax &&
-        titleDebounce === false &&
-        !event.repeat
+        titleDebounce === false
       ) {
         setTitleDebounce(true);
-        console.log("debounce");
-        titleInputRef.classList.add("yelling-red");
+        inputRef.classList.add("yelling-red");
 
         setTimeout(() => {
-          titleInputRef.classList.remove("yelling-red");
+          inputRef.classList.remove("yelling-red");
           setTitleDebounce(false);
         }, 1000);
       }
 
-      if (titleInputRef.value.length === 50) setTitleReachedMax(true);
+      if (inputRef.value.length === char) setTitleReachedMax(true);
       else setTitleReachedMax(false);
-    });
+    },
+    [titleReachedMax, titleDebounce],
+  );
+
+  // once the user reaches the maximum amount of characters AND attempts to add more, an animation will play indiciating they've reached the limit
+  useEffect(() => {
+    if (!changeTitleInputRef && !changeTitleInputRef.current) return;
+
+    // manage the changeTitleInputRef.current of this specific render cycle
+    const titleInputRef = changeTitleInputRef.current;
+
+    titleInputRef.addEventListener("keydown", (e) =>
+      maxCharactersAnimation(titleInputRef, 50, e),
+    );
 
     return () => {
-      titleInputRef.removeEventListener("keyup", (event) => {
-        if (!alphaNumericChar.test(event.key) && event.key.length !== 1) return;
-        if (titleInputRef.value.length === 50 && titleReachedMax) {
-          titleInputRef.classList.add("yelling-red");
-
-          setTimeout(() => {
-            titleInputRef.classList.remove("yelling-red");
-          }, 1000);
-        }
-
-        if (titleInputRef.value.length === 50) setTitleReachedMax(true);
-        else setTitleReachedMax(false);
-      });
+      titleInputRef.removeEventListener("keydown", (e) =>
+        maxCharactersAnimation(titleInputRef, 50, e),
+      );
     };
-  }, [titleReachedMax, changeTitleInputRef, titleDebounce]);
+  }, [
+    titleReachedMax,
+    changeTitleInputRef,
+    titleDebounce,
+    maxCharactersAnimation,
+  ]);
 
-  const [descriptionReachedMax, setdescriptionReachedMax] = useState(false);
-  const [descriptionDebounce, setdescriptionDebounce] = useState(false);
+  const [descriptionReachedMax, setDescriptionReachedMax] = useState(false);
+  const [descriptionDebounce, setDescriptionDebounce] = useState(false);
 
   // once the user reaches the maximum amount of characters AND attempts to add more, an animation will play indiciating they've reached the limit
   useEffect(() => {
     if (!changeDescriptionInputRef && !changeDescriptionInputRef.current)
       return;
-    let alphaNumericChar = /^[a-zA-Z0-9 ]+$/;
 
     // manage the changedescriptionInputRef.current of this specific render cycle
     const descriptionInputRef = changeDescriptionInputRef.current;
 
-    descriptionInputRef.addEventListener("keyup", (event) => {
-      if (!alphaNumericChar.test(event.key) && event.key.length !== 1) return;
+    const maxCharactersAnimation = (char, event) => {
       if (
-        descriptionInputRef.value.length === 80 &&
+        descriptionInputRef.value.length === char &&
         descriptionReachedMax &&
         descriptionDebounce === false &&
         !event.repeat
       ) {
-        setdescriptionDebounce(true);
-        console.log("debounce");
+        setDescriptionDebounce(true);
         descriptionInputRef.classList.add("yelling-red");
 
         setTimeout(() => {
           descriptionInputRef.classList.remove("yelling-red");
-          setdescriptionDebounce(false);
+          setDescriptionDebounce(false);
         }, 1000);
       }
 
-      if (descriptionInputRef.value.length === 80)
-        setdescriptionReachedMax(true);
-      else setdescriptionReachedMax(false);
-    });
-
-    return () => {
-      descriptionInputRef.removeEventListener("keyup", (event) => {
-        if (!alphaNumericChar.test(event.key) && event.key.length !== 1) return;
-
-        if (descriptionInputRef.value.length === 80 && descriptionReachedMax) {
-          descriptionInputRef.classList.add("yelling-red");
-
-          setTimeout(() => {
-            descriptionInputRef.classList.remove("yelling-red");
-          }, 1000);
-        }
-
-        if (descriptionInputRef.value.length === 80)
-          setdescriptionReachedMax(true);
-        else setdescriptionReachedMax(false);
-      });
+      if (descriptionInputRef.value.length === char)
+        setDescriptionReachedMax(true);
+      else setDescriptionReachedMax(false);
     };
+
+    descriptionInputRef.addEventListener("keydown", (event) =>
+      maxCharactersAnimation(80, event),
+    );
+
+    return () =>
+      descriptionInputRef.removeEventListener("keydown", (event) =>
+        maxCharactersAnimation(80, event),
+      );
   }, [descriptionReachedMax, changeDescriptionInputRef, descriptionDebounce]);
 
   return (

@@ -130,7 +130,7 @@ export default function Preview({
 }) {
   // generate local image URLs in the preview to use in the aframe.
   // useMemo removes the rerender complexies of useEffect and useState in that a useState would be a dependency and would rerun the function multiple times because it changes.
-  // useMemo also removes the need to add temp states that I modify. I no longer need a modifiedAframe useState, and don't need to make the useEffect for the userAframe object to be assigned to it.
+  // useMemo also removes the need to add temp states that I modify. I no longer need a modifiedAframe useState, and don't need to wait and assign the userAframe object to it.
   const modifiedAframe = useMemo(() => {
     let imageURLs = [];
 
