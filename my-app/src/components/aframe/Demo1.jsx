@@ -7,7 +7,8 @@ Demo.propTypes = {
   theme: propTypes.string.isRequired,
 };
 
-// aframe does not need to be installed because it is imported in index.html
+// Demo renders the aframe project in the landing page's hero
+// theme (string): the theme of the project, either "dark" or "light." It changes depending on localstorage changing the theme state value, triggering a rerender
 export default function Demo({ theme }) {
   const [toolTip, setToolTip] = useState(false);
 

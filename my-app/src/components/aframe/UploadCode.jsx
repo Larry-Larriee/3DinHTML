@@ -38,6 +38,7 @@ export default function UploadCode({
           ref={textAreaAframeRef}
           onChange={() => changeUserAframe()}
           value={userAframe}
+          placeholder={"Paste your <aframe> here. Aframe script tags work too."}
           className="bg-sec-2 dark:bg-prim-4 text-prim-2 dark:text-prim-1 h-32 resize-none overflow-y-auto rounded-xl p-3 focus:outline-none xl:h-48 xl:p-5 2xl:h-64"
         />
 

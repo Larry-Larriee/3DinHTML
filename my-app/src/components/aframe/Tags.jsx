@@ -15,6 +15,11 @@ Tags.propTypes = {
 
 // The tags component renders tags that the user can select for their project. Users can select multiple tags and the useState will
 // keep track of the tags that the user has selected in an array. The value of the tags are the same as the category name (innerHTML) such as "Gaming & Fun"
+// tags (array): an array of all the tags that the user has selected
+// changeTags (function): function that will change the tags array state
+// tag[num]Ref (object): references to the tags
+// changeCycleAdd (function): change to the next cycle
+// changeCycleRemove (function): move to the previous cycle
 export default function Tags({
   tags,
   changeTags,

@@ -6,6 +6,9 @@ Project.propTypes = {
   size: propTypes.string,
 };
 
+// Project component is used to render the aframe project in an iframe.
+// aframe (string): the aframe project that the user has created
+// size (string): the size of the iframe, either "small" or "big"
 export default function Project({ aframe, size = "small" }) {
   let header =
     "<head><script src='https://aframe.io/releases/1.6.0/aframe.min.js'></script></head>";

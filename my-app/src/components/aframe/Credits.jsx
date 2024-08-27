@@ -10,7 +10,12 @@ Credits.propTypes = {
   changeCycleSubmit: PropTypes.func.isRequired,
 };
 
-// Credits component is used specifically for the contribute page
+// Credits component allows the user to insert their name, where the name state will be autofilled if the user is signed in
+// name (string): the name of the user
+// changeName (function): useState to store the value of the user's name
+// changeNameInputRef (object): useRef for the name input
+// changeCycleRemove (function): move to the previous cycle
+// changeCycleSubmit (function): submit and open the preview which waits for cycleSubmit to be true
 export default function Credits({
   name,
   changeName,

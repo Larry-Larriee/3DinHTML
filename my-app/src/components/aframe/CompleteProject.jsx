@@ -8,19 +8,20 @@ CompleteProject.propTypes = {
   description: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   tags: PropTypes.array,
-  // changeProjectHeight: PropTypes.func.isRequired,
-  // projectComponentRef: PropTypes.object,
 };
 
-// used specifically for the explore page
+// CompleteProject is the main project UI in the explore page
+// aframe (string): the aframe project that the user has created
+// title (string): the title of the project
+// description (string): the description of the project
+// name (string): the name of the user. autofills via cookie if the user is logged in
+// tags (array): the array of tags that the user has selected
 export default function CompleteProject({
   aframe,
   title,
   description,
   name,
   tags,
-  // changeProjectHeight,
-  // projectComponentRef,
 }) {
   const [copied, setCopied] = useState(false);
 
@@ -45,25 +46,6 @@ export default function CompleteProject({
       return () => clearTimeout(timeout);
     }
   }, [copied]);
-
-  // when the component finishes mounting display the height of the component
-  // useEffect(() => {
-  //   if (projectComponentRef.current) {
-  //     changeProjectHeight(projectComponentRef.current.clientHeight);
-  //   }
-  // }, [changeProjectHeight, projectComponentRef]);
-
-  // useEffect(() => {
-  //   document.addEventListener("DOMContentLoaded", () =>
-  //     changeProjectHeight(document.querySelector(".test").clientHeight)
-  //   );
-
-  //   return () => {
-  //     document.removeEventListener("DOMContentLoaded", () =>
-  //       changeProjectHeight(document.querySelector(".test").clientHeight)
-  //     );
-  //   };
-  // }, [changeProjectHeight]);
 
   return (
     <section className="flex w-full flex-col gap-8 xl:flex-row xl:gap-12">

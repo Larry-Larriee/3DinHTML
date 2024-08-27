@@ -13,7 +13,14 @@ ProjectDescription.propTypes = {
   changeCycleRemove: PropTypes.func.isRequired,
 };
 
-// ProjectDescription component is used specifically for the contribute page
+// ProjectDescription component renders the input fields for the user to input the title and description of their project. The user can only input a certain amount of characters
+// title (string): the value of the user's title (referenced when the user moves back and forth between the cycle component)
+// changeTitle (function): useState to store the value of the user's title
+// changeTitleInputRef (object): useRef for the title input
+// changeDescription (function): useState to store the value of the user's description
+// changeDescriptionInputRef (object): useRef for the description input
+// changeCycleAdd (function): change to the next cycle
+// changeCycleRemove (function): move to the previous cycle
 export default function ProjectDescription({
   title,
   changeTitle,
@@ -24,35 +31,39 @@ export default function ProjectDescription({
   changeCycleAdd,
   changeCycleRemove,
 }) {
-  const [titleReachedMax, setTitleReachedMax] = useState(false);
-  const [titleDebounce, setTitleDebounce] = useState(false);
+  const [reachedMax, setReachedMax] = useState(false);
+  const [debounce, setDebounce] = useState(false);
 
   // we need to pass e as an argument so useCallback can rerender the animation whenever the key is pressed and conditions are met
   const maxCharactersAnimation = useCallback(
     (inputRef, char, e) => {
-      console.log(e.key);
+      if (e.key.length === 1) {
+        if (
+          inputRef.value.length === char &&
+          reachedMax &&
+          debounce === false
+        ) {
+          setDebounce(true);
+          inputRef.classList.add("yelling-red");
 
-      if (
-        inputRef.value.length === char &&
-        titleReachedMax &&
-        titleDebounce === false
-      ) {
-        setTitleDebounce(true);
-        inputRef.classList.add("yelling-red");
+          setTimeout(() => {
+            inputRef.classList.remove("yelling-red");
+            setDebounce(false);
+          }, 1000);
+        }
 
-        setTimeout(() => {
-          inputRef.classList.remove("yelling-red");
-          setTitleDebounce(false);
-        }, 1000);
+        // technically once the user reaches the maximum amount of characters, the animation will play due to reachedMax being a dependency. however, the animation won't be displayed until the user runs the event to call the callback
+        // although the useEffect also has a dependency for maxCharactersAnimation, it's inside the eventlistener so the animation won't be displayed until the user press down a key. in this case, you can think of it as the animation being played without you knowing
+        if (inputRef.value.length === char) setReachedMax(true);
+        else setReachedMax(false);
       }
-
-      if (inputRef.value.length === char) setTitleReachedMax(true);
-      else setTitleReachedMax(false);
     },
-    [titleReachedMax, titleDebounce],
+
+    [reachedMax, debounce],
   );
 
   // once the user reaches the maximum amount of characters AND attempts to add more, an animation will play indiciating they've reached the limit
+  // on mount, the event listener is added to the input field
   useEffect(() => {
     if (!changeTitleInputRef && !changeTitleInputRef.current) return;
 
@@ -68,17 +79,8 @@ export default function ProjectDescription({
         maxCharactersAnimation(titleInputRef, 50, e),
       );
     };
-  }, [
-    titleReachedMax,
-    changeTitleInputRef,
-    titleDebounce,
-    maxCharactersAnimation,
-  ]);
+  }, [changeTitleInputRef, maxCharactersAnimation]);
 
-  const [descriptionReachedMax, setDescriptionReachedMax] = useState(false);
-  const [descriptionDebounce, setDescriptionDebounce] = useState(false);
-
-  // once the user reaches the maximum amount of characters AND attempts to add more, an animation will play indiciating they've reached the limit
   useEffect(() => {
     if (!changeDescriptionInputRef && !changeDescriptionInputRef.current)
       return;
@@ -86,36 +88,15 @@ export default function ProjectDescription({
     // manage the changedescriptionInputRef.current of this specific render cycle
     const descriptionInputRef = changeDescriptionInputRef.current;
 
-    const maxCharactersAnimation = (char, event) => {
-      if (
-        descriptionInputRef.value.length === char &&
-        descriptionReachedMax &&
-        descriptionDebounce === false &&
-        !event.repeat
-      ) {
-        setDescriptionDebounce(true);
-        descriptionInputRef.classList.add("yelling-red");
-
-        setTimeout(() => {
-          descriptionInputRef.classList.remove("yelling-red");
-          setDescriptionDebounce(false);
-        }, 1000);
-      }
-
-      if (descriptionInputRef.value.length === char)
-        setDescriptionReachedMax(true);
-      else setDescriptionReachedMax(false);
-    };
-
     descriptionInputRef.addEventListener("keydown", (event) =>
-      maxCharactersAnimation(80, event),
+      maxCharactersAnimation(descriptionInputRef, 80, event),
     );
 
     return () =>
       descriptionInputRef.removeEventListener("keydown", (event) =>
-        maxCharactersAnimation(80, event),
+        maxCharactersAnimation(descriptionInputRef, 80, event),
       );
-  }, [descriptionReachedMax, changeDescriptionInputRef, descriptionDebounce]);
+  }, [changeDescriptionInputRef, maxCharactersAnimation]);
 
   return (
     <>
