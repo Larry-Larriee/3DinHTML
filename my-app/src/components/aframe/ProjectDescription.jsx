@@ -31,11 +31,16 @@ export default function ProjectDescription({
   // once the user reaches the maximum amount of characters AND attempts to add more, an animation will play indiciating they've reached the limit
   useEffect(() => {
     if (!changeTitleInputRef && !changeTitleInputRef.current) return;
+    let alphaNumericChar = /^[a-zA-Z0-9 ]+$/;
 
     // manage the changeTitleInputRef.current of this specific render cycle
     const titleInputRef = changeTitleInputRef.current;
 
-    titleInputRef.addEventListener("keydown", (event) => {
+    titleInputRef.addEventListener("keyup", (event) => {
+      console.log(event.key);
+      if (alphaNumericChar.test(event.key) === false && event.key.length !== 1)
+        return;
+
       if (
         titleInputRef.value.length === 50 &&
         titleReachedMax &&
@@ -57,7 +62,8 @@ export default function ProjectDescription({
     });
 
     return () => {
-      titleInputRef.removeEventListener("keypress", () => {
+      titleInputRef.removeEventListener("keyup", (event) => {
+        if (!alphaNumericChar.test(event.key) && event.key.length !== 1) return;
         if (titleInputRef.value.length === 50 && titleReachedMax) {
           titleInputRef.classList.add("yelling-red");
 
@@ -79,11 +85,13 @@ export default function ProjectDescription({
   useEffect(() => {
     if (!changeDescriptionInputRef && !changeDescriptionInputRef.current)
       return;
+    let alphaNumericChar = /^[a-zA-Z0-9 ]+$/;
 
     // manage the changedescriptionInputRef.current of this specific render cycle
     const descriptionInputRef = changeDescriptionInputRef.current;
 
-    descriptionInputRef.addEventListener("keydown", (event) => {
+    descriptionInputRef.addEventListener("keyup", (event) => {
+      if (!alphaNumericChar.test(event.key) && event.key.length !== 1) return;
       if (
         descriptionInputRef.value.length === 80 &&
         descriptionReachedMax &&
@@ -106,7 +114,9 @@ export default function ProjectDescription({
     });
 
     return () => {
-      descriptionInputRef.removeEventListener("keydown", () => {
+      descriptionInputRef.removeEventListener("keyup", (event) => {
+        if (!alphaNumericChar.test(event.key) && event.key.length !== 1) return;
+
         if (descriptionInputRef.value.length === 80 && descriptionReachedMax) {
           descriptionInputRef.classList.add("yelling-red");
 

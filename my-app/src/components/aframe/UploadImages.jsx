@@ -41,7 +41,7 @@ export default function UploadImage({
 
         {/* flex items by default have both a flex-grow and flex-shrink of 1 */}
         {/* this means it will take up all available space if possible or shrink if required */}
-        <div className="relative flex flex-grow-0 items-center gap-5">
+        <div className="relative mb-20 flex flex-grow-0 items-center gap-5">
           <Dropzone
             onDrop={(acceptedFiles) => changeImageUpload(acceptedFiles)}
           >
@@ -58,6 +58,21 @@ export default function UploadImage({
                     Drag and drop your assets here, or click to select files
                   </p>
                 )}
+
+                {/* these images are invisible but are generated alongside the visible image previews (which have the delete button) */}
+                {/* because they are generated with the imageUpload array, they can be rendered into the DOM or deleted if the user decides to delete the visible image preview */}
+                {imageUpload.length > 0 &&
+                  imageUpload.map((image, index) => {
+                    const imageURL = URL.createObjectURL(image);
+                    return (
+                      <img
+                        alt={image.name + index}
+                        src={imageURL}
+                        key={image.name + index}
+                        className="max-h-16 max-w-32 object-cover opacity-0"
+                      />
+                    );
+                  })}
               </div>
             )}
           </Dropzone>
