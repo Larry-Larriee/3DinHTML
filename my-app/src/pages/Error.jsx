@@ -7,11 +7,11 @@ export default function Error() {
       <Navigation />
 
       <section className="flex h-full w-10/12 flex-col items-center justify-center gap-3">
-        <p className="text-prim-1 font-league text-3xl font-semibold">
+        <p className="text-prim-2 dark:text-prim-1 font-league text-3xl font-semibold">
           Looks like you found a not-so-secret page.
         </p>
 
-        <p className="text-prim-1 font-league text-xl font-medium">
+        <p className="text-prim-2 dark:text-prim-1 font-league text-xl font-medium">
           Maybe open up the menu?
         </p>
       </section>

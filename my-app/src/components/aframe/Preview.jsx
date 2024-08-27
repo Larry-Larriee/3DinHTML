@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
 import { Dialog, DialogPanel } from "@headlessui/react";
 
@@ -8,6 +8,7 @@ Preview.propTypes = {
   description: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   tags: PropTypes.array.isRequired,
+  imageUpload: PropTypes.array.isRequired,
   changeConfirmed: PropTypes.func.isRequired,
   submitted: PropTypes.bool.isRequired,
   changeSubmitted: PropTypes.func.isRequired,
@@ -122,10 +123,38 @@ export default function Preview({
   description,
   name,
   tags,
+  imageUpload,
   changeConfirmed,
   submitted,
   changeSubmitted,
 }) {
+  // generate local image URLs in the preview to use in the aframe.
+  // useMemo removes the rerender complexies of useEffect and useState in that a useState would be a dependency and would rerun the function multiple times because it changes.
+  // useMemo also removes the need to add temp states that I modify. I no longer need a modifiedAframe useState, and don't need to wait and assign the userAframe object to it.
+  const modifiedAframe = useMemo(() => {
+    let imageURLs = [];
+
+    if (submitted) {
+      for (let i = 0; i < imageUpload.length; i++) {
+        let imageURL = URL.createObjectURL(imageUpload[i]);
+        imageURLs.push(imageURL);
+      }
+
+      let modifiedAframeReplace = userAframe.replace(
+        /src="([^"]+)"/g,
+        "src='url'",
+      );
+      let modifiedAframeSplit = modifiedAframeReplace.split("url");
+      for (let i = 0; i < imageURLs.length; i++) {
+        modifiedAframeSplit.splice(i * 2 + 1, 0, `${imageURLs[i]}`);
+      }
+
+      // return the modified aframe with the image URLs
+      let newAframe = modifiedAframeSplit.join("");
+      return newAframe;
+    }
+  }, [imageUpload, userAframe, submitted]);
+
   return (
     <>
       {
@@ -211,10 +240,12 @@ export default function Preview({
 
               <article className="flex w-full flex-col gap-10 xl:flex-row">
                 <section className="flex max-w-72 lg:w-full lg:max-w-none xl:w-72 xl:flex-none">
-                  <iframe
-                    className="h-56 w-full"
-                    srcDoc={`${header} + ${userAframe}`}
-                  />
+                  {modifiedAframe && (
+                    <iframe
+                      className="h-56 w-full"
+                      srcDoc={`${header} + ${modifiedAframe}`}
+                    />
+                  )}
                 </section>
 
                 <div className="flex flex-col lg:w-1/2 xl:w-auto">

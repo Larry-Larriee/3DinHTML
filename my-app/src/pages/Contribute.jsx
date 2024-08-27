@@ -198,6 +198,7 @@ export default function Contribute() {
           description={description}
           name={name}
           tags={tags}
+          imageUpload={imageUpload}
           changeConfirmed={changeConfirmed}
           submitted={submitted}
           changeSubmitted={removeSubmitted}
