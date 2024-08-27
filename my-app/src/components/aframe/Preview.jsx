@@ -13,6 +13,9 @@ Preview.propTypes = {
   changeSubmitted: PropTypes.func.isRequired,
 };
 
+let header =
+  "<head><script src='https://aframe.io/releases/1.6.0/aframe.min.js'></script></head>";
+
 let svgSelection = {
   featured: (
     <svg
@@ -21,7 +24,7 @@ let svgSelection = {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="#BE7C4D"
-      className="w-8 h-8"
+      className="h-8 w-8"
     >
       <path
         strokeLinecap="round"
@@ -37,7 +40,7 @@ let svgSelection = {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="#DE5456"
-      className="w-8 h-8"
+      className="h-8 w-8"
     >
       <path
         strokeLinecap="round"
@@ -53,7 +56,7 @@ let svgSelection = {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="#648767"
-      className="w-8 h-8"
+      className="h-8 w-8"
     >
       <path
         strokeLinecap="round"
@@ -69,7 +72,7 @@ let svgSelection = {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="#9CAFB7"
-      className="w-8 h-8"
+      className="h-8 w-8"
     >
       <path
         strokeLinecap="round"
@@ -85,7 +88,7 @@ let svgSelection = {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="#EAD2AC"
-      className="w-8 h-8"
+      className="h-8 w-8"
     >
       <path
         strokeLinecap="round"
@@ -101,7 +104,7 @@ let svgSelection = {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="#605B56"
-      className="w-8 h-8"
+      className="h-8 w-8"
     >
       <path
         strokeLinecap="round"
@@ -129,30 +132,30 @@ export default function Preview({
         <Dialog
           open={submitted}
           onClose={() => changeSubmitted()}
-          className="fixed inset-0 w-screen h-screen flex justify-center items-center"
+          className="min-w-screen fixed inset-0 flex min-h-screen items-center justify-center"
         >
-          <DialogPanel className="relative z-30 bg-sec-1 rounded-xl w-2/3 h-5/6 px-20 py-12 flex flex-col gap-8">
+          <DialogPanel className="bg-sec-1 dark:bg-prim-3 relative z-30 flex h-5/6 w-11/12 flex-col gap-8 overflow-y-auto rounded-xl px-10 py-5 xl:w-10/12 xl:px-20 xl:py-12 2xl:w-3/4 3xl:w-2/3">
             <section className="flex flex-col gap-5">
-              <p className="text-prim-2 text-4xl font-league font-bold">
+              <p className="text-prim-2 dark:text-prim-1 font-league text-4xl font-bold">
                 Project Preview
               </p>
-              <p className="text-prim-2 text-xl font-league">
+              <p className="text-prim-2 dark:text-prim-1 font-league text-xl">
                 When you&apos;re satisfied, click on the confirmation button.
                 Otherwise, click anywhere outside the preview to make changes to
                 your project.
               </p>
             </section>
 
-            <section className="flex justify-between w-full gap-12">
-              <article className="flex flex-col gap-8 flex-none w-72">
-                <div className="flex gap-3 items-center bg-sec-1 dark:bg-prim-4 py-2 rounded-xl pl-2 shadow-xl hover:scale-105 duration-200 ease-in-out transition">
+            <section className="flex w-full flex-col justify-between gap-12 xl:flex-row">
+              <article className="flex max-w-72 flex-none flex-col gap-8 xl:w-72">
+                <div className="bg-sec-1 dark:bg-prim-4 flex items-center gap-3 rounded-xl py-2 pl-2 shadow-xl transition duration-200 ease-in-out hover:scale-105 dark:shadow-none">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
                     strokeWidth="2"
                     stroke="currentColor"
-                    className="w-8 h-8 flex-none dark:text-prim-1 text-prim-2"
+                    className="dark:text-prim-1 text-prim-2 dark:text-prim-1 h-8 w-8 flex-none"
                   >
                     <path
                       strokeLinecap="round"
@@ -161,56 +164,71 @@ export default function Preview({
                     />
                   </svg>
 
-                  <p className="text-prim-2 font-league text-xl">Search</p>
+                  <p className="text-prim-2 dark:text-prim-1 font-league text-xl">
+                    Search
+                  </p>
                 </div>
 
                 <div className="flex flex-col gap-4">
-                  <div className="items-center flex gap-3 hover:scale-105 duration-200 ease-in-out transition">
+                  <div className="flex items-center gap-3 transition duration-200 ease-in-out hover:scale-105">
                     {svgSelection["featured"]}
-                    <p className="text-xl font-league text-prim-2">Featured</p>
+                    <p className="text-prim-2 dark:text-prim-1 font-league text-xl">
+                      Featured
+                    </p>
                   </div>
-                  <div className="items-center flex gap-3 hover:scale-105 duration-200 ease-in-out transition">
+                  <div className="flex items-center gap-3 transition duration-200 ease-in-out hover:scale-105">
                     {svgSelection["recent"]}
-                    <p className="text-xl font-league text-prim-2">Recent</p>
+                    <p className="text-prim-2 dark:text-prim-1 font-league text-xl">
+                      Recent
+                    </p>
                   </div>
-                  <div className="items-center flex gap-3 hover:scale-105 duration-200 ease-in-out transition">
+                  <div className="flex items-center gap-3 transition duration-200 ease-in-out hover:scale-105">
                     {svgSelection["games"]}
-                    <p className="text-xl font-league text-prim-2">
+                    <p className="text-prim-2 dark:text-prim-1 font-league text-xl">
                       Gaming & Fun
                     </p>
                   </div>
-                  <div className="items-center flex gap-3 hover:scale-105 duration-200 ease-in-out transition">
+                  <div className="flex items-center gap-3 transition duration-200 ease-in-out hover:scale-105">
                     {svgSelection["educative"]}
-                    <p className="text-xl font-league text-prim-2">Educative</p>
+                    <p className="text-prim-2 dark:text-prim-1 font-league text-xl">
+                      Educative
+                    </p>
                   </div>
-                  <div className="items-center flex gap-3 hover:scale-105 duration-200 ease-in-out transition">
+                  <div className="flex items-center gap-3 transition duration-200 ease-in-out hover:scale-105">
                     {svgSelection["lightWeight"]}
-                    <p className="text-xl font-league text-prim-2">
+                    <p className="text-prim-2 dark:text-prim-1 font-league text-xl">
                       Lightweight
                     </p>
                   </div>
-                  <div className="items-center flex gap-3 hover:scale-105 duration-200 ease-in-out transition">
+                  <div className="flex items-center gap-3 transition duration-200 ease-in-out hover:scale-105">
                     {svgSelection["heavy"]}
-                    <p className="text-xl font-league text-prim-2">Heavy</p>
+                    <p className="text-prim-2 dark:text-prim-1 font-league text-xl">
+                      Heavy
+                    </p>
                   </div>
                 </div>
               </article>
 
-              <article className="flex w-full gap-10">
-                <section className="flex-none w-72">
-                  <div className="bg-gray-300 w-full h-56"></div>
+              <article className="flex w-full flex-col gap-10 xl:flex-row">
+                <section className="flex max-w-72 lg:w-full lg:max-w-none xl:w-72 xl:flex-none">
+                  <iframe
+                    className="h-56 w-full"
+                    srcDoc={`${header} + ${userAframe}`}
+                  />
                 </section>
 
-                <div className="flex flex-col">
-                  <section className="flex flex-col gap-5 w-full min-h-56 flex-none">
+                <div className="flex flex-col lg:w-1/2 xl:w-auto">
+                  <section className="flex min-h-56 w-full flex-none flex-col gap-5">
                     <div className="flex flex-col">
-                      <p className="font-league text-2xl text-prim-2">
+                      <p className="text-prim-2 dark:text-prim-1 font-league text-3xl font-semibold xl:text-2xl">
                         {title}
                       </p>
-                      <p className="font-league text-sm text-prim-2">{name}</p>
+                      <p className="text-prim-2 dark:text-prim-1 font-league text-lg xl:text-sm">
+                        {name}
+                      </p>
                     </div>
 
-                    <p className="font-league text-base text-prim-2">
+                    <p className="text-prim-2 dark:text-prim-1 order-2 font-league text-xl xl:order-1 xl:text-base">
                       {description}
                     </p>
 
@@ -218,15 +236,15 @@ export default function Preview({
                       {tags.map((tag, index) => (
                         <p
                           key={"preview tag" + index}
-                          className="bg-prim-2 text-white px-3 py-1 text-sm font-league rounded-xl hover:scale-105 duration-200 ease-in-out transition"
+                          className="bg-prim-2 dark:bg-prim-4 order-1 rounded-3xl px-4 py-2 font-league text-lg text-white transition duration-200 ease-in-out hover:scale-105 xl:order-2 xl:rounded-xl xl:px-3 xl:py-1 xl:text-sm"
                         >
                           {tag}
                         </p>
                       ))}
                     </article>
 
-                    <div className="flex flex-col justify-end w-28 h-full">
-                      <p className="bg-prim-5 py-1 rounded-lg text-white font-league text-base text-center hover:scale-105 duration-200 ease-in-out transition">
+                    <div className="order-3 flex h-full flex-col justify-end xl:w-28">
+                      <p className="dark:text-prim-1 bg-prim-5 w-40 rounded-2xl py-3 text-center text-xl font-semibold text-white transition duration-200 ease-in-out hover:scale-105 hover:cursor-pointer">
                         Copy Project
                       </p>
                     </div>
@@ -236,14 +254,14 @@ export default function Preview({
             </section>
 
             <p
-              className="absolute bottom-8 right-20 py-2 px-8 bg-green-600 font-league text-2xl rounded-xl text-white hover:scale-105 duration-200 transition ease-in-out hover:cursor-pointer"
+              className="mt-5 rounded-xl bg-green-600 px-8 py-2 font-league text-2xl text-white transition duration-200 ease-in-out hover:scale-105 hover:cursor-pointer xl:absolute xl:bottom-8 xl:right-20 xl:mt-0"
               onClick={() => changeConfirmed()}
             >
               Confirm
             </p>
           </DialogPanel>
 
-          <div className="inset-0 flex w-screen h-screen absolute bg-prim-half-2 z-10" />
+          <div className="bg-prim-half-2 absolute inset-0 z-10 flex h-screen w-screen" />
         </Dialog>
       }
     </>
