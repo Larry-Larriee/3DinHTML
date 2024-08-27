@@ -15,22 +15,22 @@ Step.propTypes = {
 export default function Step({ number, title, cycle }) {
   return (
     <>
-      <section className="flex items-center gap-6 hover:scale-105 duration-200 ease-in-out transition hover:cursor-default">
+      <section className="flex items-center gap-6 transition duration-200 ease-in-out hover:scale-105 hover:cursor-default">
         {cycle === number ? (
           <>
-            <p className="text-prim-2 dark:text-prim-1 text-xl xl:text-2xl font-bold font-league min-w-5">
+            <p className="text-prim-2 dark:text-prim-1 min-w-5 font-league text-xl font-bold xl:text-2xl">
               {number}
             </p>
-            <p className="text-prim-2 dark:text-prim-1 text-xl xl:text-2xl font-bold font-league">
+            <p className="text-prim-2 dark:text-prim-1 font-league text-xl font-bold xl:text-2xl">
               {title}
             </p>
           </>
         ) : (
           <>
-            <p className="text-prim-2 dark:text-prim-1 text-xl xl:text-2xl font-league min-w-5">
+            <p className="text-prim-2 dark:text-prim-1 min-w-5 font-league text-xl xl:text-2xl">
               {number}
             </p>
-            <p className="text-prim-2 dark:text-prim-1 text-xl xl:text-2xl font-league">
+            <p className="text-prim-2 dark:text-prim-1 font-league text-xl xl:text-2xl">
               {title}
             </p>
           </>

@@ -27,7 +27,7 @@ export default function CompleteProject({
   // strings that are JSON.parsed are automatically converted into js strings, meaning we can we \n to create a new line
   const clipboardAframe = () => {
     navigator.clipboard.writeText(
-      `<!-- ${title} was created by ${name} --> \n ${aframe}`
+      `<!-- ${title} was created by ${name} --> \n ${aframe}`,
     );
     setCopied(true);
   };
@@ -66,32 +66,32 @@ export default function CompleteProject({
   // }, [changeProjectHeight]);
 
   return (
-    <section className="flex gap-8 xl:gap-12 w-full flex-col xl:flex-row">
+    <section className="flex w-full flex-col gap-8 xl:flex-row xl:gap-12">
       <Project aframe={aframe} size={"big"} />
 
-      <div className="flex flex-none max-w-80 xl:w-80 flex-col gap-6">
+      <div className="flex max-w-80 flex-none flex-col gap-6 xl:w-80">
         <section className="flex flex-col">
-          <h1 className="text-prim-2 dark:text-prim-1 font-semibold font-league text-3xl">
+          <h1 className="text-prim-2 dark:text-prim-1 font-league text-3xl font-semibold">
             {title}
           </h1>
-          <p className="text-prim-2 dark:text-prim-1 font-medium font-league text-lg">
+          <p className="text-prim-2 dark:text-prim-1 font-league text-lg font-medium">
             {name}
           </p>
         </section>
 
-        <div className="flex order-2 xl:order-1">
-          <p className="font-league text-prim-2 dark:text-prim-1 text-xl">
+        <div className="order-2 flex xl:order-1">
+          <p className="text-prim-2 dark:text-prim-1 font-league text-xl">
             {description}
           </p>
         </div>
 
         {tags && (
-          <div className="flex gap-3 flex-wrap order-1 xl:order-2">
+          <div className="order-1 flex flex-wrap gap-3 xl:order-2">
             {tags.length !== 0 &&
               tags.map((tag) => {
                 return (
                   <div className="flex" key={tag}>
-                    <p className="bg-prim-4 rounded-3xl px-5 py-2 text-white dark:text-prim-1 font-league text-lg hover:scale-105 ease-in-out duration-200 transition">
+                    <p className="bg-prim-4 dark:text-prim-1 rounded-3xl px-5 py-2 font-league text-lg text-white transition duration-200 ease-in-out hover:scale-105">
                       {tag}
                     </p>
                   </div>
@@ -100,17 +100,17 @@ export default function CompleteProject({
           </div>
         )}
         {/* when the other element has a flex-none, the w-full or h-full is second to the other element's definite width or height */}
-        <section className="flex h-full justify-end flex-col order-3">
+        <section className="order-3 flex h-full flex-col justify-end">
           {copied ? (
             <p
-              className="text-white dark:text-prim-1 bg-prim-6 w-40 text-center py-3 rounded-2xl font-semibold text-xl hover:cursor-pointer hover:scale-105 duration-200 transition ease-in-out"
+              className="dark:text-prim-1 bg-prim-6 w-40 rounded-2xl py-3 text-center text-xl font-semibold text-white transition duration-200 ease-in-out hover:scale-105 hover:cursor-pointer"
               onClick={() => clipboardAframe()}
             >
               Copied
             </p>
           ) : (
             <p
-              className="text-white dark:text-prim-1 bg-prim-5 w-40 text-center py-3 rounded-2xl font-semibold text-xl hover:cursor-pointer hover:scale-105 duration-200 transition ease-in-out"
+              className="dark:text-prim-1 bg-prim-5 w-40 rounded-2xl py-3 text-center text-xl font-semibold text-white transition duration-200 ease-in-out hover:scale-105 hover:cursor-pointer"
               onClick={() => clipboardAframe()}
             >
               Copy Project

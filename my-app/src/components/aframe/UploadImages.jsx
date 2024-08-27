@@ -25,14 +25,14 @@ export default function UploadImage({
 }) {
   return (
     <>
-      <section className="xl:bg-sec-1 dark:shadow-none xl:shadow-md dark:xl:bg-prim-2 flex w-full min-h-250 xl:px-16 xl:py-10 flex-col gap-8 rounded-xl relative">
-        <h1 className="font-bold text-3xl xl:text-4xxl text-prim-2 dark:text-prim-1 font-league">
+      <section className="xl:bg-sec-1 dark:xl:bg-prim-2 min-h-250 relative flex w-full flex-col gap-8 rounded-xl xl:px-16 xl:py-10 xl:shadow-md dark:shadow-none">
+        <h1 className="xl:text-4xxl text-prim-2 dark:text-prim-1 font-league text-3xl font-bold">
           Uploading Images
         </h1>
-        <p className="font-league text-prim-2 dark:text-prim-1 text-xl xl:text-2xl">
+        <p className="text-prim-2 dark:text-prim-1 font-league text-xl xl:text-2xl">
           If uploading images doesn&apos;t apply to you, skip to step 3!
         </p>
-        <p className="font-league text-prim-2 dark:text-prim-1 text-lg xl:text-xl">
+        <p className="text-prim-2 dark:text-prim-1 font-league text-lg xl:text-xl">
           If you&apos;re pasting assets which go into your folder (i.e.
           images/background.png), upload that exact image here. Please also
           upload in the order it&apos;s imported by &lt;a-assets&gt; (so
@@ -41,7 +41,7 @@ export default function UploadImage({
 
         {/* flex items by default have both a flex-grow and flex-shrink of 1 */}
         {/* this means it will take up all available space if possible or shrink if required */}
-        <div className="flex flex-grow-0 gap-5 items-center relative">
+        <div className="relative flex flex-grow-0 items-center gap-5">
           <Dropzone
             onDrop={(acceptedFiles) => changeImageUpload(acceptedFiles)}
           >
@@ -49,12 +49,12 @@ export default function UploadImage({
             {/* getInputProps provides the nessessary props to the input like onChange */}
             {({ getRootProps, getInputProps }) => (
               <div
-                className="flex w-full min-h-56 border-4 border-dashed border-prim-2 dark:border-white bg-none dark:bg-prim-3 hover:cursor-pointer gap-3 p-3 flex-wrap relative z-20"
+                className="border-prim-2 dark:bg-prim-3 relative z-20 flex min-h-56 w-full flex-wrap gap-3 border-4 border-dashed bg-none p-3 hover:cursor-pointer dark:border-white"
                 {...getRootProps()}
               >
                 <input {...getInputProps()} />
                 {imageUpload.length === 0 && (
-                  <p className="leading-56 text-prim-2 dark:text-prim-1 xl:text-xl w-full px-4 text-center text-lg">
+                  <p className="leading-56 text-prim-2 dark:text-prim-1 w-full px-4 text-center text-lg xl:text-xl">
                     Drag and drop your assets here, or click to select files
                   </p>
                 )}
@@ -63,24 +63,24 @@ export default function UploadImage({
           </Dropzone>
 
           {imageUpload.length > 0 && (
-            <div className="absolute inset-0 flex w-full min-h-56 bg-none dark:bg-prim-3 hover:cursor-pointer gap-3 p-3 flex-wrap">
+            <div className="dark:bg-prim-3 absolute inset-0 flex min-h-56 w-full flex-wrap gap-3 bg-none p-3 hover:cursor-pointer">
               {imageUpload.map((image, index) => {
                 // the generated imageURL is temporary and will be removed when the page is closed or refreshed
                 const imageURL = URL.createObjectURL(image);
 
                 return (
                   <div
-                    className="w-auto h-auto relative z-50"
+                    className="relative z-50 h-auto w-auto"
                     key={image.name + index}
                   >
                     <img
                       alt={image.name + index}
                       src={imageURL}
-                      className="max-w-32 max-h-16 object-cover"
+                      className="max-h-16 max-w-32 object-cover"
                     />
 
                     <article
-                      className="w-5 h-5 flex justify-center items-center absolute -right-2 -top-2 bg-gray-300 rounded-full hover:bg-red-500 hover:text-white duration-200 transition ease-in-out"
+                      className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-gray-300 transition duration-200 ease-in-out hover:bg-red-500 hover:text-white"
                       onClick={() => removeImageUpload(image)} // access imageupload and get the image file
                     >
                       <p className="text-sm">X</p>

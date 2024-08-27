@@ -74,7 +74,7 @@ export default function RenderAllProjects({
   return (
     <>
       {renderedProjects && projectHeight && (
-        <div className="w-full h-full">
+        <div className="h-full w-full">
           <List
             itemCount={renderedProjects.length}
             height={500}

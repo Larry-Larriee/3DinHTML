@@ -59,11 +59,11 @@ export default function Success() {
       <div className="flex w-full flex-col items-center gap-12">
         <Navigation />
 
-        <div className="w-full px-12 flex justify-center mb-5 2xl:mb-0">
-          <div className="w-full flex xl:bg-sec-3 dark:xl:bg-prim-2 min-h-250 rounded-2xl xl:p-12 flex-col gap-10 xl:gap-12 relative">
-            <section className="flex flex-col gap-5 xl:gap-10 xl:w-10/12">
-              <div className="flex gap-5 sm:justify-between lg:justify-start items-center">
-                <h1 className="text-5xl font-league text-prim-2 dark:text-prim-1">
+        <div className="mb-5 flex w-full justify-center px-12 2xl:mb-0">
+          <div className="xl:bg-sec-3 dark:xl:bg-prim-2 min-h-250 relative flex w-full flex-col gap-10 rounded-2xl xl:gap-12 xl:p-12">
+            <section className="flex flex-col gap-5 xl:w-10/12 xl:gap-10">
+              <div className="flex items-center gap-5 sm:justify-between lg:justify-start">
+                <h1 className="text-prim-2 dark:text-prim-1 font-league text-5xl">
                   You&apos;re in!
                 </h1>
 
@@ -73,7 +73,7 @@ export default function Success() {
                   viewBox="0 0 24 24"
                   strokeWidth={0.75}
                   stroke="currentColor"
-                  className="w-16 h-16 text-prim-2 dark:text-prim-1"
+                  className="text-prim-2 dark:text-prim-1 h-16 w-16"
                 >
                   <path
                     strokeLinecap="round"
@@ -83,11 +83,11 @@ export default function Success() {
                 </svg>
               </div>
 
-              <p className="text-xl xl:text-2xl font-league text-prim-2 dark:text-prim-1">
+              <p className="text-prim-2 dark:text-prim-1 font-league text-xl xl:text-2xl">
                 With an account, you&apos;re able to autofill you credentials
                 when contributing projects.
               </p>
-              <p className="text-xl xl:text-2xl font-league text-prim-2 dark:text-prim-1">
+              <p className="text-prim-2 dark:text-prim-1 font-league text-xl xl:text-2xl">
                 Please keep in mind that you should never reuse the same
                 password for all of your accounts. If you would like to delete
                 your account, you have the option to do so below. Otherwise, go
@@ -97,19 +97,19 @@ export default function Success() {
 
             <section className="flex w-full flex-col gap-5 sm:mb-5 xl:mb-0 xl:gap-8">
               <p
-                className="text-xl bg-prim-5 rounded-xl shadow-none dark:shadow-xl font-semibold w-72 text-center py-4 hover:cursor-pointer hover:scale-105 transition ease-in-out duration-200 text-white dark:text-prim-1"
+                className="bg-prim-5 dark:text-prim-1 w-72 rounded-xl py-4 text-center text-xl font-semibold text-white shadow-none transition duration-200 ease-in-out hover:scale-105 hover:cursor-pointer dark:shadow-xl"
                 onClick={() => deleteAccount()}
               >
                 Delete My Account
               </p>
               <p
-                className="text-xl bg-green-800 rounded-xl shadow-none dark:shadow-xl font-semibold w-72 text-center py-4 hover:cursor-pointer hover:scale-105 transition ease-in-out duration-200 text-white dark:text-prim-1"
+                className="dark:text-prim-1 w-72 rounded-xl bg-green-800 py-4 text-center text-xl font-semibold text-white shadow-none transition duration-200 ease-in-out hover:scale-105 hover:cursor-pointer dark:shadow-xl"
                 onClick={() => goToExplore()}
               >
                 Explore
               </p>
               <p
-                className="text-xl bg-green-800 rounded-xl shadow-none dark:shadow-xl font-semibold w-72 text-center py-4 hover:cursor-pointer hover:scale-105 transition ease-in-out duration-200 text-white dark:text-prim-1"
+                className="dark:text-prim-1 w-72 rounded-xl bg-green-800 py-4 text-center text-xl font-semibold text-white shadow-none transition duration-200 ease-in-out hover:scale-105 hover:cursor-pointer dark:shadow-xl"
                 onClick={() => goToContribute()}
               >
                 Contribute
@@ -117,7 +117,7 @@ export default function Success() {
             </section>
 
             {cookieExists && (
-              <p className="absolute xl:left-auto -bottom-8 left-0 xl:right-5 xl:bottom-3 text-prim-2 dark:text-prim-1 font-league text-xl">
+              <p className="text-prim-2 dark:text-prim-1 absolute -bottom-8 left-0 font-league text-xl xl:bottom-3 xl:left-auto xl:right-5">
                 You are signed in as: {loggedInAs}
               </p>
             )}

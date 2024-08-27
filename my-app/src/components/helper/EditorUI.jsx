@@ -26,12 +26,12 @@ export default function EditorUI({
     <>
       {/* it's worth noting that w-full will take precidence over fixed widths like w-96 in a flexbox */}
       {/* w-96 will flex-shrink until flexbox decides it has enough space to undo the shrink */}
-      <article className="w-full xl:w-144 2xl:w-192 bg-sec-3 dark:bg-prim-2 rounded-xl flex flex-col gap-5 min-h-72 order-2 lg:order-1">
-        <section className=" flex gap-3 bg-sec-4 dark:bg-prim-3 min-h-9 items-center rounded-tr-xl rounded-tl-xl">
-          <p className="pl-5 text-base xl:text-lg text-prim-2 dark:text-prim-1 font-semibold">
+      <article className="xl:w-144 2xl:w-192 bg-sec-3 dark:bg-prim-2 order-2 flex min-h-72 w-full flex-col gap-5 rounded-xl lg:order-1">
+        <section className="bg-sec-4 dark:bg-prim-3 flex min-h-9 items-center gap-3 rounded-tl-xl rounded-tr-xl">
+          <p className="text-prim-2 dark:text-prim-1 pl-5 text-base font-semibold xl:text-lg">
             {title}
           </p>
-          <p className="text-base xl:text-lg font-semibold text-orange-600">
+          <p className="text-base font-semibold text-orange-600 xl:text-lg">
             &lt;/&gt;
           </p>
         </section>
@@ -40,7 +40,7 @@ export default function EditorUI({
         {/* javascript inside of a component return statement is converted into HTML (with the expection being js inside a pre element) */}
         {descriptionSize === "text-2xl" ? (
           <pre>
-            <p className="text-prim-2 dark:text-prim-1 text-xl xl:text-2xl leading-relaxed font-medium pl-5 w-11/12 xl:w-10/12">
+            <p className="text-prim-2 dark:text-prim-1 w-11/12 pl-5 text-xl font-medium leading-relaxed xl:w-10/12 xl:text-2xl">
               {highlight ? (
                 <>
                   {descriptionArr[0]}
@@ -55,7 +55,7 @@ export default function EditorUI({
         ) : (
           // if the descriptionSize is not text-2xl, then it will automatically set to text-xl
           <pre>
-            <p className="text-prim-2 dark:text-prim-1 text-lg xl:text-xl leading-relaxed font-semibold pl-5 w-11/12 xl:w-10/12">
+            <p className="text-prim-2 dark:text-prim-1 w-11/12 pl-5 text-lg font-semibold leading-relaxed xl:w-10/12 xl:text-xl">
               {highlight ? (
                 <>
                   {descriptionArr[0]}

@@ -136,7 +136,7 @@ export default function Contribute() {
           description: description,
           name: name,
           tags: tags,
-        })
+        }),
       );
 
       fetch(serverURL + "/api/contribute", {
@@ -177,7 +177,7 @@ export default function Contribute() {
             setName(data.username);
             changeNameInputRef.current.value = data.username;
           }
-        })
+        }),
       );
     }
     // no dependency array so useEffect runs on every rerender
@@ -202,8 +202,8 @@ export default function Contribute() {
           submitted={submitted}
           changeSubmitted={removeSubmitted}
         />
-        <div className="w-full flex items-center justify-center gap-16 px-12 flex-col xl:flex-row">
-          <article className="w-full xl:w-96 h-auto xl:h-full flex-none lg:flex lg:flex-col gap-6 xl:gap-12 xl:bg-sec-1 dark:xl:bg-prim-2 rounded-xl py-10 xl:pt-10 pl-8 relative hidden shadow-md dark:shadow-none">
+        <div className="flex w-full flex-col items-center justify-center gap-16 px-12 xl:flex-row">
+          <article className="xl:bg-sec-1 dark:xl:bg-prim-2 relative hidden h-auto w-full flex-none gap-6 rounded-xl py-10 pl-8 shadow-md lg:flex lg:flex-col xl:h-full xl:w-96 xl:gap-12 xl:pt-10 dark:shadow-none">
             <Step number={1} title={"Uploading Code"} cycle={cycle} />
             <Step number={2} title={"Uploading Images"} cycle={cycle} />
             <Step number={3} title={"Description"} cycle={cycle} />
@@ -216,7 +216,7 @@ export default function Contribute() {
               viewBox="0 0 24 24"
               strokeWidth={1}
               stroke="currentColor"
-              className="absolute w-40 -z-10 h-40 -top-12 -right-12 text-prim-2 dark:text-prim-1"
+              className="text-prim-2 dark:text-prim-1 absolute -right-12 -top-12 -z-10 h-40 w-40"
             >
               <path
                 strokeLinecap="round"

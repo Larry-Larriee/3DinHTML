@@ -19,10 +19,10 @@ export default function Cycle({
   return (
     <>
       {/* I wanted to use position absolute because I wanted the contribute page to stay a custom fixed height of h-250 */}
-      <div className="flex xl:justify-end gap-5 xl:absolute xl:bottom-10 xl:right-16">
+      <div className="flex gap-5 xl:absolute xl:bottom-10 xl:right-16 xl:justify-end">
         {changeCycleRemove && (
           <p
-            className="select-none hover:scale-105 duration-200 transition ease-in-out text-2xl text-white bg-prim-5 font-league hover:cursor-pointer py-2 w-36 rounded-xl text-center"
+            className="bg-prim-5 w-36 select-none rounded-xl py-2 text-center font-league text-2xl text-white transition duration-200 ease-in-out hover:scale-105 hover:cursor-pointer"
             onClick={() => changeCycleRemove()}
           >
             Back
@@ -31,7 +31,7 @@ export default function Cycle({
 
         {changeCycleAdd && (
           <p
-            className="select-none hover:scale-105 duration-200 transition ease-in-out text-2xl text-white bg-prim-5 font-league hover:cursor-pointer py-2 w-36 rounded-xl text-center"
+            className="bg-prim-5 w-36 select-none rounded-xl py-2 text-center font-league text-2xl text-white transition duration-200 ease-in-out hover:scale-105 hover:cursor-pointer"
             onClick={() => changeCycleAdd()}
           >
             Continue
@@ -40,7 +40,7 @@ export default function Cycle({
 
         {changeCycleSubmit && (
           <p
-            className="select-none hover:scale-105 duration-200 transition ease-in-out text-2xl text-white bg-green-700 font-league hover:cursor-pointer py-2 w-36 rounded-xl text-center"
+            className="w-36 select-none rounded-xl bg-green-700 py-2 text-center font-league text-2xl text-white transition duration-200 ease-in-out hover:scale-105 hover:cursor-pointer"
             onClick={() => changeCycleSubmit()}
           >
             Submit

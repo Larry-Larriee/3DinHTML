@@ -124,14 +124,14 @@ export default function ProjectDescription({
 
   return (
     <>
-      <section className="xl:bg-sec-1 dark:xl:bg-prim-2 flex w-full min-h-250 xl:px-16 xl:py-10 flex-col gap-8 rounded-xl relative xl:shadow-md dark:shadow-none">
-        <h1 className="font-bold text-3xl xl:text-4xxl text-prim-2 dark:text-prim-1 font-league">
+      <section className="xl:bg-sec-1 dark:xl:bg-prim-2 min-h-250 relative flex w-full flex-col gap-8 rounded-xl xl:px-16 xl:py-10 xl:shadow-md dark:shadow-none">
+        <h1 className="xl:text-4xxl text-prim-2 dark:text-prim-1 font-league text-3xl font-bold">
           Project Description
         </h1>
-        <p className="font-league text-prim-2 dark:text-prim-1 text-xl xl:text-2xl">
+        <p className="text-prim-2 dark:text-prim-1 font-league text-xl xl:text-2xl">
           Almost there!
         </p>
-        <p className="font-league text-prim-2 dark:text-prim-1 text-lg xl:text-xl">
+        <p className="text-prim-2 dark:text-prim-1 font-league text-lg xl:text-xl">
           Let&apos;s give your project a Title and Description. Something
           simple. And don&apos;t worry, you can leave your description blank if
           you can&apos;t think of anything.
@@ -139,7 +139,7 @@ export default function ProjectDescription({
 
         <input
           type="text"
-          className="h-12 bg-sec-2 dark:bg-prim-4 rounded-xl p-5 text-prim-2 dark:text-prim-1 placeholder-prim-2 dark:placeholder-gray-500 focus:outline-none"
+          className="bg-sec-2 dark:bg-prim-4 text-prim-2 dark:text-prim-1 placeholder-prim-2 h-12 rounded-xl p-5 focus:outline-none dark:placeholder-gray-500"
           placeholder="Title"
           value={title}
           maxLength={50}
@@ -149,7 +149,7 @@ export default function ProjectDescription({
 
         <input
           type="text"
-          className="h-12 bg-sec-2 dark:bg-prim-4 rounded-xl p-5 text-prim-2 dark:text-prim-1 placeholder-prim-2 dark:placeholder-gray-500 focus:outline-none"
+          className="bg-sec-2 dark:bg-prim-4 text-prim-2 dark:text-prim-1 placeholder-prim-2 h-12 rounded-xl p-5 focus:outline-none dark:placeholder-gray-500"
           placeholder="Description"
           value={description}
           maxLength={80}

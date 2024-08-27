@@ -3,15 +3,15 @@ import Navigation from "../components/Navigation";
 
 export default function Error() {
   return (
-    <div className="flex w-full h-screen flex-col items-center gap-12">
+    <div className="flex h-screen w-full flex-col items-center gap-12">
       <Navigation />
 
-      <section className="w-10/12 h-full flex flex-col gap-3 justify-center items-center">
-        <p className="text-3xl font-semibold font-league text-prim-1">
+      <section className="flex h-full w-10/12 flex-col items-center justify-center gap-3">
+        <p className="text-prim-1 font-league text-3xl font-semibold">
           Looks like you found a not-so-secret page.
         </p>
 
-        <p className="text-xl font-medium font-league text-prim-1">
+        <p className="text-prim-1 font-league text-xl font-medium">
           Maybe open up the menu?
         </p>
       </section>

@@ -21,13 +21,13 @@ function App() {
   let { theme, toggleTheme } = UseTheme();
 
   return (
-    <div className="flex w-full items-center gap-20 flex-col">
-      <nav className="w-10/12 flex pt-10 justify-between items-center">
-        <div className="flex gap-3 items-center">
-          <h1 className="text-prim-2 dark:text-prim-1 text-6xl font-lemon">
+    <div className="flex w-full flex-col items-center gap-20">
+      <nav className="flex w-10/12 items-center justify-between pt-10">
+        <div className="flex items-center gap-3">
+          <h1 className="text-prim-2 dark:text-prim-1 font-lemon text-6xl">
             3D
           </h1>
-          <p className="text-prim-2 dark:text-prim-1 text-3xl font-league">
+          <p className="text-prim-2 dark:text-prim-1 font-league text-3xl">
             in HTML
           </p>
         </div>
@@ -38,7 +38,7 @@ function App() {
           viewBox="0 0 24 24"
           strokeWidth={1}
           stroke="currentColor"
-          className="w-12 h-12 hover:cursor-pointer hover:rotate-180 text-prim-2 duration-1000 transition ease-in-out dark:text-white hover:text-yellow-400 active:text-orange-500"
+          className="text-prim-2 h-12 w-12 transition duration-1000 ease-in-out hover:rotate-180 hover:cursor-pointer hover:text-yellow-400 active:text-orange-500 dark:text-white"
           onClick={() => toggleTheme()}
         >
           <path
@@ -49,25 +49,25 @@ function App() {
         </svg>
       </nav>
 
-      <section className="w-10/12 flex justify-between mb-24">
-        <div className="flex flex-col gap-10 w-144">
-          <h1 className="text-prim-2 dark:text-prim-1 font-bold xl:font-semibold text-4xl xl:text-5xxl">
+      <section className="mb-24 flex w-10/12 justify-between">
+        <div className="w-144 flex flex-col gap-10">
+          <h1 className="text-prim-2 dark:text-prim-1 xl:text-5xxl text-4xl font-bold xl:font-semibold">
             Enjoy Community-made 3D Components.
           </h1>
-          <p className="font-bold xl:font-semibold text-prim-2 dark:text-prim-1 text-3xl xl:text-4xxl">
+          <p className="text-prim-2 dark:text-prim-1 xl:text-4xxl text-3xl font-bold xl:font-semibold">
             Built with HTML. Free for everyone.
           </p>
 
           <article className="flex gap-8">
             <p
               onClick={openExplore}
-              className="text-2xl font-semibold text-white dark:text-prim-1 rounded-xl py-2 px-5 hover:cursor-pointer hover:scale-105 duration-200 transition ease-in-out bg-orange-600"
+              className="dark:text-prim-1 rounded-xl bg-orange-600 px-5 py-2 text-2xl font-semibold text-white transition duration-200 ease-in-out hover:scale-105 hover:cursor-pointer"
             >
               Explore
             </p>
             <p
               onClick={openContribute}
-              className="text-2xl font-semibold text-white dark:text-prim-1 rounded-xl py-2 px-5 hover:cursor-pointer hover:scale-105 duration-200 transition ease-in-out bg-orange-600"
+              className="dark:text-prim-1 rounded-xl bg-orange-600 px-5 py-2 text-2xl font-semibold text-white transition duration-200 ease-in-out hover:scale-105 hover:cursor-pointer"
             >
               Contribute
             </p>
@@ -77,17 +77,17 @@ function App() {
         <Demo1 theme={theme} />
       </section>
 
-      <section className="flex w-full justify-center xl:mb-12 flex-col gap-16 xl:gap-28 items-center py-16 bg-sec-3 dark:bg-prim-2">
-        <article className="flex flex-col w-10/12 gap-5">
-          <h1 className="text-prim-2 dark:text-prim-1 text-center font-semibold text-5xl xl:text-5xxl">
+      <section className="bg-sec-3 dark:bg-prim-2 flex w-full flex-col items-center justify-center gap-16 py-16 xl:mb-12 xl:gap-28">
+        <article className="flex w-10/12 flex-col gap-5">
+          <h1 className="text-prim-2 dark:text-prim-1 xl:text-5xxl text-center text-5xl font-semibold">
             Hundreds of projects
           </h1>
-          <p className="text-center font-semibold text-prim-2 dark:text-prim-1 text-2xl xl:text-3xxl">
+          <p className="text-prim-2 dark:text-prim-1 xl:text-3xxl text-center text-2xl font-semibold">
             Copy to clipboard. Paste in your website.
           </p>
         </article>
 
-        <article className="grid grid-cols-2 xl:flex place-items-center gap-5 xl:justify-center lg:gap-10 w-10/12">
+        <article className="grid w-10/12 grid-cols-2 place-items-center gap-5 lg:gap-10 xl:flex xl:justify-center">
           <Project
             aframe={
               '<a-scene renderer="antialias: true;"><a-sky color="#001337"></a-sky><a-plane width="100" height="100" position=" 0.00 0.00 0.00" rotation="-90 0 0" color="#666666" shadow="cast: false; receive: true"></a-plane><a-torus-knot p="2" q="3" radius="0.5" radius-tubular="0.1" position="-2.5 1.5 -4" color="#CC3333" shadow="cast: true; receive: true"></a-torus-knot><a-box width="2" height="1" depth="1" position="-1 0.5 -3" rotation="0 45 0" color="#FF8800" shadow="cast: true; receive: true"></a-box><a-sphere radius="1.25" position="0 1.25 -5" color="#DDBB00" shadow="cast: true; receive: true"></a-sphere><a-cylinder radius="0.5" height="1.5" position=" 1 0.75 -3" color="#008800" shadow="cast: true; receive: true"></a-cylinder><a-cone radius-bottom="1" radius-top="0" height="2" position="3 1 -4" color="#4444CC" shadow="cast: true; receive: true"></a-cone><a-torus radius="0.5" radius-tubular="0.1" position="2 3 -4" rotation="30 -20 0" color="#8800FF" shadow="cast: true; receive: true"></a-torus></a-scene>'
@@ -111,8 +111,8 @@ function App() {
         </article>
       </section>
 
-      <section className="flex flex-col w-full items-center gap-24 xl:gap-36 xl:mb-16">
-        <div className="flex flex-col lg:flex-row gap-10 xl:gap-0 justify-between w-10/12 items-center">
+      <section className="flex w-full flex-col items-center gap-24 xl:mb-16 xl:gap-36">
+        <div className="flex w-10/12 flex-col items-center justify-between gap-10 lg:flex-row xl:gap-0">
           <EditorUI
             title={"index.html"}
             descriptionSize={"text-xl"}
@@ -122,22 +122,22 @@ function App() {
             highlight={"embedded"}
           />
 
-          <article className="flex flex-col gap-5 w-full lg:144 xl:w-144 order-1 lg:order-2">
-            <h1 className="font-semibold text-prim-2 dark:text-prim-1 text-5xl lg:text-4xl xl:text-5xxl">
+          <article className="lg:144 xl:w-144 order-1 flex w-full flex-col gap-5 lg:order-2">
+            <h1 className="text-prim-2 dark:text-prim-1 xl:text-5xxl text-5xl font-semibold lg:text-4xl">
               Want Fullscreen?
             </h1>
-            <p className="font-semibold text-prim-2 dark:text-prim-1 text-2xl xl:text-3xxl leading-sm">
+            <p className="text-prim-2 dark:text-prim-1 xl:text-3xxl leading-sm text-2xl font-semibold">
               Remove embeded from your code. As simple as that.
             </p>
           </article>
         </div>
 
-        <div className="flex flex-col lg:flex-row justify-between gap-10 xl:gap-10 w-10/12 items-center">
-          <article className="flex flex-col gap-5 w-full  lg:w-144 xl:w-192">
-            <h1 className="font-semibold text-prim-2 dark:text-prim-1 text-5xl lg:text-4xl xl:text-5xxl">
+        <div className="flex w-10/12 flex-col items-center justify-between gap-10 lg:flex-row xl:gap-10">
+          <article className="lg:w-144 xl:w-192 flex w-full flex-col gap-5">
+            <h1 className="text-prim-2 dark:text-prim-1 xl:text-5xxl text-5xl font-semibold lg:text-4xl">
               What about modifying the 3D?
             </h1>
-            <p className="font-semibold text-prim-2 dark:text-prim-1 text-2xl xl:text-3xxl leading-sm w-10/12">
+            <p className="text-prim-2 dark:text-prim-1 xl:text-3xxl leading-sm w-10/12 text-2xl font-semibold">
               Our projects are mostly made with A-Frame. Learn more{" "}
               <span
                 onClick={() => openAFrame()}
@@ -152,12 +152,12 @@ function App() {
           <img
             src={aFrameLogo}
             alt="A-Frame Logo"
-            className="w-full lg:w-full xl:w-144 rounded-xl"
+            className="xl:w-144 w-full rounded-xl lg:w-full"
             draggable="false"
           />
         </div>
 
-        <div className="flex justify-between w-10/12 flex-col lg:flex-row gap-10 xl:gap-0 items-center">
+        <div className="flex w-10/12 flex-col items-center justify-between gap-10 lg:flex-row xl:gap-0">
           <EditorUI
             title={"Sharing Project"}
             description={
@@ -165,11 +165,11 @@ function App() {
             }
           />
 
-          <article className="flex flex-col gap-5 order-1 lg:order-2 w-full lg:w-144 xl:w-144">
-            <h1 className="font-semibold text-prim-2 dark:text-prim-1 text-5xl lg:text-4xl xl:text-5xxl">
+          <article className="lg:w-144 xl:w-144 order-1 flex w-full flex-col gap-5 lg:order-2">
+            <h1 className="text-prim-2 dark:text-prim-1 xl:text-5xxl text-5xl font-semibold lg:text-4xl">
               I want to share my work!
             </h1>
-            <p className="font-semibold text-prim-2 dark:text-prim-1 text-2xl xl:text-3xxl leading-sm w-11/12">
+            <p className="text-prim-2 dark:text-prim-1 xl:text-3xxl leading-sm w-11/12 text-2xl font-semibold">
               It&apos;s nothing more than pasting your code, starting at{" "}
               <span className="text-green-500">&lt;a-scene&gt;</span>
             </p>
@@ -177,21 +177,21 @@ function App() {
         </div>
       </section>
 
-      <section className="flex flex-col items-center gap-5 mb-16 mt-8">
-        <p className="text-prim-2 dark:text-prim-1 text-2xl xl:text-4xxl font-semibold">
+      <section className="mb-16 mt-8 flex flex-col items-center gap-5">
+        <p className="text-prim-2 dark:text-prim-1 xl:text-4xxl text-2xl font-semibold">
           that&apos;s enough reading lol.
         </p>
 
         <article className="flex w-full justify-between">
           <p
             onClick={openExplore}
-            className="xl:text-2xxl font-semibold text-white dark:text-prim-1 rounded-xl py-2 px-4 text-xl xl:py-3 xl:px-10 hover:cursor-pointer hover:scale-105 duration-200 transition ease-in-out bg-orange-600"
+            className="xl:text-2xxl dark:text-prim-1 rounded-xl bg-orange-600 px-4 py-2 text-xl font-semibold text-white transition duration-200 ease-in-out hover:scale-105 hover:cursor-pointer xl:px-10 xl:py-3"
           >
             Explore
           </p>
           <p
             onClick={openContribute}
-            className="xl:text-2xxl font-semibold text-white dark:text-prim-1 rounded-xl py-2 px-4 text-xl xl:py-3 xl:px-10 hover:cursor-pointer hover:scale-105 duration-200 transition ease-in-out bg-orange-600"
+            className="xl:text-2xxl dark:text-prim-1 rounded-xl bg-orange-600 px-4 py-2 text-xl font-semibold text-white transition duration-200 ease-in-out hover:scale-105 hover:cursor-pointer xl:px-10 xl:py-3"
           >
             Contribute
           </p>
@@ -199,7 +199,7 @@ function App() {
       </section>
 
       <footer className="relative w-full">
-        <p className="text-prim-2 dark:text-white text-base font-league absolute left-5 bottom-2">
+        <p className="text-prim-2 absolute bottom-2 left-5 font-league text-base dark:text-white">
           ©2024 Larry Le MIT License
         </p>
       </footer>

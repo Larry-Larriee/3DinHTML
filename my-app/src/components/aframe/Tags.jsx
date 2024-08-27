@@ -48,24 +48,24 @@ export default function Tags({
 
   return (
     <>
-      <section className="xl:bg-sec-1 dark:shadow-none xl:shadow-md dark:xl:bg-prim-2 flex w-full min-h-250 xl:px-16 xl:py-10 flex-col gap-8 rounded-xl relative">
-        <h1 className="font-bold text-3xl xl:text-4xxl text-prim-2 dark:text-prim-1 font-league">
+      <section className="xl:bg-sec-1 dark:xl:bg-prim-2 min-h-250 relative flex w-full flex-col gap-8 rounded-xl xl:px-16 xl:py-10 xl:shadow-md dark:shadow-none">
+        <h1 className="xl:text-4xxl text-prim-2 dark:text-prim-1 font-league text-3xl font-bold">
           Tags
         </h1>
-        <p className="font-league text-prim-2 dark:text-prim-1 text-xl xl:text-2xl">
+        <p className="text-prim-2 dark:text-prim-1 font-league text-xl xl:text-2xl">
           Nice Work!
         </p>
-        <p className="font-league text-prim-2 dark:text-prim-1 text-lg xl:text-xl">
+        <p className="text-prim-2 dark:text-prim-1 font-league text-lg xl:text-xl">
           Now we&apos;re going to add tags for your project. Tags are how you
           can categorize your work. This will help others find your creations
           easier.
         </p>
 
-        <div className="flex w-full gap-5 flex-wrap">
+        <div className="flex w-full flex-wrap gap-5">
           <article
             ref={tagOneRef}
             onClick={() => changeTags(tagOneRef)}
-            className="rounded-3xl bg-sec-2 dark:bg-prim-4 px-5 py-2 text-prim-2 dark:text-prim-1 font-league text-lg hover:cursor-pointer transition duration-200 ease-in-out hover:scale-105"
+            className="bg-sec-2 dark:bg-prim-4 text-prim-2 dark:text-prim-1 rounded-3xl px-5 py-2 font-league text-lg transition duration-200 ease-in-out hover:scale-105 hover:cursor-pointer"
           >
             Gaming & Fun
           </article>
@@ -73,7 +73,7 @@ export default function Tags({
           <article
             ref={tagTwoRef}
             onClick={() => changeTags(tagTwoRef)}
-            className="rounded-3xl bg-sec-2 dark:bg-prim-4 px-5 py-2 text-prim-2 dark:text-prim-1 font-league text-lg hover:cursor-pointer transition duration-200 ease-in-out hover:scale-105"
+            className="bg-sec-2 dark:bg-prim-4 text-prim-2 dark:text-prim-1 rounded-3xl px-5 py-2 font-league text-lg transition duration-200 ease-in-out hover:scale-105 hover:cursor-pointer"
           >
             Educative
           </article>
@@ -81,7 +81,7 @@ export default function Tags({
           <article
             ref={tagThreeRef}
             onClick={() => changeTags(tagThreeRef)}
-            className="rounded-3xl bg-sec-2 dark:bg-prim-4 px-5 py-2 text-prim-2 dark:text-prim-1 font-league text-lg hover:cursor-pointer transition duration-200 ease-in-out hover:scale-105"
+            className="bg-sec-2 dark:bg-prim-4 text-prim-2 dark:text-prim-1 rounded-3xl px-5 py-2 font-league text-lg transition duration-200 ease-in-out hover:scale-105 hover:cursor-pointer"
           >
             Lightweight
           </article>
@@ -89,7 +89,7 @@ export default function Tags({
           <article
             ref={tagFourRef}
             onClick={() => changeTags(tagFourRef)}
-            className="rounded-3xl bg-sec-2 dark:bg-prim-4 px-5 py-2 text-prim-2 dark:text-prim-1 font-league text-lg hover:cursor-pointer transition duration-200 ease-in-out hover:scale-105"
+            className="bg-sec-2 dark:bg-prim-4 text-prim-2 dark:text-prim-1 rounded-3xl px-5 py-2 font-league text-lg transition duration-200 ease-in-out hover:scale-105 hover:cursor-pointer"
           >
             Needs Strong PC
           </article>

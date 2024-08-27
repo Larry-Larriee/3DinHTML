@@ -9,7 +9,7 @@ let svgSelection = {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="#BE7C4D"
-      className="w-8 h-8"
+      className="h-8 w-8"
     >
       <path
         strokeLinecap="round"
@@ -25,7 +25,7 @@ let svgSelection = {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="#DE5456"
-      className="w-8 h-8"
+      className="h-8 w-8"
     >
       <path
         strokeLinecap="round"
@@ -41,7 +41,7 @@ let svgSelection = {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="#648767"
-      className="w-8 h-8"
+      className="h-8 w-8"
     >
       <path
         strokeLinecap="round"
@@ -57,7 +57,7 @@ let svgSelection = {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="#9CAFB7"
-      className="w-8 h-8"
+      className="h-8 w-8"
     >
       <path
         strokeLinecap="round"
@@ -73,7 +73,7 @@ let svgSelection = {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="#EAD2AC"
-      className="w-8 h-8"
+      className="h-8 w-8"
     >
       <path
         strokeLinecap="round"
@@ -89,7 +89,7 @@ let svgSelection = {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="#605B56"
-      className="w-8 h-8"
+      className="h-8 w-8"
     >
       <path
         strokeLinecap="round"
@@ -142,11 +142,11 @@ export default function Selection({
   return (
     <>
       <div
-        className="flex gap-5 items-center hover:scale-105 duration-200 transition ease-in-out hover:cursor-pointer"
+        className="flex items-center gap-5 transition duration-200 ease-in-out hover:scale-105 hover:cursor-pointer"
         onClick={() => changeSelectionFocus(title)}
       >
         {svgSelection[svg]}
-        <p ref={titleRef} className="font-medium text-xl">
+        <p ref={titleRef} className="text-xl font-medium">
           {title}
         </p>
       </div>

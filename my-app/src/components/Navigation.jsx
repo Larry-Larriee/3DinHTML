@@ -27,13 +27,13 @@ export default function Navigation() {
   };
 
   return (
-    <nav className="w-full flex-none flex gap-3 py-3 justify-between px-12 items-center bg-sec-1 dark:bg-prim-2">
+    <nav className="bg-sec-1 dark:bg-prim-2 flex w-full flex-none items-center justify-between gap-3 px-12 py-3">
       <div
-        className="flex gap-3 items-center hover:cursor-pointer"
+        className="flex items-center gap-3 hover:cursor-pointer"
         onClick={() => openLanding()}
       >
-        <h1 className="text-prim-2 dark:text-prim-1 text-4xl font-lemon">3D</h1>
-        <p className="text-prim-2 dark:text-prim-1 text-2xl font-league">
+        <h1 className="text-prim-2 dark:text-prim-1 font-lemon text-4xl">3D</h1>
+        <p className="text-prim-2 dark:text-prim-1 font-league text-2xl">
           in HTML
         </p>
       </div>
@@ -44,7 +44,7 @@ export default function Navigation() {
         viewBox="0 0 24 24"
         strokeWidth={1.5}
         stroke="currentColor"
-        className="h-12 w-12 hover:cursor-pointer hover:scale-105 duration-200 transition ease-in-out dark:text-prim-1 text-prim-2"
+        className="dark:text-prim-1 text-prim-2 h-12 w-12 transition duration-200 ease-in-out hover:scale-105 hover:cursor-pointer"
         onClick={() => changeMenuOpen()}
       >
         <path
@@ -58,21 +58,21 @@ export default function Navigation() {
         <Dialog
           open={menuOpen}
           onClose={() => changeMenuOpen()}
-          className="fixed inset-0 w-screen h-screen"
+          className="fixed inset-0 h-screen w-screen"
         >
           <DialogPanel
-            className="flex flex-col gap-8 absolute bg-light-mode dark:bg-prim-3 left-0 w-80 h-screen z-30 opacity-0"
+            className="bg-light-mode dark:bg-prim-3 absolute left-0 z-30 flex h-screen w-80 flex-col gap-8 opacity-0"
             ref={menu}
           >
-            <DialogTitle className="text-prim-2 dark:text-prim-1 text-4xl pt-9 pl-10 font-lemon">
+            <DialogTitle className="text-prim-2 dark:text-prim-1 pl-10 pt-9 font-lemon text-4xl">
               Menu
             </DialogTitle>
 
-            <ul className="list-none flex flex-col w-full gap-5 pl-10">
+            <ul className="flex w-full list-none flex-col gap-5 pl-10">
               <li>
                 <a
                   href="/"
-                  className="hover:scale-105 duration-200 ease-in-out transition font-league text-xl text-prim-2 dark:text-prim-1"
+                  className="text-prim-2 dark:text-prim-1 font-league text-xl transition duration-200 ease-in-out hover:scale-105"
                 >
                   Home
                 </a>
@@ -80,7 +80,7 @@ export default function Navigation() {
               <li>
                 <a
                   href="/account"
-                  className="hover:scale-105 duration-200 ease-in-out transition font-league text-xl text-prim-2 dark:text-prim-1"
+                  className="text-prim-2 dark:text-prim-1 font-league text-xl transition duration-200 ease-in-out hover:scale-105"
                 >
                   Account
                 </a>
@@ -88,7 +88,7 @@ export default function Navigation() {
               <li>
                 <a
                   href="/explore"
-                  className="hover:scale-105 duration-200 ease-in-out transition font-league text-xl text-prim-2 dark:text-prim-1"
+                  className="text-prim-2 dark:text-prim-1 font-league text-xl transition duration-200 ease-in-out hover:scale-105"
                 >
                   Explore
                 </a>
@@ -96,7 +96,7 @@ export default function Navigation() {
               <li>
                 <a
                   href="/contribute"
-                  className="hover:scale-105 duration-200 ease-in-out transition font-league text-xl text-prim-2 dark:text-prim-1"
+                  className="text-prim-2 dark:text-prim-1 font-league text-xl transition duration-200 ease-in-out hover:scale-105"
                 >
                   Contribute
                 </a>
@@ -104,7 +104,7 @@ export default function Navigation() {
             </ul>
           </DialogPanel>
 
-          <div className="inset-0 flex w-screen h-screen absolute bg-prim-half-2 z-10" />
+          <div className="bg-prim-half-2 absolute inset-0 z-10 flex h-screen w-screen" />
         </Dialog>
       )}
     </nav>
