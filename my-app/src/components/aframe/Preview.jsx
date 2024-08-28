@@ -117,6 +117,15 @@ let svgSelection = {
 };
 
 // preview component will allow the user to see a preview of their a-frame project and how it will look like in the explore page
+// userAframe (string): the aframe code that the user has written
+// title (string): the title of the project
+// description (string): the description of the project
+// name (string): the name of the user
+// tags (array): the tags that the user has selected
+// imageUpload (array): the images that the user has uploaded
+// changeConfirmed (function): function that will change the confirmed state to true and send user project to server
+// submitted (boolean): the state that will determine if the preview should be open
+// changeSubmitted (function): function that will change the submitted state to false and close the preview
 export default function Preview({
   userAframe,
   title,
